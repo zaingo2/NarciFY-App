@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF--8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NarciFY - Support for Toxic Relationships</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+      body {
+        background-color: #0F2B33; /* Base background for the whole page */
+      }
+      .main-bg {
+        --bg-dark-petrol: #0F2B33;
+        --bg-soft-violet: #7B5EA6;
+        --bg-lavender: #B4A5D6;
+        --bg-lavender-green: #A6C1B9;
+        
+        background-color: var(--bg-dark-petrol);
+        background-image: 
+          radial-gradient(at 20% 25%, hsla(263, 28%, 51%, 0.3) 0px, transparent 50%),
+          radial-gradient(at 80% 20%, hsla(160, 16%, 71%, 0.2) 0px, transparent 50%),
+          radial-gradient(at 60% 80%, hsla(266, 35%, 81%, 0.25) 0px, transparent 50%),
+          radial-gradient(at 10% 90%, hsla(263, 28%, 51%, 0.3) 0px, transparent 50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.29.0",
+    "stripe": "https://aistudiocdn.com/stripe@^19.3.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

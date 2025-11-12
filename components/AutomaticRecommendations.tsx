@@ -1,0 +1,139 @@
+import React, { useState, useEffect, useCallback } from 'react';
+import type { AnalysisResult, Recommendation } from '../types';
+import { generateRecommendations } from '../services/geminiService';
+import { Spinner } from './Spinner';
+import { useAuth } from '../contexts/AuthContext';
+import { UpgradeTeaser } from './UpgradeTeaser';
+
+interface AutomaticRecommendationsProps {
+  analysisHistory: AnalysisResult[];
+  onUpgrade: () => void;
+}
+
+const RecommendationCard: React.FC<{ recommendation: Recommendation }> = ({ recommendation }) => {
+    const TYPE_STYLES: { [key: string]: string } = {
+        'Deep Dive': 'border-blue-400 text-blue-300',
+        'Skill Builder': 'border-teal-400 text-teal-300',
+        'Healing Path': 'border-violet-400 text-violet-300',
+        'Red Flag Spotlight': 'border-rose-400 text-rose-300',
+    };
+
+    return (
+        <div className="bg-slate-900/50 p-6 rounded-xl border border-slate-700 flex flex-col h-full">
+            <div className="flex items-center mb-3">
+                <i className={`fa-solid ${recommendation.icon} text-xl ${TYPE_STYLES[recommendation.type]}`}></i>
+                <h3 className={`ml-3 text-sm font-bold tracking-wider uppercase ${TYPE_STYLES[recommendation.type]}`}>{recommendation.type}</h3>
+            </div>
+            <h2 className="text-xl font-bold text-slate-50 mb-2">{recommendation.title}</h2>
+            <p className="text-slate-300 whitespace-pre-wrap flex-1">{recommendation.content}</p>
+        </div>
+    );
+};
+
+export const AutomaticRecommendations: React.FC<AutomaticRecommendationsProps> = ({ analysisHistory, onUpgrade }) => {
+    const { isPremium } = useAuth();
+    const [recommendations, setRecommendations] = useState<Recommendation[] | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    const isHistoryEmpty = analysisHistory.length === 0 || (analysisHistory.length > 0 && analysisHistory[0].id.startsWith('placeholder-'));
+
+    const fetchRecommendations = useCallback(async () => {
+        if (isHistoryEmpty) {
+            setIsLoading(false);
+            return;
+        }
+        
+        setIsLoading(true);
+        setError(null);
+        try {
+            const results = await generateRecommendations(analysisHistory);
+            setRecommendations(results);
+        } catch (err: any) {
+            console.error("Failed to generate recommendations:", err);
+            setError("Sorry, we couldn't generate personalized recommendations at this time. Please try again later.");
+        } finally {
+            setIsLoading(false);
+        }
+    }, [analysisHistory, isHistoryEmpty]);
+    
+    useEffect(() => {
+        if(isPremium) {
+            fetchRecommendations();
+        } else {
+            setIsLoading(false);
+        }
+    }, [fetchRecommendations, isPremium]);
+    
+    if (!isPremium) {
+        return (
+             <UpgradeTeaser 
+                title="Unlock Automatic Recommendations"
+                description="Get a personalized roadmap to healing. Our AI analyzes your history to provide custom-tailored advice, skill-building exercises, and healing strategies designed to address the specific patterns you're facing."
+                onUpgrade={onUpgrade}
+                icon="fa-wand-magic-sparkles"
+            />
+        );
+    }
+
+    const renderContent = () => {
+        if (isLoading) {
+            return (
+                <div className="text-center py-20 bg-slate-800 rounded-xl">
+                    <Spinner />
+                    <p className="mt-4 text-slate-300">Analyzing your patterns and generating personalized recommendations...</p>
+                </div>
+            );
+        }
+
+        if (error) {
+            return <div className="text-center py-20 bg-rose-500/10 text-rose-300 rounded-xl">{error}</div>;
+        }
+
+        if (isHistoryEmpty) {
+            return (
+                 <div className="text-center py-16 bg-slate-800 rounded-xl">
+                    <i className="fa-solid fa-wand-magic-sparkles text-4xl text-slate-500 mb-4"></i>
+                    <h3 className="text-xl font-semibold text-slate-300">Your Recommendations Will Appear Here</h3>
+                    <p className="text-slate-400 mt-2 max-w-md mx-auto">As you analyze situations, this section will automatically fill with personalized advice, skill-building exercises, and healing strategies based on your unique patterns.</p>
+                </div>
+            );
+        }
+        
+        if (recommendations && recommendations.length > 0) {
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-4 gap-6">
+                    {recommendations.map((rec, index) => (
+                        <RecommendationCard key={index} recommendation={rec} />
+                    ))}
+                </div>
+            );
+        }
+
+        return (
+            <div className="text-center py-20 bg-slate-800 rounded-xl">
+                <p className="text-slate-300">Could not generate recommendations based on the current history.</p>
+            </div>
+        );
+    };
+
+    return (
+         <div className="p-4 md:p-6 lg:p-8">
+            <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-6 gap-4">
+                <div>
+                    <h1 className="text-3xl font-bold text-slate-50">Automatic Recommendations</h1>
+                    <p className="text-slate-300 mt-1">Your personalized roadmap for healing and growth, based on your history.</p>
+                </div>
+                 <button 
+                    onClick={fetchRecommendations} 
+                    disabled={isLoading || isHistoryEmpty}
+                    className="flex-shrink-0 bg-teal-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors flex items-center gap-2 text-sm disabled:bg-teal-500/50 disabled:cursor-not-allowed"
+                >
+                    <i className={`fa-solid fa-sync ${isLoading ? 'animate-spin' : ''}`}></i>
+                    Refresh Recommendations
+                </button>
+            </div>
+             {renderContent()}
+        </div>
+    );
+};

@@ -1,0 +1,8 @@
+{
+  "name": "NarciFY",
+  "description": "A primary support platform for individuals in toxic or narcissistic relationships. Get AI-powered insights into manipulative behaviors, receive suggestions for handling difficult conversations, and find local professional help.",
+  "requestFramePermissions": [
+    "microphone",
+    "geolocation"
+  ]
+}
