@@ -2,8 +2,11 @@ import { GoogleGenAI, Type, Modality } from "@google/genai";
 import type { AnalysisResult, LocalHelpResult, UserLocation, Recommendation } from '../types';
 import { decode, decodeAudioData } from '../utils/audio';
 
-// Per @google/genai guidelines, the API key must be read from process.env.API_KEY
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const getAiClient = () => {
+  // Per guidelines, create a new instance before making an API call to ensure the latest API key is used.
+  // This lazy initialization prevents startup errors.
+  return new GoogleGenAI({ apiKey: process.env.API_KEY });
+};
 
 // Schema for the analyzeSituation function
 const analysisSchema = {
@@ -27,6 +30,7 @@ const analysisSchema = {
 };
 
 export const analyzeSituation = async (situation: string): Promise<AnalysisResult> => {
+    const ai = getAiClient();
     const prompt = `Analyze the following user-described situation for signs of emotional manipulation. Provide a structured analysis based on the provided JSON schema. The user is looking for help identifying red flags and getting guidance.
 
 Situation: "${situation}"
@@ -66,6 +70,7 @@ const toBase64 = (blob: Blob) => new Promise<string>((resolve, reject) => {
 
 
 export const transcribeAudio = async (audioBlob: Blob): Promise<string> => {
+    const ai = getAiClient();
     const base64Audio = await toBase64(audioBlob);
 
     const audioPart = {
@@ -96,6 +101,7 @@ const getAudioContext = () => {
 };
 
 export const textToSpeech = async (text: string): Promise<AudioBuffer> => {
+    const ai = getAiClient();
     const ttsPrompt = `Please read the following meditation script in a soft, calm, and gentle ASMR-like tone. Speak slowly and pause between sentences to create a relaxing experience.
 
 Script: "${text}"`;
@@ -126,6 +132,7 @@ Script: "${text}"`;
 };
 
 export const generateMeditationScript = async (prompt: string): Promise<string> => {
+    const ai = getAiClient();
     const fullPrompt = `You are a compassionate and skilled meditation guide. Create a detailed and immersive meditation script of approximately 10-12 minutes in length (around 1200-1500 words) based on the following user request. The script should be structured as a complete mental journey with a clear beginning (grounding/breathing), middle (deep visualization/exploration), and end (affirmations/gentle return). Speak in a gentle, empowering tone.
 
 User Request: "${prompt}"
@@ -145,6 +152,7 @@ Generate only the script text, without any introductory or concluding remarks li
 
 
 export const findLocalHelp = async (location: UserLocation): Promise<LocalHelpResult[]> => {
+    const ai = getAiClient();
     const prompt = "Find local mental health services, therapists specializing in relationship abuse, legal aid, and domestic violence support centers near the user's location. Provide a list of places.";
 
     const response = await ai.models.generateContent({
@@ -199,6 +207,7 @@ const recommendationsSchema = {
 };
 
 export const generateRecommendations = async (history: AnalysisResult[]): Promise<Recommendation[]> => {
+    const ai = getAiClient();
     const tacticCounts: { [key: string]: number } = {};
     history.forEach(analysis => {
         analysis.identifiedTactics.forEach(tactic => {
