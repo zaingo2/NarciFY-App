@@ -156,7 +156,6 @@ const AnalysisHistoryItem: React.FC<{ analysis: AnalysisResult, onDelete: (id: s
                     </ul>
                      <h4 className="text-pink-300 font-bold">Neutralizing Tactics:</h4>
                     <ul className="list-disc pl-5 space-y-1">
-                        {/* FIX: Changed `res` to `tactic` to correctly display the neutralizing tactic. */}
                         {analysis.neutralizingTactics.map((tactic, i) => <li key={i}>{tactic}</li>)}
                     </ul>
                     <h4 className="text-pink-300 font-bold">{`Mini-Lesson: ${analysis.miniLesson.title}`}</h4>
@@ -182,7 +181,7 @@ export const PatternDetector: React.FC<PatternDetectorProps> = ({ analysisHistor
         return counts;
     }, [analysisHistory]);
     
-    const sortedTactics = Object.entries(tacticCounts).sort(([, countA], [, countB]) => countB - countA);
+    const sortedTactics = (Object.entries(tacticCounts) as [string, number][]).sort((a, b) => b[1] - a[1]);
     const maxCount = Math.max(...sortedTactics.map(([, count]) => count), 1);
     
     const isHistoryEmpty = analysisHistory.length === 0 || (analysisHistory.length > 0 && analysisHistory[0].id.startsWith('placeholder-'));

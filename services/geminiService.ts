@@ -2,9 +2,7 @@ import { GoogleGenAI, Type, Modality } from "@google/genai";
 import type { AnalysisResult, LocalHelpResult, UserLocation, Recommendation } from '../types';
 import { decode, decodeAudioData } from '../utils/audio';
 
-if (!process.env.API_KEY) {
-    throw new Error("API_KEY environment variable not set");
-}
+// Per @google/genai guidelines, the API key must be read from process.env.API_KEY
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 // Schema for the analyzeSituation function

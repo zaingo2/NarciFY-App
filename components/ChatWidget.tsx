@@ -2,11 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import type { ChatMessage } from '../types';
 import { GoogleGenAI, Chat } from "@google/genai";
 
-const API_KEY = process.env.API_KEY;
-if (!API_KEY) {
-    throw new Error("API_KEY environment variable not set");
-}
-const ai = new GoogleGenAI({ apiKey: API_KEY });
+// Per @google/genai guidelines, the API key must be read from process.env.API_KEY
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const ChatWidget: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // Define a type for the Stripe object loaded from the script.
 interface Stripe {
-  redirectToCheckout: (options: { sessionId: string; }) => Promise<{ error?: { message: string; }; }>;
+  redirectToCheckout: (options: { sessionId: string; }) => Promise<{ error?: { message:string; }; }>;
 }
 
 declare global {
@@ -11,8 +11,16 @@ declare global {
   }
 }
 
-// Replace with your own Stripe PUBLISHABLE key.
-// It's safe to have this key in the frontend code.
+// =================================================================================
+// TODO: ACTION REQUIRED
+// 1. Create two prices in your Stripe Dashboard for your product.
+// 2. One should be a recurring monthly price (e.g., $4.99/month).
+// 3. The other should be a recurring yearly price (e.g., $49.99/year).
+// 4. Paste the Price IDs below to replace the placeholders.
+// =================================================================================
+const STRIPE_MONTHLY_PRICE_ID = 'price_...'; // <--- REPLACE WITH YOUR MONTHLY PRICE ID
+const STRIPE_ANNUAL_PRICE_ID = 'price_...';  // <--- REPLACE WITH YOUR ANNUAL PRICE ID
+
 const STRIPE_PUBLIC_KEY = 'pk_test_51PbyJCRpG3A9whd1sWvWnFzYy0Z3s4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2'; // Example
 
 interface UpgradeModalProps {
@@ -27,7 +35,6 @@ const premiumFeatures = [
     { icon: 'fa-microphone', title: 'Unlimited Audio Analysis', description: 'Analyze situations by simply recording your voice, without limits.' }
 ];
 
-// Function to load the Stripe.js script dynamically.
 const loadStripe = async (): Promise<Stripe | null> => {
     if (window.Stripe) return window.Stripe(STRIPE_PUBLIC_KEY);
     const script = document.createElement('script');
@@ -47,24 +54,39 @@ const loadStripe = async (): Promise<Stripe | null> => {
 };
 
 export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) => {
+  const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'annual'>('annual');
+  const [isProcessing, setIsProcessing] = useState(false);
+
   if (!isOpen) return null;
 
   const handleStripeCheckout = async () => {
+    setIsProcessing(true);
+    const priceId = selectedPlan === 'annual' ? STRIPE_ANNUAL_PRICE_ID : STRIPE_MONTHLY_PRICE_ID;
+    
+    // Check if the user has replaced the placeholder IDs
+    if (priceId.startsWith('price_...')) {
+        alert("Configuration needed: Stripe Price IDs are not set up yet in the code.");
+        setIsProcessing(false);
+        return;
+    }
+
     try {
-      // 1. Call your new serverless function living at `/api/create-checkout-session`.
-      // It's simple, clean, and secure.
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ priceId: priceId }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to create payment session.');
+        const errorBody = await response.json();
+        throw new Error(errorBody.error || 'Failed to create payment session.');
       }
       
       const session = await response.json();
       const { id: sessionId } = session;
         
-      // 2. Load Stripe.js and redirect to the checkout page.
       const stripe = await loadStripe();
       if (stripe) {
           const { error } = await stripe.redirectToCheckout({ sessionId });
@@ -75,9 +97,11 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) =
       } else {
           throw new Error("Stripe.js is not available.");
       }
-    } catch (error) {
+    } catch (error: any) {
         console.error("Payment process error:", error);
-        alert("There was a problem initiating the payment. Please try again later.");
+        alert(`There was a problem initiating the payment: ${error.message}`);
+    } finally {
+        setIsProcessing(false);
     }
   };
 
@@ -100,7 +124,7 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) =
             <p className="text-slate-300">Unlock the full toolkit for clarity, healing, and empowerment.</p>
         </div>
         
-        <div className="px-6 pb-6 space-y-4">
+        <div className="px-6 pb-6 space-y-4 max-h-[40vh] overflow-y-auto">
             {premiumFeatures.map(feature => (
                 <div key={feature.title} className="flex items-start gap-4 p-3 bg-slate-900/50 rounded-lg">
                     <i className={`fa-solid ${feature.icon} text-xl text-teal-300 mt-1 w-6 text-center`}></i>
@@ -111,17 +135,43 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) =
                 </div>
             ))}
         </div>
+        
+        {/* Pricing Toggle */}
+        <div className="px-6 pb-4">
+            <div className="bg-slate-900 p-1.5 rounded-xl flex items-center relative">
+                 <button onClick={() => setSelectedPlan('monthly')} className={`w-1/2 p-2 rounded-lg text-sm font-bold z-10 transition-colors ${selectedPlan === 'monthly' ? 'text-white' : 'text-slate-300'}`}>
+                    Monthly
+                </button>
+                <button onClick={() => setSelectedPlan('annual')} className={`w-1/2 p-2 rounded-lg text-sm font-bold z-10 transition-colors ${selectedPlan === 'annual' ? 'text-white' : 'text-slate-300'}`}>
+                    Annual
+                </button>
+                <div className={`absolute top-1.5 h-[calc(100%-12px)] w-1/2 bg-teal-500 rounded-lg transition-transform duration-300 ease-in-out ${selectedPlan === 'annual' ? 'translate-x-full' : 'translate-x-0'}`}></div>
+            </div>
+            <div className="text-center mt-3 h-10 flex items-center justify-center">
+                {selectedPlan === 'monthly' ? (
+                    <p className="text-slate-50 text-xl"><span className="font-bold text-2xl">$4.99</span> / month</p>
+                ) : (
+                    <p className="text-slate-50 text-xl"><span className="font-bold text-2xl">$49.99</span> / year <span className="ml-2 bg-yellow-400/20 text-yellow-300 text-xs font-bold px-2 py-1 rounded-full">Save 16%</span></p>
+                )}
+            </div>
+        </div>
+
 
         <div className="p-6 bg-slate-900/50 rounded-b-2xl">
             <p className="text-center text-slate-400 text-sm mb-4">
-               Secure payment powered by Stripe.
+               Secure payment powered by Stripe. Cancel anytime.
             </p>
             <div className="flex flex-col gap-3">
                 <button 
                     onClick={handleStripeCheckout}
-                    className="w-full bg-violet-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-violet-700 transition-colors"
+                    disabled={isProcessing}
+                    className="w-full bg-violet-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-violet-700 transition-colors disabled:bg-violet-600/50 flex items-center justify-center"
                 >
-                    <i className="fa-brands fa-stripe-s mr-2"></i> Pay with Card (Stripe)
+                    {isProcessing ? (
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    ) : (
+                        <><i className="fa-brands fa-stripe-s mr-2"></i> Pay with Card</>
+                    )}
                 </button>
             </div>
             <button onClick={onClose} className="w-full text-center text-slate-400 mt-4 text-sm hover:text-white">
