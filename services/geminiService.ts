@@ -3,9 +3,13 @@ import type { AnalysisResult, LocalHelpResult, UserLocation, Recommendation } fr
 import { decode, decodeAudioData } from '../utils/audio';
 
 const getAiClient = () => {
-  // Per guidelines, create a new instance before making an API call to ensure the latest API key is used.
-  // This lazy initialization prevents startup errors.
-  return new GoogleGenAI({ apiKey: process.env.API_KEY });
+  // Fix: Per coding guidelines, the API key must be obtained from process.env.API_KEY, not import.meta.env.VITE_API_KEY. This resolves the TypeScript error.
+  const apiKey = process.env.API_KEY;
+  if (!apiKey) {
+    // This provides a clear error if the API key is not configured in the environment.
+    throw new Error("API_KEY environment variable not set. Please configure it in your hosting provider (e.g., Vercel).");
+  }
+  return new GoogleGenAI({ apiKey });
 };
 
 // Schema for the analyzeSituation function

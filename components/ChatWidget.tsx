@@ -14,9 +14,15 @@ export const ChatWidget: React.FC = () => {
 
     useEffect(() => {
         if (!chatRef.current) {
-            // Initialize the AI client here, just before creating the chat session.
-            // This prevents startup errors.
-            const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+            // Fix: Per coding guidelines, the API key must be obtained from process.env.API_KEY, not import.meta.env.VITE_API_KEY. This resolves the TypeScript error.
+            const apiKey = process.env.API_KEY;
+            if (!apiKey) {
+                // We don't throw an error here to not crash the UI, 
+                // but the chat won't work and will show an error on send.
+                console.error("API_KEY is not set. Chat widget will not work.");
+                return;
+            }
+            const ai = new GoogleGenAI({ apiKey });
             chatRef.current = ai.chats.create({
                 model: 'gemini-flash-lite-latest',
                 config: {
