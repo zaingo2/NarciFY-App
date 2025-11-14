@@ -1,23 +1,23 @@
 
-import React, { createContext, useState, useEffect, ReactNode, useCallback } from 'react';
+import React, { createContext, useState, useEffect, ReactNode, useCallback, useMemo } from 'react';
 
 // Define the structure for language metadata
 interface Language {
   code: string;
-  name: string;
+  name: string; // This will now be the native name
   path: string;
 }
 
 // Define all supported languages
-const SUPPORTED_LANGUAGES: Language[] = [
-  { code: 'en', name: 'English', path: './locales/en.json' },
-  { code: 'es', name: 'Español', path: './locales/es.json' },
-  { code: 'de', name: 'Deutsch', path: './locales/de.json' },
-  { code: 'fr', name: 'Français', path: './locales/fr.json' },
-  { code: 'ja', name: '日本語', path: './locales/ja.json' },
-  { code: 'no', name: 'Norsk', path: './locales/no.json' },
-  { code: 'sv', name: 'Svenska', path: './locales/sv.json' },
-  { code: 'fi', name: 'Suomi', path: './locales/fi.json' },
+const SUPPORTED_LANGUAGES: Omit<Language, 'name'>[] = [
+  { code: 'en', path: './locales/en.json' },
+  { code: 'es', path: './locales/es.json' },
+  { code: 'de', path: './locales/de.json' },
+  { code: 'fr', path: './locales/fr.json' },
+  { code: 'ja', path: './locales/ja.json' },
+  { code: 'no', path: './locales/no.json' },
+  { code: 'sv', path: './locales/sv.json' },
+  { code: 'fi', path: './locales/fi.json' },
 ];
 
 const SUPPORTED_LANG_CODES = SUPPORTED_LANGUAGES.map(lang => lang.code);
@@ -79,12 +79,16 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         } catch (error) {
             console.error("Failed to load translations:", error);
             // Fallback with minimal data to prevent app crash
-            const enResponse = await fetch('./locales/en.json');
-            if (enResponse.ok) {
-                const enData = await enResponse.json();
-                setTranslations({ en: enData });
-            } else {
-                setTranslations({ en: {} });
+            try {
+                const enResponse = await fetch('./locales/en.json');
+                if (enResponse.ok) {
+                    const enData = await enResponse.json();
+                    setTranslations({ en: enData });
+                } else {
+                     setTranslations({ en: {} });
+                }
+            } catch (e) {
+                 setTranslations({ en: {} });
             }
         } finally {
             setIsLoading(false);
@@ -95,7 +99,11 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, []);
 
   const changeLanguage = (lang: string) => {
-    if (translations && translations[lang]) {
+    // BUG FIX: The previous check `if (translations && translations[lang])`
+    // prevented the language from changing if the initial load failed.
+    // This new check allows the state to update, and the t() function's
+    // fallback mechanism will handle displaying text correctly.
+    if (SUPPORTED_LANG_CODES.includes(lang)) {
       setLanguage(lang);
       try {
         localStorage.setItem('narciFyLanguage', lang);
@@ -150,11 +158,19 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return translation;
   }, [language, getNestedTranslation, isLoading, translations]);
 
+  // Create a memoized list of languages with their native names for the UI
+  const languagesForSelector = useMemo((): Language[] => {
+    return SUPPORTED_LANGUAGES.map(lang => ({
+        ...lang,
+        name: (translations?.[lang.code]?.langName as string) || lang.code.toUpperCase(),
+    }));
+  }, [translations]);
+
   const value = {
     language,
     changeLanguage,
     t,
-    languages: SUPPORTED_LANGUAGES,
+    languages: languagesForSelector,
   };
   
   if (isLoading) {
