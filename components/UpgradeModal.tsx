@@ -1,27 +1,13 @@
 import React, { useState } from 'react';
 
-// Define a type for the Stripe object loaded from the script.
-interface Stripe {
-  redirectToCheckout: (options: { sessionId: string; }) => Promise<{ error?: { message:string; }; }>;
-}
-
-declare global {
-  interface Window {
-    Stripe?: (publicKey: string) => Stripe;
-  }
-}
-
 // =================================================================================
-// TODO: ACTION REQUIRED
-// 1. Create two prices in your Stripe Dashboard for your product.
-// 2. One should be a recurring monthly price (e.g., $4.99/month).
-// 3. The other should be a recurring yearly price (e.g., $49.99/year).
-// 4. Paste the Price IDs below to replace the placeholders.
+// ¡ACCIÓN REQUERIDA!
+// Pega aquí los "Checkout Links" que obtuviste de tu panel de Lemon Squeezy.
+// Los encontrarás en la sección "Store" -> "Products" -> "Share".
 // =================================================================================
-const STRIPE_MONTHLY_PRICE_ID = 'price_...'; // <--- REPLACE WITH YOUR MONTHLY PRICE ID
-const STRIPE_ANNUAL_PRICE_ID = 'price_...';  // <--- REPLACE WITH YOUR ANNUAL PRICE ID
+const LEMON_SQUEEZY_MONTHLY_LINK = 'URL_MENSUAL_DE_LEMON_SQUEEZY_AQUI'; // <--- REEMPLAZA ESTO
+const LEMON_SQUEEZY_ANNUAL_LINK = 'URL_ANUAL_DE_LEMON_SQUEEZY_AQUI';  // <--- REEMPLAZA ESTO
 
-const STRIPE_PUBLIC_KEY = 'pk_test_51PbyJCRpG3A9whd1sWvWnFzYy0Z3s4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2'; // Example
 
 interface UpgradeModalProps {
   isOpen: boolean;
@@ -35,75 +21,20 @@ const premiumFeatures = [
     { icon: 'fa-microphone', title: 'Unlimited Audio Analysis', description: 'Analyze situations by simply recording your voice, without limits.' }
 ];
 
-const loadStripe = async (): Promise<Stripe | null> => {
-    if (window.Stripe) return window.Stripe(STRIPE_PUBLIC_KEY);
-    const script = document.createElement('script');
-    script.src = 'https://js.stripe.com/v3/';
-    script.async = true;
-    return new Promise((resolve, reject) => {
-        script.onload = () => {
-            if (window.Stripe) {
-                resolve(window.Stripe(STRIPE_PUBLIC_KEY));
-            } else {
-                reject(new Error('Stripe.js failed to load.'));
-            }
-        };
-        script.onerror = () => reject(new Error('Stripe.js failed to load.'));
-        document.head.appendChild(script);
-    });
-};
-
 export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) => {
   const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'annual'>('annual');
-  const [isProcessing, setIsProcessing] = useState(false);
 
   if (!isOpen) return null;
 
-  const handleStripeCheckout = async () => {
-    setIsProcessing(true);
-    const priceId = selectedPlan === 'annual' ? STRIPE_ANNUAL_PRICE_ID : STRIPE_MONTHLY_PRICE_ID;
-    
-    // Check if the user has replaced the placeholder IDs
-    if (priceId.startsWith('price_...')) {
-        alert("Configuration needed: Stripe Price IDs are not set up yet in the code.");
-        setIsProcessing(false);
-        return;
+  const getCheckoutLink = () => {
+    const link = selectedPlan === 'annual' ? LEMON_SQUEEZY_ANNUAL_LINK : LEMON_SQUEEZY_MONTHLY_LINK;
+    if (link.includes('URL_')) {
+        // This is a friendly alert for the developer, not the end-user.
+        alert("Configuration needed: Please replace the placeholder Lemon Squeezy URLs in the components/UpgradeModal.tsx file.");
+        return '#'; // Return a safe link to prevent errors
     }
-
-    try {
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ priceId: priceId }),
-      });
-
-      if (!response.ok) {
-        const errorBody = await response.json();
-        throw new Error(errorBody.error || 'Failed to create payment session.');
-      }
-      
-      const session = await response.json();
-      const { id: sessionId } = session;
-        
-      const stripe = await loadStripe();
-      if (stripe) {
-          const { error } = await stripe.redirectToCheckout({ sessionId });
-          if (error) {
-              console.warn("Error redirecting to Stripe:", error);
-              alert(`Error: ${error.message}`);
-          }
-      } else {
-          throw new Error("Stripe.js is not available.");
-      }
-    } catch (error: any) {
-        console.error("Payment process error:", error);
-        alert(`There was a problem initiating the payment: ${error.message}`);
-    } finally {
-        setIsProcessing(false);
-    }
-  };
+    return link;
+  }
 
   return (
     <div 
@@ -159,20 +90,18 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) =
 
         <div className="p-6 bg-slate-900/50 rounded-b-2xl">
             <p className="text-center text-slate-400 text-sm mb-4">
-               Secure payment powered by Stripe. Cancel anytime.
+               Secure payment powered by Lemon Squeezy. Cancel anytime.
             </p>
             <div className="flex flex-col gap-3">
-                <button 
-                    onClick={handleStripeCheckout}
-                    disabled={isProcessing}
-                    className="w-full bg-violet-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-violet-700 transition-colors disabled:bg-violet-600/50 flex items-center justify-center"
+                 <a 
+                    href={getCheckoutLink()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full bg-violet-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-violet-700 transition-colors flex items-center justify-center"
                 >
-                    {isProcessing ? (
-                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                    ) : (
-                        <><i className="fa-brands fa-stripe-s mr-2"></i> Pay with Card</>
-                    )}
-                </button>
+                    <i className="fa-solid fa-lock mr-2"></i>
+                    Upgrade Now
+                </a>
             </div>
             <button onClick={onClose} className="w-full text-center text-slate-400 mt-4 text-sm hover:text-white">
                 Maybe later
