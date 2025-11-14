@@ -66,8 +66,17 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, setCurrentV
       </div>
       
       <div className="mt-auto p-4 space-y-4">
-          <div className="p-3 bg-slate-900/50 rounded-lg text-center">
-             <p className="text-sm font-bold text-slate-50">{t('navigation.status')}: <span className={isPremium ? 'text-teal-300' : 'text-amber-300'}>{isPremium ? t('navigation.premium') : t('navigation.freeUser')}</span></p>
+          <div className="p-3 bg-slate-900/50 rounded-lg text-center h-28 flex items-center justify-center">
+             {isPremium ? (
+                <div className="flex flex-col items-center">
+                    <i className="fa-solid fa-shield-halved text-amber-400 text-4xl" style={{ filter: 'drop-shadow(0 0 4px rgba(251, 191, 36, 0.6))' }}></i>
+                    <p className="mt-2 text-sm font-bold uppercase tracking-widest text-amber-300">{t('navigation.premium')}</p>
+                </div>
+              ) : (
+                 <p className="text-sm font-bold text-slate-50">
+                    {t('navigation.status')}: <span className='text-amber-300'>{t('navigation.freeUser')}</span>
+                 </p>
+              )}
           </div>
           {!isPremium && (
             <button onClick={onUpgradeClick} className="w-full bg-gradient-to-r from-teal-500 to-violet-500 text-white font-bold py-3 px-4 rounded-lg hover:opacity-90 transition-opacity">
