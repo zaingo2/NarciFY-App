@@ -24,8 +24,8 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const fetchTranslations = async () => {
       try {
         const [enResponse, esResponse] = await Promise.all([
-          fetch('/locales/en.json'),
-          fetch('/locales/es.json')
+          fetch('./locales/en.json'),
+          fetch('./locales/es.json')
         ]);
 
         if (!enResponse.ok || !esResponse.ok) {

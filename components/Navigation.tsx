@@ -64,19 +64,6 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, setCurrentV
           </ul>
         </nav>
       </div>
-
-      <div className="p-4 pt-2">
-        <label htmlFor="language-select" className="sr-only">{t('navigation.languageSelectorLabel')}</label>
-        <select
-            id="language-select"
-            value={language}
-            onChange={e => changeLanguage(e.target.value)}
-            className="w-full p-2 bg-slate-900 border border-slate-700 text-slate-50 rounded-lg focus:ring-2 focus:ring-pink-300 focus:border-pink-300 transition"
-        >
-            <option value="en">English</option>
-            <option value="es">Español</option>
-        </select>
-      </div>
       
       <div className="mt-auto p-4 space-y-4">
           <div className="p-3 bg-slate-900/50 rounded-lg text-center">
@@ -88,11 +75,28 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, setCurrentV
                 {t('navigation.upgrade')}
             </button>
           )}
-          <div className="text-center text-xs text-slate-500 pt-4">
+          <div className="text-center text-xs text-slate-400 pt-4">
+            <div className="mb-4">
+                <label htmlFor="language-select" className="sr-only">{t('navigation.languageSelectorLabel')}</label>
+                <select
+                    id="language-select"
+                    value={language}
+                    onChange={e => changeLanguage(e.target.value)}
+                    className="w-auto mx-auto p-1 pr-8 bg-slate-800 border border-slate-700 text-slate-300 rounded-md focus:ring-1 focus:ring-pink-300 focus:border-pink-300 transition appearance-none bg-no-repeat"
+                    style={{
+                        backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
+                        backgroundPosition: 'right 0.5rem center',
+                        backgroundSize: '1.5em 1.5em'
+                    }}
+                >
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                </select>
+            </div>
             <a href="https://zaingoapps.lemonsqueezy.com/affiliates" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 transition-colors block mb-2">
               {t('navigation.affiliateProgram')}
             </a>
-            <p>&copy; {new Date().getFullYear()} NarciFY. {t('navigation.copyright')}</p>
+            <p className="text-slate-500">&copy; {new Date().getFullYear()} NarciFY. {t('navigation.copyright')}</p>
           </div>
       </div>
     </div>
