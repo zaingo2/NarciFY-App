@@ -5,8 +5,8 @@ import React, { useState } from 'react';
 // Pega aquí los "Checkout Links" que obtuviste de tu panel de Lemon Squeezy.
 // Los encontrarás en la sección "Store" -> "Products" -> "Share".
 // =================================================================================
-const LEMON_SQUEEZY_MONTHLY_LINK = 'URL_MENSUAL_DE_LEMON_SQUEEZY_AQUI'; // <--- REEMPLAZA ESTO
-const LEMON_SQUEEZY_ANNUAL_LINK = 'URL_ANUAL_DE_LEMON_SQUEEZY_AQUI';  // <--- REEMPLAZA ESTO
+const LEMON_SQUEEZY_MONTHLY_LINK = 'https://zaingoapps.lemonsqueezy.com/buy/619200eb-fbd6-46bc-b558-1bbb5f7e308f'; // <-- FINAL LINK
+const LEMON_SQUEEZY_ANNUAL_LINK = 'https://zaingoapps.lemonsqueezy.com/buy/0e3a803a-19c9-4f4c-8f48-909311d2b42c';  // <-- FINAL LINK
 
 
 interface UpgradeModalProps {
