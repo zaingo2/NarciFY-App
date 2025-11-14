@@ -1,9 +1,11 @@
+
 import React, { useState, useEffect, useCallback } from 'react';
 import type { AnalysisResult, Recommendation } from '../types';
 import { generateRecommendations } from '../services/geminiService';
 import { Spinner } from './Spinner';
 import { useAuth } from '../contexts/AuthContext';
 import { UpgradeTeaser } from './UpgradeTeaser';
+import { useTranslation } from '../hooks/useTranslation';
 
 interface AutomaticRecommendationsProps {
   analysisHistory: AnalysisResult[];
@@ -32,6 +34,7 @@ const RecommendationCard: React.FC<{ recommendation: Recommendation }> = ({ reco
 
 export const AutomaticRecommendations: React.FC<AutomaticRecommendationsProps> = ({ analysisHistory, onUpgrade }) => {
     const { isPremium } = useAuth();
+    const { t } = useTranslation();
     const [recommendations, setRecommendations] = useState<Recommendation[] | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -51,11 +54,11 @@ export const AutomaticRecommendations: React.FC<AutomaticRecommendationsProps> =
             setRecommendations(results);
         } catch (err: any) {
             console.error("Failed to generate recommendations:", err);
-            setError("Sorry, we couldn't generate personalized recommendations at this time. Please try again later.");
+            setError(t('recommendations.error'));
         } finally {
             setIsLoading(false);
         }
-    }, [analysisHistory, isHistoryEmpty]);
+    }, [analysisHistory, isHistoryEmpty, t]);
     
     useEffect(() => {
         if(isPremium) {
@@ -68,8 +71,8 @@ export const AutomaticRecommendations: React.FC<AutomaticRecommendationsProps> =
     if (!isPremium) {
         return (
              <UpgradeTeaser 
-                title="Unlock Automatic Recommendations"
-                description="Get a personalized roadmap to healing. Our AI analyzes your history to provide custom-tailored advice, skill-building exercises, and healing strategies designed to address the specific patterns you're facing."
+                title={t('upgrade.teaserRecommendationsTitle')}
+                description={t('upgrade.teaserRecommendationsDesc')}
                 onUpgrade={onUpgrade}
                 icon="fa-wand-magic-sparkles"
             />
@@ -81,7 +84,7 @@ export const AutomaticRecommendations: React.FC<AutomaticRecommendationsProps> =
             return (
                 <div className="text-center py-20 bg-slate-800 rounded-xl">
                     <Spinner />
-                    <p className="mt-4 text-slate-300">Analyzing your patterns and generating personalized recommendations...</p>
+                    <p className="mt-4 text-slate-300">{t('recommendations.loading')}</p>
                 </div>
             );
         }
@@ -94,8 +97,8 @@ export const AutomaticRecommendations: React.FC<AutomaticRecommendationsProps> =
             return (
                  <div className="text-center py-16 bg-slate-800 rounded-xl">
                     <i className="fa-solid fa-wand-magic-sparkles text-4xl text-slate-500 mb-4"></i>
-                    <h3 className="text-xl font-semibold text-slate-300">Your Recommendations Will Appear Here</h3>
-                    <p className="text-slate-400 mt-2 max-w-md mx-auto">As you analyze situations, this section will automatically fill with personalized advice, skill-building exercises, and healing strategies based on your unique patterns.</p>
+                    <h3 className="text-xl font-semibold text-slate-300">{t('recommendations.emptyTitle')}</h3>
+                    <p className="text-slate-400 mt-2 max-w-md mx-auto">{t('recommendations.emptyText')}</p>
                 </div>
             );
         }
@@ -112,7 +115,7 @@ export const AutomaticRecommendations: React.FC<AutomaticRecommendationsProps> =
 
         return (
             <div className="text-center py-20 bg-slate-800 rounded-xl">
-                <p className="text-slate-300">Could not generate recommendations based on the current history.</p>
+                <p className="text-slate-300">{t('recommendations.genericError')}</p>
             </div>
         );
     };
@@ -121,8 +124,8 @@ export const AutomaticRecommendations: React.FC<AutomaticRecommendationsProps> =
          <div className="p-4 md:p-6 lg:p-8">
             <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-6 gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-slate-50">Automatic Recommendations</h1>
-                    <p className="text-slate-300 mt-1">Your personalized roadmap for healing and growth, based on your history.</p>
+                    <h1 className="text-3xl font-bold text-slate-50">{t('recommendations.title')}</h1>
+                    <p className="text-slate-300 mt-1">{t('recommendations.description')}</p>
                 </div>
                  <button 
                     onClick={fetchRecommendations} 
@@ -130,7 +133,7 @@ export const AutomaticRecommendations: React.FC<AutomaticRecommendationsProps> =
                     className="flex-shrink-0 bg-teal-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors flex items-center gap-2 text-sm disabled:bg-teal-500/50 disabled:cursor-not-allowed"
                 >
                     <i className={`fa-solid fa-sync ${isLoading ? 'animate-spin' : ''}`}></i>
-                    Refresh Recommendations
+                    {t('recommendations.refreshButton')}
                 </button>
             </div>
              {renderContent()}

@@ -1,6 +1,8 @@
+
 import React, { useState } from 'react';
 import { Logo } from './Logo';
 import { useAuth } from '../contexts/AuthContext';
+import { useTranslation } from '../hooks/useTranslation';
 
 interface NavigationProps {
   currentView: string;
@@ -8,17 +10,18 @@ interface NavigationProps {
   onUpgradeClick: () => void;
 }
 
-const navItems = [
-  { id: 'home', title: 'Home', icon: 'fa-solid fa-house', isPremium: false },
-  { id: 'audios', title: 'Personalized 8D Audios', icon: 'fa-solid fa-heart', isPremium: true },
-  { id: 'patternDetector', title: 'Pattern Detector', icon: 'fa-solid fa-magnifying-glass-chart', isPremium: true },
-  { id: 'recommendations', title: 'Automatic Recommendations', icon: 'fa-solid fa-wand-magic-sparkles', isPremium: true },
-  { id: 'sos', title: 'SOS Calm Down', icon: 'fa-solid fa-hand-holding-heart', isPremium: false },
-];
-
 export const Navigation: React.FC<NavigationProps> = ({ currentView, setCurrentView, onUpgradeClick }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isPremium } = useAuth();
+  const { language, changeLanguage, t } = useTranslation();
+
+  const navItems = [
+    { id: 'home', title: t('navigation.home'), icon: 'fa-solid fa-house', isPremium: false },
+    { id: 'audios', title: t('navigation.audios'), icon: 'fa-solid fa-heart', isPremium: true },
+    { id: 'patternDetector', title: t('navigation.patternDetector'), icon: 'fa-solid fa-magnifying-glass-chart', isPremium: true },
+    { id: 'recommendations', title: t('navigation.recommendations'), icon: 'fa-solid fa-wand-magic-sparkles', isPremium: true },
+    { id: 'sos', title: t('navigation.sos'), icon: 'fa-solid fa-hand-holding-heart', isPremium: false },
+  ];
 
   const NavContent = () => (
      <div className="flex flex-col h-full">
@@ -61,19 +64,35 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, setCurrentV
           </ul>
         </nav>
       </div>
+
+      <div className="p-4 pt-2">
+        <label htmlFor="language-select" className="sr-only">{t('navigation.languageSelectorLabel')}</label>
+        <select
+            id="language-select"
+            value={language}
+            onChange={e => changeLanguage(e.target.value)}
+            className="w-full p-2 bg-slate-900 border border-slate-700 text-slate-50 rounded-lg focus:ring-2 focus:ring-pink-300 focus:border-pink-300 transition"
+        >
+            <option value="en">English</option>
+            <option value="es">Español</option>
+        </select>
+      </div>
       
       <div className="mt-auto p-4 space-y-4">
           <div className="p-3 bg-slate-900/50 rounded-lg text-center">
-             <p className="text-sm font-bold text-slate-50">Status: <span className={isPremium ? 'text-teal-300' : 'text-amber-300'}>{isPremium ? 'Premium' : 'Free User'}</span></p>
+             <p className="text-sm font-bold text-slate-50">{t('navigation.status')}: <span className={isPremium ? 'text-teal-300' : 'text-amber-300'}>{isPremium ? t('navigation.premium') : t('navigation.freeUser')}</span></p>
           </div>
           {!isPremium && (
             <button onClick={onUpgradeClick} className="w-full bg-gradient-to-r from-teal-500 to-violet-500 text-white font-bold py-3 px-4 rounded-lg hover:opacity-90 transition-opacity">
                 <i className="fa-solid fa-rocket mr-2"></i>
-                Upgrade to Premium
+                {t('navigation.upgrade')}
             </button>
           )}
           <div className="text-center text-xs text-slate-500 pt-4">
-            <p>&copy; {new Date().getFullYear()} NarciFY. All Rights Reserved.</p>
+            <a href="https://zaingoapps.lemonsqueezy.com/affiliates" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 transition-colors block mb-2">
+              {t('navigation.affiliateProgram')}
+            </a>
+            <p>&copy; {new Date().getFullYear()} NarciFY. {t('navigation.copyright')}</p>
           </div>
       </div>
     </div>

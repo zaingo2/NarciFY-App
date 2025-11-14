@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { AnalysisPanel } from './components/AnalysisPanel';
 import { Navigation } from './components/Navigation';
@@ -10,6 +11,8 @@ import { SOSCalmDown } from './components/SOSCalmDown';
 import { AutomaticRecommendations } from './components/AutomaticRecommendations';
 import { UpgradeModal } from './components/UpgradeModal';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { I18nProvider } from './contexts/I18nContext';
+import { useTranslation } from './hooks/useTranslation';
 import type { AnalysisResult, LocalHelpResult, UserLocation } from './types';
 import { placeholderAnalysisHistory } from './utils/placeholders';
 import { findLocalHelp } from './services/geminiService';
@@ -25,6 +28,7 @@ function AppContent() {
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
   
   const { isPremium, becomePremium } = useAuth();
+  const { t } = useTranslation();
 
   // Handle successful payment redirect from Stripe
   useEffect(() => {
@@ -87,13 +91,13 @@ function AppContent() {
   };
 
   const handleDeleteAnalysis = (idToDelete: string) => {
-    if (window.confirm('Are you sure you want to permanently delete this analysis?')) {
+    if (window.confirm(t('patternDetector.confirmDeleteOne'))) {
         setAnalysisHistory(prev => prev.filter(analysis => analysis.id !== idToDelete));
     }
   };
 
   const handleDeleteAllAnalyses = () => {
-    if (window.confirm('Are you sure you want to permanently delete ALL analyses? This action cannot be undone.')) {
+    if (window.confirm(t('patternDetector.confirmDeleteAll'))) {
         setAnalysisHistory([]);
     }
   };
@@ -111,14 +115,14 @@ function AppContent() {
           setLocalHelpResults(results);
         } catch (error) {
           console.error("Failed to find local help:", error);
-          alert('Sorry, there was an error finding local help resources.');
+          alert(t('localHelp.errors.findFailed'));
         } finally {
           setIsFindingHelp(false);
         }
       },
       (error) => {
         console.error("Geolocation error:", error);
-        alert("Could not get your location. Please enable location services in your browser.");
+        alert(t('localHelp.errors.locationDenied'));
         setIsFindingHelp(false);
       }
     );
@@ -184,7 +188,9 @@ function AppContent() {
 function App() {
   return (
     <AuthProvider>
-      <AppContent />
+      <I18nProvider>
+        <AppContent />
+      </I18nProvider>
     </AuthProvider>
   );
 }

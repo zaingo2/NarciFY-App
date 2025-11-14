@@ -1,24 +1,31 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import type { ChatMessage } from '../types';
 import { GoogleGenAI, Chat } from "@google/genai";
+import { useTranslation } from '../hooks/useTranslation';
 
 export const ChatWidget: React.FC = () => {
+    const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
-    const [messages, setMessages] = useState<ChatMessage[]>([
-        { role: 'model', text: 'Hello! Ask me anything about relationships, communication, or setting boundaries.' }
-    ]);
+    const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const chatRef = useRef<Chat | null>(null);
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
+    const isInitialized = useRef(false);
+    
+    // Set initial message only once when translations are ready
+    useEffect(() => {
+        if (t && !isInitialized.current) {
+            setMessages([{ role: 'model', text: t('chatWidget.initialMessage') }]);
+            isInitialized.current = true;
+        }
+    }, [t]);
 
     useEffect(() => {
         if (!chatRef.current) {
-            // Fix: Per coding guidelines, the API key must be obtained from process.env.API_KEY, not import.meta.env.VITE_API_KEY. This resolves the TypeScript error.
             const apiKey = process.env.API_KEY;
             if (!apiKey) {
-                // We don't throw an error here to not crash the UI, 
-                // but the chat won't work and will show an error on send.
                 console.error("API_KEY is not set. Chat widget will not work.");
                 return;
             }
@@ -60,7 +67,7 @@ export const ChatWidget: React.FC = () => {
             }
         } catch (error) {
             console.error('Chat error:', error);
-            setMessages(prev => [...prev, { role: 'model', text: 'Sorry, I encountered an error. Please try again.' }]);
+            setMessages(prev => [...prev, { role: 'model', text: t('chatWidget.errorMessage') }]);
         } finally {
             setIsLoading(false);
         }
@@ -72,7 +79,7 @@ export const ChatWidget: React.FC = () => {
                 {isOpen ? (
                     <>
                         <header className="flex items-center justify-between p-4 border-b border-slate-700">
-                            <h3 className="font-bold text-lg text-slate-50">Quick Chat</h3>
+                            <h3 className="font-bold text-lg text-slate-50">{t('chatWidget.title')}</h3>
                             <button onClick={() => setIsOpen(false)} className="text-slate-300 hover:text-slate-50">
                                 <i className="fa fa-times fa-lg"></i>
                             </button>
@@ -103,7 +110,7 @@ export const ChatWidget: React.FC = () => {
                                 <input
                                     type="text"
                                     className="flex-1 p-2 border rounded-l-lg bg-slate-900 border-slate-700 text-slate-50 focus:ring-pink-300 focus:border-pink-300"
-                                    placeholder="Ask a question..."
+                                    placeholder={t('chatWidget.placeholder')}
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
                                     onKeyPress={(e) => e.key === 'Enter' && !isLoading && handleSend()}

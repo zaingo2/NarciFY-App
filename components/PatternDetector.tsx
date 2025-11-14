@@ -1,7 +1,9 @@
+
 import React, { useState } from 'react';
 import type { AnalysisResult } from '../types';
 import { useAuth } from '../contexts/AuthContext';
 import { UpgradeTeaser } from './UpgradeTeaser';
+import { useTranslation } from '../hooks/useTranslation';
 
 interface PatternDetectorProps {
     analysisHistory: AnalysisResult[];
@@ -21,12 +23,6 @@ const TACTIC_COLORS: { [key: string]: string } = {
 };
 
 const getTacticColor = (tactic: string) => TACTIC_COLORS[tactic] || TACTIC_COLORS.Default;
-
-const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString(undefined, {
-        year: 'numeric', month: 'long', day: 'numeric'
-    });
-};
 
 // --- Download Logic ---
 
@@ -94,6 +90,13 @@ const triggerTextFileDownload = (content: string, filename: string) => {
 
 const AnalysisHistoryItem: React.FC<{ analysis: AnalysisResult, onDelete: (id: string) => void }> = ({ analysis, onDelete }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const { t, language } = useTranslation();
+
+    const formatDate = (dateString: string) => {
+        return new Date(dateString).toLocaleDateString(language, {
+            year: 'numeric', month: 'long', day: 'numeric'
+        });
+    };
     
     const handleDownload = (e: React.MouseEvent) => {
         e.stopPropagation(); // Prevent the accordion from opening/closing
@@ -121,16 +124,16 @@ const AnalysisHistoryItem: React.FC<{ analysis: AnalysisResult, onDelete: (id: s
                         <button
                            onClick={handleDownload}
                            className="text-slate-400 hover:text-teal-300 p-2 -m-2 rounded-full"
-                           aria-label="Download this analysis"
-                           title="Download this analysis"
+                           aria-label={t('patternDetector.downloadOneTooltip')}
+                           title={t('patternDetector.downloadOneTooltip')}
                         >
                            <i className="fa-solid fa-download"></i>
                         </button>
                         <button
                            onClick={handleDelete}
                            className="text-slate-400 hover:text-rose-400 p-2 -m-2 rounded-full"
-                           aria-label="Delete this analysis"
-                           title="Delete this analysis"
+                           aria-label={t('patternDetector.deleteOneTooltip')}
+                           title={t('patternDetector.deleteOneTooltip')}
                         >
                            <i className="fa-solid fa-trash-can"></i>
                         </button>
@@ -148,17 +151,17 @@ const AnalysisHistoryItem: React.FC<{ analysis: AnalysisResult, onDelete: (id: s
                         ))}
                     </div>
                      <p className="text-sm text-slate-400 sm:hidden mb-4">{formatDate(analysis.date)}</p>
-                    <h4 className="text-pink-300 font-bold">Analysis:</h4>
+                    <h4 className="text-pink-300 font-bold">{t('analysisResultDisplay.accordion.isManipulation')}:</h4>
                     <p>{analysis.isManipulationAnalysis}</p>
-                    <h4 className="text-pink-300 font-bold">Suggested Responses:</h4>
+                    <h4 className="text-pink-300 font-bold">{t('analysisResultDisplay.accordion.suggestedResponses')}:</h4>
                     <ul className="list-disc pl-5 space-y-1">
                         {analysis.suggestedResponses.map((res, i) => <li key={i}>{res}</li>)}
                     </ul>
-                     <h4 className="text-pink-300 font-bold">Neutralizing Tactics:</h4>
+                     <h4 className="text-pink-300 font-bold">{t('analysisResultDisplay.accordion.neutralizingTactics')}:</h4>
                     <ul className="list-disc pl-5 space-y-1">
                         {analysis.neutralizingTactics.map((tactic, i) => <li key={i}>{tactic}</li>)}
                     </ul>
-                    <h4 className="text-pink-300 font-bold">{`Mini-Lesson: ${analysis.miniLesson.title}`}</h4>
+                    <h4 className="text-pink-300 font-bold">{t('analysisResultDisplay.accordion.miniLesson', {title: analysis.miniLesson.title})}</h4>
                     <p>{analysis.miniLesson.content}</p>
                 </div>
             )}
@@ -169,6 +172,7 @@ const AnalysisHistoryItem: React.FC<{ analysis: AnalysisResult, onDelete: (id: s
 
 export const PatternDetector: React.FC<PatternDetectorProps> = ({ analysisHistory, onDeleteAnalysis, onDeleteAll, onUpgrade }) => {
     const { isPremium } = useAuth();
+    const { t } = useTranslation();
 
     const tacticCounts = React.useMemo(() => {
         const counts: { [key: string]: number } = {};
@@ -195,8 +199,8 @@ export const PatternDetector: React.FC<PatternDetectorProps> = ({ analysisHistor
     if (!isPremium) {
         return (
             <UpgradeTeaser 
-                title="Unlock the Pattern Detector"
-                description="See the bigger picture. The Pattern Detector analyzes your entire history to reveal recurring manipulation tactics and emotional trends, helping you understand long-term dynamics and break free from harmful cycles."
+                title={t('upgrade.teaserPatternDetectorTitle')}
+                description={t('upgrade.teaserPatternDetectorDesc')}
                 onUpgrade={onUpgrade}
                 icon="fa-magnifying-glass-chart"
             />
@@ -205,39 +209,39 @@ export const PatternDetector: React.FC<PatternDetectorProps> = ({ analysisHistor
 
     return (
         <div className="p-4 md:p-6 lg:p-8">
-            <h1 className="text-3xl font-bold mb-2 text-slate-50">Pattern Detector</h1>
-            <p className="text-slate-300 mb-8">Discover emotional patterns and communication red flags across your past analyses.</p>
+            <h1 className="text-3xl font-bold mb-2 text-slate-50">{t('patternDetector.title')}</h1>
+            <p className="text-slate-300 mb-8">{t('patternDetector.description')}</p>
 
             {isHistoryEmpty ? (
                 <div className="text-center py-16 bg-slate-800 rounded-xl">
                     <i className="fa-solid fa-magnifying-glass-chart text-4xl text-slate-500 mb-4"></i>
-                    <h3 className="text-xl font-semibold text-slate-300">No Analyses Yet</h3>
-                    <p className="text-slate-400">Your past analyses will appear here once you start analyzing situations.</p>
+                    <h3 className="text-xl font-semibold text-slate-300">{t('patternDetector.noAnalysesTitle')}</h3>
+                    <p className="text-slate-400">{t('patternDetector.noAnalysesText')}</p>
                 </div>
             ) : (
                 <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
                     {/* Left side: History */}
                     <div className="xl:col-span-2 bg-slate-800 p-6 rounded-xl shadow-lg">
                         <div className="flex flex-wrap gap-4 justify-between items-center mb-4">
-                            <h2 className="text-xl font-bold">Analysis History</h2>
+                            <h2 className="text-xl font-bold">{t('patternDetector.historyTitle')}</h2>
                             <div className="flex items-center gap-2">
                                 <button
                                     onClick={handleDownloadAll}
                                     className="bg-teal-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors flex items-center gap-2 text-sm"
-                                    aria-label="Download all analyses"
-                                    title="Download all analyses"
+                                    aria-label={t('patternDetector.downloadAllButton')}
+                                    title={t('patternDetector.downloadAllButton')}
                                 >
                                     <i className="fa-solid fa-cloud-arrow-down"></i>
-                                    Download All
+                                    {t('patternDetector.downloadAllButton')}
                                 </button>
                                 <button
                                     onClick={onDeleteAll}
                                     className="bg-rose-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-rose-600 transition-colors flex items-center gap-2 text-sm"
-                                    aria-label="Delete all analyses"
-                                    title="Delete all analyses"
+                                    aria-label={t('patternDetector.deleteAllButton')}
+                                    title={t('patternDetector.deleteAllButton')}
                                 >
                                     <i className="fa-solid fa-trash-can"></i>
-                                    Delete All
+                                    {t('patternDetector.deleteAllButton')}
                                 </button>
                             </div>
                         </div>
@@ -250,7 +254,7 @@ export const PatternDetector: React.FC<PatternDetectorProps> = ({ analysisHistor
 
                     {/* Right side: Summary */}
                     <div className="bg-slate-800 p-6 rounded-xl shadow-lg self-start">
-                        <h2 className="text-xl font-bold mb-4">Recurring Patterns</h2>
+                        <h2 className="text-xl font-bold mb-4">{t('patternDetector.patternsTitle')}</h2>
                         {sortedTactics.length > 0 ? (
                             <>
                                 <div className="space-y-3 mb-6">
@@ -258,7 +262,7 @@ export const PatternDetector: React.FC<PatternDetectorProps> = ({ analysisHistor
                                         <div key={tactic}>
                                             <div className="flex justify-between text-sm font-medium text-slate-300 mb-1">
                                                 <span>{tactic}</span>
-                                                <span>{count} {count > 1 ? 'times' : 'time'}</span>
+                                                <span>{t('patternDetector.patternsCount', { count })}</span>
                                             </div>
                                             <div className="w-full bg-slate-700 rounded-full h-2.5">
                                                 <div 
@@ -272,12 +276,12 @@ export const PatternDetector: React.FC<PatternDetectorProps> = ({ analysisHistor
                                 <div className="mt-6 bg-violet-500/10 border border-violet-400 text-violet-200 p-4 rounded-lg">
                                     <p className="text-sm">
                                         <i className="fa-solid fa-lightbulb mr-2"></i>
-                                        You’re becoming more aware of your boundaries. Keep observing these patterns and trust your instincts.
+                                        {t('patternDetector.patternsInsight')}
                                     </p>
                                 </div>
                             </>
                         ) : (
-                             <p className="text-slate-400 text-center py-8">Your recurring patterns will be summarized here as you add more analyses.</p>
+                             <p className="text-slate-400 text-center py-8">{t('patternDetector.patternsEmpty')}</p>
                         )}
                     </div>
                 </div>

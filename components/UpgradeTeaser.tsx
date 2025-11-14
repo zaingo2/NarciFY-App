@@ -1,4 +1,6 @@
+
 import React from 'react';
+import { useTranslation } from '../hooks/useTranslation';
 
 interface UpgradeTeaserProps {
   title: string;
@@ -8,6 +10,8 @@ interface UpgradeTeaserProps {
 }
 
 export const UpgradeTeaser: React.FC<UpgradeTeaserProps> = ({ title, description, icon, onUpgrade }) => {
+  const { t } = useTranslation();
+  
   return (
     <div className="p-4 md:p-6 lg:p-8">
       <div className="text-center py-12 px-6 bg-slate-800 rounded-xl shadow-lg border border-slate-700">
@@ -23,7 +27,7 @@ export const UpgradeTeaser: React.FC<UpgradeTeaserProps> = ({ title, description
           className="mt-8 bg-teal-500 text-white font-bold py-3 px-8 rounded-full hover:bg-teal-600 transition-transform hover:scale-105"
         >
           <i className="fa-solid fa-rocket mr-2"></i>
-          Upgrade to Premium
+          {t('navigation.upgrade')}
         </button>
       </div>
     </div>

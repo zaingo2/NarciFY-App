@@ -1,7 +1,9 @@
+
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { textToSpeech } from '../services/geminiService';
 import { Spinner } from './Spinner';
 import { bufferToWav } from '../utils/audio';
+import { useTranslation } from '../hooks/useTranslation';
 
 const affirmations = [
     "This feeling is temporary and it will pass.",
@@ -30,8 +32,9 @@ const BREATH_CYCLE_DURATION = 14000; // 4s in, 2s hold, 8s out = 14s
 type SessionState = 'idle' | 'generating' | 'playing' | 'paused' | 'error';
 
 export const SOSCalmDown: React.FC = () => {
+    const { t } = useTranslation();
     const [sessionState, setSessionState] = useState<SessionState>('idle');
-    const [currentAffirmation, setCurrentAffirmation] = useState('Focus on the circle and breathe.');
+    const [currentAffirmation, setCurrentAffirmation] = useState(t('sosCalmDown.initialAffirmation'));
     const [error, setError] = useState<string | null>(null);
     const [isBinauralOn, setIsBinauralOn] = useState(false);
     const [binauralVolume, setBinauralVolume] = useState(0.05);
@@ -47,10 +50,14 @@ export const SOSCalmDown: React.FC = () => {
     const binauralOscRRef = useRef<OscillatorNode | null>(null);
     const animationFrameRef = useRef<number | null>(null);
     const sessionAffirmationsRef = useRef<string[]>([]);
+
+    useEffect(() => {
+        setCurrentAffirmation(t('sosCalmDown.initialAffirmation'));
+    }, [t]);
     
     const stopSession = useCallback((isComponentUnmounting = false) => {
         setSessionState('idle');
-        setCurrentAffirmation('Focus on the circle and breathe.');
+        setCurrentAffirmation(t('sosCalmDown.initialAffirmation'));
 
         if (animationFrameRef.current) {
             cancelAnimationFrame(animationFrameRef.current);
@@ -78,7 +85,7 @@ export const SOSCalmDown: React.FC = () => {
                 audioContextRef.current.close().catch(console.error);
             }
         }
-    }, []);
+    }, [t]);
 
     // Effect for revoking the object URL when it changes or on unmount
     useEffect(() => {
@@ -142,7 +149,7 @@ export const SOSCalmDown: React.FC = () => {
             
         } catch (err: any) {
             console.error("SOS Audio Generation Error:", err);
-            setError("Could not start the calming session. Please try again.");
+            setError(t('sosCalmDown.error'));
             setSessionState('error');
         }
     };
@@ -259,10 +266,10 @@ export const SOSCalmDown: React.FC = () => {
         <div className="bg-slate-800 p-6 rounded-xl shadow-lg text-center flex flex-col items-center">
             <h1 className="text-3xl font-bold mb-2 text-slate-50 flex items-center">
                 <i className="fa-solid fa-shield-heart mr-3 text-pink-300"></i>
-                SOS Calm Down
+                {t('sosCalmDown.title')}
             </h1>
             <p className="text-slate-300 mb-6 max-w-lg">
-                Instant relief for when you're feeling overwhelmed. Focus on your breath and let these words guide you back to center.
+                {t('sosCalmDown.description')}
             </p>
             
             <audio
@@ -272,7 +279,6 @@ export const SOSCalmDown: React.FC = () => {
                     animationFrameRef.current = requestAnimationFrame(affirmationLoop);
                 }}
                 onPause={() => {
-                    // Only set to paused if we are not in the process of stopping completely
                     if (sessionState === 'playing') {
                         setSessionState('paused');
                     }
@@ -287,7 +293,6 @@ export const SOSCalmDown: React.FC = () => {
                 <div className={`breathing-animation absolute inset-0 rounded-full bg-white/10 ${isSessionActive ? 'animate-breathe' : ''} ${sessionState === 'paused' ? 'paused' : ''}`} style={{ animationDuration: `${BREATH_CYCLE_DURATION}ms` }}></div>
                 <div className="relative text-center text-slate-50">
                     <p className={`affirmation-text text-2xl font-bold transition-opacity duration-1000 ${isSessionActive ? 'animate-breathe-text' : ''} ${sessionState === 'paused' ? 'paused' : ''}`} style={{ animationDuration: `${BREATH_CYCLE_DURATION}ms` }}>
-                        {/* Breathing instruction text goes here */}
                     </p>
                 </div>
                  <style>{`
@@ -300,8 +305,15 @@ export const SOSCalmDown: React.FC = () => {
                     @keyframes breathe { 0% { transform: scale(0.8); opacity: 0.5; } 28% { transform: scale(1); opacity: 1; } 42% { transform: scale(1); opacity: 1; } 100% { transform: scale(0.8); opacity: 0.5; } }
                     .animate-breathe { animation: breathe ease-in-out infinite; }
                     .paused { animation-play-state: paused; }
-                    @keyframes breathe-text { 0% { content: 'Breathe In'; opacity: 1; } 25% { opacity: 1; } 30% { opacity: 0; } 30.01% { content: 'Hold'; opacity: 1; } 40% { opacity: 1; } 45% { opacity: 0; } 45.01% { content: 'Breathe Out'; opacity: 1; } 95% { opacity: 1; } 100% { opacity: 0; } }
-                    .animate-breathe-text::before { content: 'Breathe In'; animation: breathe-text ease-in-out infinite; animation-duration: inherit; }
+                    @keyframes breathe-text { 
+                        0% { content: '${t('sosCalmDown.breathing.in')}'; opacity: 1; } 
+                        25% { opacity: 1; } 30% { opacity: 0; } 
+                        30.01% { content: '${t('sosCalmDown.breathing.hold')}'; opacity: 1; } 
+                        40% { opacity: 1; } 45% { opacity: 0; } 
+                        45.01% { content: '${t('sosCalmDown.breathing.out')}'; opacity: 1; } 
+                        95% { opacity: 1; } 100% { opacity: 0; } 
+                    }
+                    .animate-breathe-text::before { content: '${t('sosCalmDown.breathing.in')}'; animation: breathe-text ease-in-out infinite; animation-duration: inherit; }
                 `}</style>
             </div>
             
@@ -312,8 +324,8 @@ export const SOSCalmDown: React.FC = () => {
             <div className="mb-4 bg-slate-900/50 p-4 rounded-lg border border-slate-700 max-w-md mx-auto w-full">
                 <div className="flex items-center justify-between">
                     <label htmlFor="binaural-toggle" className="flex flex-col text-left">
-                        <span className="font-semibold text-slate-200">Enable Binaural Tone</span>
-                        <span className="text-sm text-slate-400">Creates a relaxing 432Hz hum.</span>
+                        <span className="font-semibold text-slate-200">{t('sosCalmDown.enableBinaural')}</span>
+                        <span className="text-sm text-slate-400">{t('sosCalmDown.binauralDescription')}</span>
                     </label>
                     <button
                         id="binaural-toggle"
@@ -337,10 +349,10 @@ export const SOSCalmDown: React.FC = () => {
                             aria-label="Binaural tone volume"
                         />
                         <div className="flex justify-between text-xs text-slate-400 mt-1">
-                            <span>Quiet</span>
-                            <span>Loud</span>
+                            <span>{t('sosCalmDown.binauralVolumeQuiet')}</span>
+                            <span>{t('sosCalmDown.binauralVolumeLoud')}</span>
                         </div>
-                        <p className="text-xs text-violet-300 mt-3 text-center"><i className="fa-solid fa-headphones mr-2"></i>Headphones are required for the binaural effect.</p>
+                        <p className="text-xs text-violet-300 mt-3 text-center"><i className="fa-solid fa-headphones mr-2"></i>{t('sosCalmDown.binauralHeadphones')}</p>
                      </div>
                  )}
             </div>
@@ -348,7 +360,7 @@ export const SOSCalmDown: React.FC = () => {
             <div className="mt-2 flex flex-col items-center gap-4">
                 {sessionState === 'idle' || sessionState === 'error' || sessionState === 'generating' ? (
                     <button onClick={handleGenerateSession} disabled={sessionState === 'generating'} className="bg-teal-500 text-white font-bold py-3 px-8 rounded-full hover:bg-teal-600 disabled:bg-teal-500/50 transition-colors flex items-center justify-center w-52">
-                        {sessionState === 'generating' ? <Spinner /> : (sessionState === 'error' ? 'Try Again' : 'Start Session')}
+                        {sessionState === 'generating' ? <Spinner /> : (sessionState === 'error' ? t('sosCalmDown.tryAgainButton') : t('sosCalmDown.startSessionButton'))}
                     </button>
                 ) : null}
 
@@ -356,7 +368,7 @@ export const SOSCalmDown: React.FC = () => {
                     <div className="flex items-center justify-center gap-3 p-3 bg-slate-900/50 rounded-lg">
                         <button onClick={handlePlayPause} className="bg-violet-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-violet-600 transition-colors w-24">
                             <i className={`fa-solid ${sessionState === 'playing' ? 'fa-pause' : 'fa-play'} mr-2`}></i>
-                            {sessionState === 'playing' ? 'Pause' : 'Play'}
+                            {sessionState === 'playing' ? t('analysisResultDisplay.pauseButton') : t('analysisResultDisplay.playButton')}
                         </button>
                         <button onClick={handleToggleSpeed} className="bg-slate-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-slate-700 transition-colors w-20">
                             {playbackRate}x
@@ -365,17 +377,17 @@ export const SOSCalmDown: React.FC = () => {
                             <i className="fa-solid fa-repeat"></i>
                         </button>
                          <button onClick={() => stopSession(false)} className="bg-rose-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-rose-600 transition-colors">
-                            <i className="fa-solid fa-stop mr-2"></i> Stop
+                            <i className="fa-solid fa-stop mr-2"></i> {t('analysisResultDisplay.stopButton')}
                         </button>
                     </div>
                 )}
             </div>
-            {sessionState === 'generating' && ( <p className="text-sm text-slate-400 mt-2">Generating your calming audio, please wait...</p> )}
+            {sessionState === 'generating' && ( <p className="text-sm text-slate-400 mt-2">{t('sosCalmDown.generatingMessage')}</p> )}
 
             <div className="mt-12 bg-slate-900/50 p-4 rounded-lg border border-slate-700 max-w-2xl">
-                <h3 className="font-semibold text-slate-200">Why this works</h3>
+                <h3 className="font-semibold text-slate-200">{t('sosCalmDown.whyItWorksTitle')}</h3>
                 <p className="text-sm text-slate-400 mt-1">
-                    Controlled breathing calms your nervous system, reducing the "fight-or-flight" response. Positive affirmations help interrupt cycles of anxious thoughts, reminding you of your strength and grounding you in the present moment.
+                    {t('sosCalmDown.whyItWorksText')}
                 </p>
             </div>
         </div>

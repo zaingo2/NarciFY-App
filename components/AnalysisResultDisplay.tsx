@@ -1,8 +1,10 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import type { AnalysisResult } from '../types';
 import { textToSpeech } from '../services/geminiService';
 import { bufferToWav } from '../utils/audio';
 import { Spinner } from './Spinner';
+import { useTranslation } from '../hooks/useTranslation';
 
 interface AnalysisResultDisplayProps {
   result: AnalysisResult;
@@ -39,6 +41,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ title, children, icon }) 
 
 export const AnalysisResultDisplay: React.FC<AnalysisResultDisplayProps> = ({ result }) => {
     type PlaybackState = 'idle' | 'generating' | 'playing' | 'paused' | 'ready' | 'error';
+    const { t } = useTranslation();
 
     const [playbackState, setPlaybackState] = useState<PlaybackState>('idle');
     const [playbackRate, setPlaybackRate] = useState<number>(1);
@@ -88,7 +91,7 @@ export const AnalysisResultDisplay: React.FC<AnalysisResultDisplayProps> = ({ re
             // Autoplay is handled by the useEffect below
         } catch (error) {
             console.error('TTS Error:', error);
-            setAudioError('Sorry, could not generate audio at this time.');
+            setAudioError(t('analysisResultDisplay.errors.ttsFailed'));
             setPlaybackState('error');
         }
     };
@@ -137,7 +140,7 @@ export const AnalysisResultDisplay: React.FC<AnalysisResultDisplayProps> = ({ re
 
     const handleDownload = () => {
         if (!audioBufferRef.current) {
-            setAudioError("Generate the audio first before downloading.");
+            setAudioError(t('analysisResultDisplay.errors.downloadGenerateFirst'));
             return;
         }
         try {
@@ -153,18 +156,18 @@ export const AnalysisResultDisplay: React.FC<AnalysisResultDisplayProps> = ({ re
             a.remove();
         } catch (e) {
             console.error("Failed to create download link", e);
-            setAudioError("Could not prepare audio for download.");
+            setAudioError(t('analysisResultDisplay.errors.downloadFailed'));
         }
     };
 
   return (
     <div className="space-y-4">
-        <h3 className="text-xl font-bold text-slate-50">Analysis Complete</h3>
+        <h3 className="text-xl font-bold text-slate-50">{t('analysisResultDisplay.title')}</h3>
         
         {result.professionalHelpNeeded && (
             <div className="bg-rose-400/20 border-l-4 border-rose-400 text-rose-200 p-4 rounded-md" role="alert">
-                <p className="font-bold">Recommendation: Seek Professional Help</p>
-                <p>Based on your description, this situation appears to be serious. We strongly recommend seeking support from a qualified therapist or counselor.</p>
+                <p className="font-bold">{t('analysisResultDisplay.seekHelpTitle')}</p>
+                <p>{t('analysisResultDisplay.seekHelpText')}</p>
             </div>
         )}
 
@@ -186,13 +189,13 @@ export const AnalysisResultDisplay: React.FC<AnalysisResultDisplayProps> = ({ re
              <div className="flex flex-wrap items-center gap-3">
                 {['idle', 'error'].includes(playbackState) && (
                     <button onClick={handleGenerateAndPlay} className="flex items-center justify-center gap-2 text-sm bg-violet-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-violet-600 transition-colors">
-                        <i className="fa fa-volume-up"></i> {playbackState === 'idle' ? 'Read Aloud' : 'Try Again'}
+                        <i className="fa fa-volume-up"></i> {playbackState === 'idle' ? t('analysisResultDisplay.readAloudButton') : t('analysisResultDisplay.tryAgainButton')}
                     </button>
                 )}
 
                 {playbackState === 'generating' && (
                      <button disabled className="flex items-center justify-center gap-2 text-sm bg-violet-500/50 text-white font-semibold py-2 px-4 rounded-lg cursor-not-allowed">
-                        <Spinner/> Generating...
+                        <Spinner/> {t('analysisResultDisplay.generatingButton')}
                     </button>
                 )}
 
@@ -200,43 +203,43 @@ export const AnalysisResultDisplay: React.FC<AnalysisResultDisplayProps> = ({ re
                     <>
                         <button onClick={playbackState === 'playing' ? handlePause : handlePlay} className="flex items-center justify-center gap-2 text-sm bg-violet-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-violet-600 transition-colors w-28">
                             <i className={`fa ${playbackState === 'playing' ? 'fa-pause' : 'fa-play'}`}></i>
-                            {playbackState === 'playing' ? 'Pause' : (playbackState === 'paused' ? 'Resume' : 'Play')}
+                            {playbackState === 'playing' ? t('analysisResultDisplay.pauseButton') : (playbackState === 'paused' ? t('analysisResultDisplay.resumeButton') : t('analysisResultDisplay.playButton'))}
                         </button>
                         <button onClick={handleStop} disabled={!['playing', 'paused'].includes(playbackState)} className="flex items-center justify-center gap-2 text-sm bg-rose-400 text-white font-semibold py-2 px-4 rounded-lg hover:bg-rose-500 disabled:bg-rose-400/50 transition-colors">
-                            <i className="fa fa-stop"></i> Stop
+                            <i className="fa fa-stop"></i> {t('analysisResultDisplay.stopButton')}
                         </button>
                         <button onClick={handleToggleSpeed} className="flex items-center justify-center text-sm bg-slate-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-slate-700 transition-colors w-20">
                             {playbackRate}x
                         </button>
                         <button onClick={handleDownload} className="flex items-center justify-center gap-2 text-sm bg-teal-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors">
-                            <i className="fa fa-download"></i> Download
+                            <i className="fa fa-download"></i> {t('analysisResultDisplay.downloadButton')}
                         </button>
                     </>
                 )}
             </div>
             {playbackState === 'generating' && (
                 <p className="text-sm text-slate-300 mt-2">
-                    Generating audio, please wait a moment...
+                    {t('analysisResultDisplay.generatingMessage')}
                 </p>
             )}
             {audioError && <p className="text-sm text-rose-400 mt-2">{audioError}</p>}
         </div>
       
         <div className="mt-4">
-            <AccordionItem title="Is This Manipulation?" icon="fa-solid fa-lightbulb">
+            <AccordionItem title={t('analysisResultDisplay.accordion.isManipulation')} icon="fa-solid fa-lightbulb">
                 <p>{result.isManipulationAnalysis}</p>
             </AccordionItem>
-            <AccordionItem title="Suggested Responses" icon="fa-solid fa-comments">
+            <AccordionItem title={t('analysisResultDisplay.accordion.suggestedResponses')} icon="fa-solid fa-comments">
                 <ul className="list-disc pl-5 space-y-2">
                     {result.suggestedResponses.map((res, i) => <li key={i}>{res}</li>)}
                 </ul>
             </AccordionItem>
-            <AccordionItem title="Neutralizing Tactics" icon="fa-solid fa-shield-halved">
+            <AccordionItem title={t('analysisResultDisplay.accordion.neutralizingTactics')} icon="fa-solid fa-shield-halved">
                 <ul className="list-disc pl-5 space-y-2">
                     {result.neutralizingTactics.map((tactic, i) => <li key={i}>{tactic}</li>)}
                 </ul>
             </AccordionItem>
-            <AccordionItem title={`Mini-Lesson: ${result.miniLesson.title}`} icon="fa-solid fa-book-open-reader">
+            <AccordionItem title={t('analysisResultDisplay.accordion.miniLesson', { title: result.miniLesson.title })} icon="fa-solid fa-book-open-reader">
                 <p>{result.miniLesson.content}</p>
             </AccordionItem>
         </div>

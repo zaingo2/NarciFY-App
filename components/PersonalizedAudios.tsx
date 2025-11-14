@@ -1,9 +1,11 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { generateMeditationScript, textToSpeech } from '../services/geminiService';
 import { bufferToWav, applyEffectsToBuffer, createImpulseResponse } from '../utils/audio';
 import { Spinner } from './Spinner';
 import { useAuth } from '../contexts/AuthContext';
 import { UpgradeTeaser } from './UpgradeTeaser';
+import { useTranslation } from '../hooks/useTranslation';
 
 type PlaybackState = 'idle' | 'generating' | 'playing' | 'paused' | 'ready' | 'error';
 type MeditationKey = 'anxiety' | 'healing' | 'confidence' | 'cleanse' | 'morning';
@@ -13,10 +15,8 @@ interface PersonalizedAudiosProps {
     onUpgrade: () => void;
 }
 
-const MEDITATION_OPTIONS: Record<MeditationKey, { title: string; script: string; }> = {
-    anxiety: {
-        title: "Release Anxiety & Find Inner Peace",
-        script: `
+const MEDITATION_SCRIPTS: Record<MeditationKey, string> = {
+    anxiety: `
 Welcome, [NAME]. Find a comfortable position, either sitting or lying down, and gently close your eyes.
 Let's begin by bringing your awareness to your breath. Notice the gentle rise and fall of your chest and belly. Inhale slowly through your nose, filling your lungs completely... and exhale slowly through your mouth, releasing any tension you might be holding.
 Take a few more deep, cleansing breaths at your own pace. With each exhale, feel your body becoming heavier, more relaxed, sinking deeper into the surface beneath you.
@@ -36,11 +36,8 @@ I am the observer of my mind.
 My inner world is a place of serenity.
 When you are ready, slowly begin to bring your awareness back to the room. Wiggle your fingers and toes. Gently stretch your arms and legs.
 Take one final, deep breath in, filling yourself with this profound sense of calm. And as you exhale, slowly open your eyes, bringing this peace with you into the rest of your day. Welcome back, [NAME].
-        `
-    },
-    healing: {
-        title: "Healing Past Emotional Wounds",
-        script: `
+        `,
+    healing: `
 Hello, [NAME]. Let's begin a journey of gentle healing. Find a quiet space, close your eyes, and allow your body to settle.
 Take a deep, loving breath in... and as you exhale, imagine you are releasing the weight of the day, allowing yourself to be fully present in this moment of self-care.
 Imagine a warm, golden light forming above your head. It's filled with unconditional love, compassion, and healing energy. Feel its warmth. Now, allow this light to slowly enter the crown of your head, filling your entire being with a sense of safety and peace.
@@ -65,11 +62,8 @@ I am deserving of a future filled with peace and joy.
 Spend a few moments basking in this golden light, feeling the integration of your past and present self, united in love and strength.
 When you feel ready, slowly bring your awareness back to your physical body. Feel the support of the surface beneath you. Become aware of the sounds around you.
 Take a deep breath in, drawing in this feeling of wholeness. Exhale, and gently open your eyes. Carry this healing energy with you, knowing that you can return to this sacred space whenever you need. You are a miracle of healing, [NAME].
-        `
-    },
-    confidence: {
-        title: "Confidence & Self-Love Activation",
-        script: `
+        `,
+    confidence: `
 Welcome, [NAME]. Prepare to awaken the powerful, confident being that resides within you. Sit tall, close your eyes, and take a deep, empowering breath in, filling your lungs with potential... and exhale with a sigh, releasing any doubt or hesitation.
 Bring your awareness to the core of your being, in the center of your chest. Imagine a small, warm spark of light glowing there. This is your inner strength, your personal power.
 With each breath you take, see this spark growing brighter, stronger, warmer. Inhale, and the light expands. Exhale, and its glow intensifies. Feel it expanding to fill your entire chest, a radiant sun of self-assurance.
@@ -88,11 +82,8 @@ Feel these truths settling deep into your being, becoming a part of you. You are
 Now, begin to bring this activated energy back into your awareness of the room. Know that this inner sun continues to shine brightly within you, whether you are consciously focused on it or not. It is your constant source of strength.
 Take a final, deep breath, inhaling confidence... and exhale, ready to move through your day with purpose and self-assurance.
 When you are ready, open your eyes. Go forward and shine, [NAME].
-        `
-    },
-    cleanse: {
-        title: "Energy Cleanse & Mental Reset",
-        script: `
+        `,
+    cleanse: `
 Greetings, [NAME]. Let us begin a cleansing ritual for your mind and spirit. Settle into a comfortable position, close your eyes, and take a deep breath in, imagining you are inhaling pure, clean air... and exhale fully, letting go of all that is stale and heavy.
 Imagine you are standing at the edge of a lush, magical forest. Before you is a magnificent waterfall, cascading down mossy rocks into a crystal-clear pool. The sound of the water is powerful yet soothing.
 This is a place of purification.
@@ -112,11 +103,8 @@ I attract positive experiences and repel negativity.
 Take a moment to simply be in this state of clean, protected, and vibrant energy. This is your true self.
 Now, gently begin to bring your awareness back to your surroundings. The sound of the waterfall fades, but the feeling of clarity remains.
 Take a deep, revitalizing breath in. As you exhale, slowly open your eyes. You have completed your energy cleanse, [NAME]. Move forward with a fresh perspective and a light heart.
-        `
-    },
-    morning: {
-        title: "Morning Empowerment Meditation",
-        script: `
+        `,
+    morning: `
 Good morning, [NAME]. Welcome to a new day, filled with fresh potential. Before you begin your day, let's set a powerful and positive tone.
 Find a comfortable seated position, with your back straight, and gently close your eyes.
 Begin with a soft, gentle breath. Inhale the newness of the morning... and exhale any lingering grogginess from the night. With each breath, feel yourself becoming more awake, more present, more alive.
@@ -137,40 +125,31 @@ This is your day to create.
 Take one final, deep breath, inhaling all the promise of the morning. Exhale, releasing any final traces of doubt.
 When you are ready, slowly open your eyes, bringing the light of your intention and the warmth of the sun with you. Go and have a wonderful day, [NAME].
         `
-    }
 };
 
-const BACKGROUND_SOUNDS = {
-    rain: {
-        name: 'Rain',
-        icon: 'fa-cloud-showers-heavy',
-        url: 'https://earth.fm/embed/22866?theme=green&size=190',
-        height: '190'
-    },
-    forest: {
-        name: 'Forest Stream',
-        icon: 'fa-tree',
-        url: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/644503206&color=%23014e54&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true',
-        height: '166'
-    },
-    ocean: {
-        name: 'Ocean Waves',
-        icon: 'fa-water',
-        url: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A1169532079&color=%23cb9d67&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true',
-        height: '166'
-    },
-    birds: {
-        name: 'Forest Birds',
-        icon: 'fa-dove',
-        url: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A325844524&color=%231e291b&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true',
-        height: '166'
-    }
-} as const;
 
-type BackgroundSoundKey = keyof typeof BACKGROUND_SOUNDS;
+type BackgroundSoundKey = 'rain' | 'forest' | 'ocean' | 'birds';
 
 export const PersonalizedAudios: React.FC<PersonalizedAudiosProps> = ({ onUpgrade }) => {
     const { isPremium } = useAuth();
+    const { t } = useTranslation();
+
+    const BACKGROUND_SOUNDS: Record<BackgroundSoundKey, { name: string; icon: string; url: string; height: string; }> = {
+        rain: { name: t('personalizedAudios.backgroundSounds.rain'), icon: 'fa-cloud-showers-heavy', url: 'https://earth.fm/embed/22866?theme=green&size=190', height: '190' },
+        forest: { name: t('personalizedAudios.backgroundSounds.forest'), icon: 'fa-tree', url: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/644503206&color=%23014e54&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true', height: '166' },
+        ocean: { name: t('personalizedAudios.backgroundSounds.ocean'), icon: 'fa-water', url: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A1169532079&color=%23cb9d67&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true', height: '166' },
+        birds: { name: t('personalizedAudios.backgroundSounds.birds'), icon: 'fa-dove', url: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A325844524&color=%231e291b&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true', height: '166' }
+    };
+    
+    const MEDITATION_OPTIONS = {
+        anxiety: { title: t('personalizedAudios.meditationOptions.anxiety'), script: MEDITATION_SCRIPTS.anxiety },
+        healing: { title: t('personalizedAudios.meditationOptions.healing'), script: MEDITATION_SCRIPTS.healing },
+        confidence: { title: t('personalizedAudios.meditationOptions.confidence'), script: MEDITATION_SCRIPTS.confidence },
+        cleanse: { title: t('personalizedAudios.meditationOptions.cleanse'), script: MEDITATION_SCRIPTS.cleanse },
+        morning: { title: t('personalizedAudios.meditationOptions.morning'), script: MEDITATION_SCRIPTS.morning },
+    };
+
+
     const [userName, setUserName] = useState('');
     const [selectedMeditation, setSelectedMeditation] = useState<MeditationKey>('anxiety');
     const [customPrompt, setCustomPrompt] = useState('');
@@ -220,11 +199,11 @@ export const PersonalizedAudios: React.FC<PersonalizedAudiosProps> = ({ onUpgrad
     
     const handleGenerateAndPlay = async (isCustom: boolean = false) => {
         if (!userName.trim()) {
-            setError("Please enter your name.");
+            setError(t("personalizedAudios.errors.noName"));
             return;
         }
         if (isCustom && !customPrompt.trim()) {
-            setError("Please describe the meditation you want.");
+            setError(t("personalizedAudios.errors.noCustomPrompt"));
             return;
         }
 
@@ -328,7 +307,7 @@ export const PersonalizedAudios: React.FC<PersonalizedAudiosProps> = ({ onUpgrad
 
         } catch (err: any) {
             console.error("Audio Generation Error:", err);
-            setError(err.message || "Failed to generate audio. Please try again.");
+            setError(err.message || t("personalizedAudios.errors.generationFailed"));
             setPlaybackState('error');
         } finally {
             setGeneratingType('none');
@@ -357,7 +336,7 @@ export const PersonalizedAudios: React.FC<PersonalizedAudiosProps> = ({ onUpgrad
     
     const handleDownload = async () => {
         if (!voiceBufferRef.current) {
-            setError("Please generate the audio first.");
+            setError(t("personalizedAudios.errors.downloadGenerateFirst"));
             return;
         }
         setError(null);
@@ -381,8 +360,8 @@ export const PersonalizedAudios: React.FC<PersonalizedAudiosProps> = ({ onUpgrad
     if (!isPremium) {
         return (
             <UpgradeTeaser 
-                title="Unlock Personalized 8D Audios"
-                description="Experience deep healing with immersive 8D audio meditations tailored just for you. Generate custom scripts for your specific needs, from calming anxiety to building confidence, and let the 8D soundscape guide you to a place of peace."
+                title={t('upgrade.teaserAudiosTitle')}
+                description={t('upgrade.teaserAudiosDesc')}
                 onUpgrade={onUpgrade}
                 icon="fa-heart"
             />
@@ -391,16 +370,16 @@ export const PersonalizedAudios: React.FC<PersonalizedAudiosProps> = ({ onUpgrad
 
   return (
     <div className="p-4 md:p-6 lg:p-8 bg-slate-800 rounded-xl shadow-lg">
-      <h1 className="text-3xl font-bold mb-2 text-slate-50">Personalized 8D Audios</h1>
-      <p className="text-slate-300 mb-8">Create a personalized 8D meditation for your current situation.</p>
+      <h1 className="text-3xl font-bold mb-2 text-slate-50">{t('personalizedAudios.title')}</h1>
+      <p className="text-slate-300 mb-8">{t('personalizedAudios.description')}</p>
       
       <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-700 mb-8">
-        <h3 className="text-lg font-semibold text-teal-300 mb-3 flex items-center"><i className="fa-solid fa-circle-info mr-2"></i> How to Use This Section</h3>
+        <h3 className="text-lg font-semibold text-teal-300 mb-3 flex items-center"><i className="fa-solid fa-circle-info mr-2"></i> {t('personalizedAudios.howToTitle')}</h3>
         <ol className="list-decimal list-inside space-y-2 text-slate-300">
-          <li><span className="font-semibold">Personalize:</span> Enter your name so the meditation can address you directly.</li>
-          <li><span className="font-semibold">Set the Mood:</span> Choose a background sound and press its play button. You can adjust its volume independently. Headphones are highly recommended!</li>
-          <li><span className="font-semibold">Choose Your Topic:</span> Select a pre-made meditation from the dropdown list for common needs.</li>
-          <li><span className="font-semibold">Generate & Relax:</span> Click 'Generate & Play Voice'. The AI will create and start your unique 8D audio. Please be patient, as this can take a moment.</li>
+          <li><span className="font-semibold">{t('personalizedAudios.howToStep1').split(': ')[0]}:</span> {t('personalizedAudios.howToStep1').split(': ')[1]}</li>
+          <li><span className="font-semibold">{t('personalizedAudios.howToStep2').split(': ')[0]}:</span> {t('personalizedAudios.howToStep2').split(': ')[1]}</li>
+          <li><span className="font-semibold">{t('personalizedAudios.howToStep3').split(': ')[0]}:</span> {t('personalizedAudios.howToStep3').split(': ')[1]}</li>
+          <li><span className="font-semibold">{t('personalizedAudios.howToStep4').split(': ')[0]}:</span> {t('personalizedAudios.howToStep4').split(': ')[1]}</li>
         </ol>
       </div>
 
@@ -410,14 +389,14 @@ export const PersonalizedAudios: React.FC<PersonalizedAudiosProps> = ({ onUpgrad
         {/* --- Step 1: Personalization --- */}
         <div>
             <label htmlFor="userName" className="block text-sm font-medium text-slate-300 mb-2">
-                1. Enter your name
+                {t('personalizedAudios.step1Label')}
             </label>
             <input
                 type="text"
                 id="userName"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
-                placeholder="This makes the meditation personal to you"
+                placeholder={t('personalizedAudios.step1Placeholder')}
                 className="w-full p-3 bg-slate-900 border border-slate-700 text-slate-50 rounded-lg focus:ring-2 focus:ring-pink-300 focus:border-pink-300 transition"
             />
         </div>
@@ -425,19 +404,22 @@ export const PersonalizedAudios: React.FC<PersonalizedAudiosProps> = ({ onUpgrad
         {/* --- Step 2: Choose Background Sound --- */}
         <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
-                2. Choose a background sound
+                {t('personalizedAudios.step2Label')}
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                {Object.entries(BACKGROUND_SOUNDS).map(([key, { name, icon }]) => (
+                {(Object.keys(BACKGROUND_SOUNDS) as BackgroundSoundKey[]).map((key) => {
+                  const { name, icon } = BACKGROUND_SOUNDS[key];
+                  return (
                     <button 
                         key={key}
-                        onClick={() => setSelectedBackground(key as BackgroundSoundKey)}
+                        onClick={() => setSelectedBackground(key)}
                         className={`p-3 rounded-lg text-center transition-colors ${selectedBackground === key ? 'bg-teal-500 text-white shadow-lg' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'}`}
                     >
                         <i className={`fa ${icon} text-2xl mb-1`}></i>
                         <span className="block text-sm font-semibold">{name}</span>
                     </button>
-                ))}
+                  )
+                })}
             </div>
             <div className="mt-4">
                 <iframe 
@@ -454,7 +436,7 @@ export const PersonalizedAudios: React.FC<PersonalizedAudiosProps> = ({ onUpgrad
              <div className="mt-4 bg-violet-500/10 border border-violet-400 text-violet-200 p-3 rounded-lg text-center">
                 <p className="text-sm">
                     <i className="fa-solid fa-headphones mr-2"></i>
-                    For the best experience, we strongly recommend using headphones.
+                    {t('personalizedAudios.headphonesRecommended')}
                 </p>
             </div>
         </div>
@@ -462,7 +444,7 @@ export const PersonalizedAudios: React.FC<PersonalizedAudiosProps> = ({ onUpgrad
         {/* --- Step 3: Choose Meditation --- */}
         <div>
             <label htmlFor="meditationSelect" className="block text-sm font-medium text-slate-300 mb-2">
-                3. Choose a meditation topic
+                {t('personalizedAudios.step3Label')}
             </label>
             <select
                 id="meditationSelect"
@@ -470,8 +452,8 @@ export const PersonalizedAudios: React.FC<PersonalizedAudiosProps> = ({ onUpgrad
                 onChange={(e) => setSelectedMeditation(e.target.value as MeditationKey)}
                 className="w-full p-3 bg-slate-900 border border-slate-700 text-slate-50 rounded-lg focus:ring-2 focus:ring-pink-300 focus:border-pink-300 transition"
             >
-                {Object.entries(MEDITATION_OPTIONS).map(([key, { title }]) => (
-                    <option key={key} value={key}>{title}</option>
+                {(Object.keys(MEDITATION_OPTIONS) as MeditationKey[]).map((key) => (
+                    <option key={key} value={key}>{MEDITATION_OPTIONS[key].title}</option>
                 ))}
             </select>
             <div className="mt-3 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -481,7 +463,7 @@ export const PersonalizedAudios: React.FC<PersonalizedAudiosProps> = ({ onUpgrad
                     className="w-full sm:w-auto bg-teal-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-600 disabled:bg-teal-500/50 transition-colors flex items-center justify-center"
                 >
                     {playbackState === 'generating' && generatingType === 'predefined' ? <Spinner /> : <i className="fa-solid fa-play mr-2"></i>}
-                    {playbackState === 'generating' && generatingType === 'predefined' ? 'Generating Voice...' : 'Generate & Play Voice'}
+                    {playbackState === 'generating' && generatingType === 'predefined' ? t('personalizedAudios.generatingVoiceButton') : t('personalizedAudios.generateAndPlayButton')}
                 </button>
                 <div className="flex items-center gap-2">
                      <button onClick={handlePlayPause} disabled={!['playing', 'paused'].includes(playbackState)} className="bg-violet-500 text-white font-bold p-3 rounded-lg hover:bg-violet-600 disabled:bg-violet-500/50 transition-colors">
@@ -500,33 +482,33 @@ export const PersonalizedAudios: React.FC<PersonalizedAudiosProps> = ({ onUpgrad
             </div>
             {playbackState === 'generating' && generatingType === 'predefined' && (
                 <p className="text-sm text-slate-400 mt-2 text-center">
-                    Generating audio, please wait a moment... this can take 1 to 2 minutes.
+                    {t('personalizedAudios.generatingMessage')}
                 </p>
             )}
         </div>
         
         {/* --- Custom Request --- */}
         <div className="border-t border-slate-700 pt-6">
-             <h3 className="text-xl font-bold text-slate-50">Or, Create a Custom Meditation</h3>
+             <h3 className="text-xl font-bold text-slate-50">{t('personalizedAudios.customTitle')}</h3>
              <p className="text-slate-300 mb-4">
-               If you have a specific need, describe it here. The more detail you provide, the more tailored your meditation will be.
+               {t('personalizedAudios.customDescription')}
              </p>
              <div className="bg-slate-900/50 p-3 rounded-lg border border-slate-700 mb-4 text-sm text-slate-400">
-                 <p><i className="fa-solid fa-lightbulb mr-2 text-yellow-300"></i><span className="font-semibold">Example prompts:</span></p>
+                 <p><i className="fa-solid fa-lightbulb mr-2 text-yellow-300"></i><span className="font-semibold">{t('personalizedAudios.customExamplesTitle')}</span></p>
                  <ul className="list-disc list-inside ml-4 mt-1">
-                     <li>"A 5-minute meditation to calm my nerves before a difficult phone call."</li>
-                     <li>"Help me release feelings of resentment towards a family member."</li>
-                     <li>"An audio to help me fall asleep when my mind is racing."</li>
+                     <li>{t('personalizedAudios.customExample1')}</li>
+                     <li>{t('personalizedAudios.customExample2')}</li>
+                     <li>{t('personalizedAudios.customExample3')}</li>
                  </ul>
              </div>
              <label htmlFor="customPrompt" className="block text-sm font-medium text-slate-300 mb-2">
-                Your custom request:
+                {t('personalizedAudios.customRequestLabel')}
             </label>
             <textarea
                 id="customPrompt"
                 value={customPrompt}
                 onChange={(e) => setCustomPrompt(e.target.value)}
-                placeholder="e.g., 'Help me build confidence before a difficult conversation...'"
+                placeholder={t('personalizedAudios.customPlaceholder')}
                 rows={3}
                 className="w-full p-3 bg-slate-900 border border-slate-700 text-slate-50 rounded-lg focus:ring-2 focus:ring-pink-300 focus:border-pink-300 transition"
             />
@@ -535,11 +517,11 @@ export const PersonalizedAudios: React.FC<PersonalizedAudiosProps> = ({ onUpgrad
                 disabled={playbackState === 'generating' || playbackState === 'playing'}
                 className="mt-3 w-full bg-pink-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-pink-600 disabled:bg-pink-500/50 transition-colors flex items-center justify-center"
             >
-                {playbackState === 'generating' && generatingType === 'custom' ? <Spinner /> : 'Generate Custom Meditation'}
+                {playbackState === 'generating' && generatingType === 'custom' ? <Spinner /> : t('personalizedAudios.generateCustomButton')}
             </button>
             {playbackState === 'generating' && generatingType === 'custom' && (
                 <p className="text-sm text-slate-400 mt-2 text-center">
-                    Generating audio, please wait a moment... this can take 1 to 2 minutes.
+                    {t('personalizedAudios.generatingMessage')}
                 </p>
             )}
         </div>

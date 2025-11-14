@@ -1,4 +1,6 @@
+
 import React, { useState } from 'react';
+import { useTranslation } from '../hooks/useTranslation';
 
 // =================================================================================
 // ¡ACCIÓN REQUERIDA!
@@ -14,15 +16,17 @@ interface UpgradeModalProps {
   onClose: () => void;
 }
 
-const premiumFeatures = [
-    { icon: 'fa-magnifying-glass-chart', title: 'Pattern Detector', description: 'Analyze your entire history to reveal recurring manipulation tactics and long-term trends.' },
-    { icon: 'fa-heart', title: 'Personalized 8D Audios', description: 'Generate custom 8D audio meditations for your specific needs, from calming anxiety to building confidence.' },
-    { icon: 'fa-wand-magic-sparkles', title: 'Automatic Recommendations', description: 'Receive a personalized roadmap for healing with AI-powered advice and skill-building exercises.' },
-    { icon: 'fa-microphone', title: 'Unlimited Audio Analysis', description: 'Analyze situations by simply recording your voice, without limits.' }
-];
 
 export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
   const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'annual'>('annual');
+  
+  const premiumFeatures = [
+    { icon: 'fa-magnifying-glass-chart', title: t('upgrade.feature1Title'), description: t('upgrade.feature1Desc') },
+    { icon: 'fa-heart', title: t('upgrade.feature2Title'), description: t('upgrade.feature2Desc') },
+    { icon: 'fa-wand-magic-sparkles', title: t('upgrade.feature3Title'), description: t('upgrade.feature3Desc') },
+    { icon: 'fa-microphone', title: t('upgrade.feature4Title'), description: t('upgrade.feature4Desc') }
+  ];
 
   if (!isOpen) return null;
 
@@ -51,8 +55,8 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) =
             <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-gradient-to-br from-teal-400 to-violet-500 mb-4 -mt-12 border-4 border-slate-800">
                 <i className="fa-solid fa-rocket text-3xl text-white"></i>
             </div>
-            <h2 className="text-2xl font-bold text-slate-50 mb-2">Upgrade to NarciFY Premium</h2>
-            <p className="text-slate-300">Unlock the full toolkit for clarity, healing, and empowerment.</p>
+            <h2 className="text-2xl font-bold text-slate-50 mb-2">{t('upgrade.modalTitle')}</h2>
+            <p className="text-slate-300">{t('upgrade.modalDescription')}</p>
         </div>
         
         <div className="px-6 pb-6 space-y-4 max-h-[40vh] overflow-y-auto">
@@ -71,18 +75,18 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) =
         <div className="px-6 pb-4">
             <div className="bg-slate-900 p-1.5 rounded-xl flex items-center relative">
                  <button onClick={() => setSelectedPlan('monthly')} className={`w-1/2 p-2 rounded-lg text-sm font-bold z-10 transition-colors ${selectedPlan === 'monthly' ? 'text-white' : 'text-slate-300'}`}>
-                    Monthly
+                    {t('upgrade.monthly')}
                 </button>
                 <button onClick={() => setSelectedPlan('annual')} className={`w-1/2 p-2 rounded-lg text-sm font-bold z-10 transition-colors ${selectedPlan === 'annual' ? 'text-white' : 'text-slate-300'}`}>
-                    Annual
+                    {t('upgrade.annual')}
                 </button>
                 <div className={`absolute top-1.5 h-[calc(100%-12px)] w-1/2 bg-teal-500 rounded-lg transition-transform duration-300 ease-in-out ${selectedPlan === 'annual' ? 'translate-x-full' : 'translate-x-0'}`}></div>
             </div>
             <div className="text-center mt-3 h-10 flex items-center justify-center">
                 {selectedPlan === 'monthly' ? (
-                    <p className="text-slate-50 text-xl"><span className="font-bold text-2xl">$4.99</span> / month</p>
+                    <p className="text-slate-50 text-xl"><span className="font-bold text-2xl">$4.99</span> {t('upgrade.monthlyPrice')}</p>
                 ) : (
-                    <p className="text-slate-50 text-xl"><span className="font-bold text-2xl">$49.99</span> / year <span className="ml-2 bg-yellow-400/20 text-yellow-300 text-xs font-bold px-2 py-1 rounded-full">Save 16%</span></p>
+                    <p className="text-slate-50 text-xl"><span className="font-bold text-2xl">$49.99</span> {t('upgrade.annualPrice')} <span className="ml-2 bg-yellow-400/20 text-yellow-300 text-xs font-bold px-2 py-1 rounded-full">{t('upgrade.annualSave')}</span></p>
                 )}
             </div>
         </div>
@@ -90,7 +94,7 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) =
 
         <div className="p-6 bg-slate-900/50 rounded-b-2xl">
             <p className="text-center text-slate-400 text-sm mb-4">
-               Secure payment powered by Lemon Squeezy. Cancel anytime.
+               {t('upgrade.paymentInfo')}
             </p>
             <div className="flex flex-col gap-3">
                  <a 
@@ -100,11 +104,11 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) =
                     className="w-full bg-violet-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-violet-700 transition-colors flex items-center justify-center"
                 >
                     <i className="fa-solid fa-lock mr-2"></i>
-                    Upgrade Now
+                    {t('upgrade.upgradeButton')}
                 </a>
             </div>
             <button onClick={onClose} className="w-full text-center text-slate-400 mt-4 text-sm hover:text-white">
-                Maybe later
+                {t('upgrade.maybeLater')}
             </button>
         </div>
 
