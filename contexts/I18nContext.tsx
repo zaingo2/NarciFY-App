@@ -1,4 +1,5 @@
 
+
 import React, { createContext, useState, useEffect, ReactNode, useCallback, useMemo } from 'react';
 
 // Define the structure for language metadata
@@ -8,16 +9,16 @@ interface Language {
   path: string;
 }
 
-// Define all supported languages
+// Define all supported languages with updated, absolute paths
 const SUPPORTED_LANGUAGES: Omit<Language, 'name'>[] = [
-  { code: 'en', path: './locales/en.json' },
-  { code: 'es', path: './locales/es.json' },
-  { code: 'de', path: './locales/de.json' },
-  { code: 'fr', path: './locales/fr.json' },
-  { code: 'ja', path: './locales/ja.json' },
-  { code: 'no', path: './locales/no.json' },
-  { code: 'sv', path: './locales/sv.json' },
-  { code: 'fi', path: './locales/fi.json' },
+  { code: 'en', path: '/locales/en.json' },
+  { code: 'es', path: '/locales/es.json' },
+  { code: 'de', path: '/locales/de.json' },
+  { code: 'fr', path: '/locales/fr.json' },
+  { code: 'ja', path: '/locales/ja.json' },
+  { code: 'no', path: '/locales/no.json' },
+  { code: 'sv', path: '/locales/sv.json' },
+  { code: 'fi', path: '/locales/fi.json' },
 ];
 
 const SUPPORTED_LANG_CODES = SUPPORTED_LANGUAGES.map(lang => lang.code);
@@ -80,7 +81,7 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             console.error("Failed to load translations:", error);
             // Fallback with minimal data to prevent app crash
             try {
-                const enResponse = await fetch('./locales/en.json');
+                const enResponse = await fetch('/locales/en.json');
                 if (enResponse.ok) {
                     const enData = await enResponse.json();
                     setTranslations({ en: enData });

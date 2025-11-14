@@ -1,0 +1,210 @@
+
+{
+  "langName": "Español",
+  "navigation": {
+    "home": "Inicio",
+    "audios": "Audios 8D Personalizados",
+    "patternDetector": "Detector de Patrones",
+    "recommendations": "Recomendaciones Automáticas",
+    "sos": "SOS Calma",
+    "status": "Estado",
+    "premium": "Premium",
+    "freeUser": "Usuario Gratuito",
+    "upgrade": "Actualizar a Premium",
+    "languageSelectorLabel": "Seleccionar Idioma",
+    "affiliateProgram": "Programa de Afiliados",
+    "copyright": "Todos los derechos reservados."
+  },
+  "disclaimer": {
+    "title": "Descargo de Responsabilidad Importante",
+    "text": "NarciFY es una herramienta con IA solo para fines informativos y no sustituye el consejo psicológico o legal profesional. Si estás en peligro inmediato, por favor contacta a tus servicios de emergencia locales."
+  },
+  "analysisPanel": {
+    "title": "Inicio",
+    "description": "Describe una situación, conversación o comportamiento. Nuestra IA te ayudará a identificar posible manipulación y te ofrecerá orientación.",
+    "textInputTab": "Entrada de Texto",
+    "audioInputTab": "Entrada de Audio",
+    "errorPrefix": "Error",
+    "textPlaceholder": "Ej: 'Me dijo que estaba exagerando cuando me molesté porque canceló nuestros planes a última hora otra vez...'",
+    "analyzeTextButton": "Analizar Texto",
+    "audioDescription": "Graba tus pensamientos, una conversación reciente o sube un archivo de audio.",
+    "recordAudioButton": "Grabar Audio",
+    "uploadFileButton": "Subir Archivo",
+    "stopRecordingButton": "Detener Grabación",
+    "fileReady": "Archivo listo: \"{fileName}\"",
+    "recordingComplete": "¡Grabación completada!",
+    "transcribeAndAnalyzeButton": "Transcribir y Analizar",
+    "cancelButton": "Cancelar",
+    "analyzingMessage": "Analizando, por favor espera... Esto puede tardar un momento en situaciones complejas.",
+    "errors": {
+      "emptySituation": "Por favor, describe una situación.",
+      "unknown": "Ocurrió un error desconocido.",
+      "micDenied": "Se denegó el acceso al micrófono. Por favor, actívalo en la configuración de tu navegador.",
+      "noAudio": "Por favor, graba o sube un audio primero.",
+      "transcriptionFailed": "El audio no pudo ser transcrito o estaba vacío.",
+      "fileTooLarge": "El tamaño del archivo excede el límite de 20MB.",
+      "invalidFileType": "Tipo de archivo no válido. Por favor, sube un archivo de audio."
+    }
+  },
+  "analysisResultDisplay": {
+    "title": "Análisis Completado",
+    "seekHelpTitle": "Recomendación: Busca Ayuda Profesional",
+    "seekHelpText": "Basado en tu descripción, esta situación parece ser seria. Recomendamos encarecidamente buscar apoyo de un terapeuta o consejero cualificado.",
+    "readAloudButton": "Leer en Voz Alta",
+    "tryAgainButton": "Intentar de Nuevo",
+    "generatingButton": "Generando...",
+    "generatingMessage": "Generando audio, por favor espera un momento...",
+    "playButton": "Reproducir",
+    "pauseButton": "Pausa",
+    "resumeButton": "Reanudar",
+    "stopButton": "Detener",
+    "downloadButton": "Descargar",
+    "accordion": {
+      "isManipulation": "¿Es Manipulación?",
+      "suggestedResponses": "Respuestas Sugeridas",
+      "neutralizingTactics": "Tácticas de Neutralización",
+      "miniLesson": "Mini-Lección: {title}"
+    },
+    "errors": {
+      "ttsFailed": "Lo sentimos, no se pudo generar el audio en este momento.",
+      "downloadGenerateFirst": "Genera el audio antes de descargarlo.",
+      "downloadFailed": "No se pudo preparar el audio para la descarga."
+    }
+  },
+  "localHelp": {
+    "title": "Encuentra Apoyo Local",
+    "description": "Encuentra terapeutas, ayuda legal y centros de apoyo cerca de ti. Tu ubicación solo se usa para esta búsqueda y no se almacena.",
+    "findHelpButton": "Encontrar Ayuda Cerca de Mí",
+    "viewOnMap": "Ver en el mapa",
+    "initialMessage": "Haz clic en el botón para buscar servicios de apoyo locales.",
+    "errors": {
+      "findFailed": "Lo sentimos, hubo un error al buscar recursos de ayuda locales.",
+      "locationDenied": "No se pudo obtener tu ubicación. Por favor, activa los servicios de localización en tu navegador."
+    }
+  },
+  "chatWidget": {
+    "initialMessage": "¡Hola! Pregúntame lo que quieras sobre relaciones, comunicación o cómo establecer límites.",
+    "title": "Chat Rápido",
+    "placeholder": "Haz una pregunta...",
+    "errorMessage": "Lo siento, encontré un error. Por favor, inténtalo de nuevo."
+  },
+  "patternDetector": {
+    "title": "Detector de Patrones",
+    "description": "Descubre patrones emocionales y señales de alerta en la comunicación a través de tus análisis pasados.",
+    "noAnalysesTitle": "Aún no hay Análisis",
+    "noAnalysesText": "Tus análisis pasados aparecerán aquí una vez que comiences a analizar situaciones.",
+    "historyTitle": "Historial de Análisis",
+    "downloadAllButton": "Descargar Todo",
+    "deleteAllButton": "Borrar Todo",
+    "downloadOneTooltip": "Descargar este análisis",
+    "deleteOneTooltip": "Borrar este análisis",
+    "patternsTitle": "Patrones Recurrentes",
+    "patternsCount": "{count, plural, one {# vez} other {# veces}}",
+    "patternsInsight": "Estás tomando más conciencia de tus límites. Sigue observando estos patrones y confía en tus instintos.",
+    "patternsEmpty": "Tus patrones recurrentes se resumirán aquí a medida que añadas más análisis.",
+    "confirmDeleteOne": "¿Estás seguro de que quieres borrar permanentemente este análisis?",
+    "confirmDeleteAll": "¿Estás seguro de que quieres borrar permanentemente TODOS los análisis? Esta acción no se puede deshacer."
+  },
+  "personalizedAudios": {
+    "title": "Audios 8D Personalizados",
+    "description": "Crea una meditación 8D personalizada para tu situación actual.",
+    "howToTitle": "Cómo Usar Esta Sección",
+    "howToStep1": "Personaliza: Ingresa tu nombre para que la meditación se dirija a ti directamente.",
+    "howToStep2": "Crea el Ambiente: Elige un sonido de fondo y presiona su botón de reproducción. Puedes ajustar su volumen de forma independiente. ¡Se recomienda usar auriculares!",
+    "howToStep3": "Elige tu Tema: Selecciona una meditación predefinida de la lista para necesidades comunes.",
+    "howToStep4": "Genera y Relájate: Haz clic en 'Generar y Reproducir Voz'. La IA creará e iniciará tu audio 8D único. Por favor, sé paciente, ya que esto puede tardar un momento.",
+    "headphonesRecommended": "Para la mejor experiencia, recomendamos encarecidamente el uso de auriculares.",
+    "step1Label": "1. Ingresa tu nombre",
+    "step1Placeholder": "Esto hace que la meditación sea personal para ti",
+    "step2Label": "2. Elige un sonido de fondo",
+    "step3Label": "3. Elige un tema de meditación",
+    "generateAndPlayButton": "Generar y Reproducir Voz",
+    "generatingVoiceButton": "Generando Voz...",
+    "customTitle": "O, Crea una Meditación Personalizada",
+    "customDescription": "Si tienes una necesidad específica, descríbela aquí. Cuantos más detalles proporciones, más personalizada será tu meditación.",
+    "customExamplesTitle": "Ejemplos:",
+    "customExample1": "\"Una meditación de 5 minutos para calmar mis nervios antes de una llamada difícil.\"",
+    "customExample2": "\"Ayúdame a liberar sentimientos de resentimiento hacia un familiar.\"",
+    "customExample3": "\"Un audio para ayudarme a dormir cuando mi mente no para.\"",
+    "customRequestLabel": "Tu petición personalizada:",
+    "customPlaceholder": "Ej: 'Ayúdame a ganar confianza antes de una conversación difícil...'",
+    "generateCustomButton": "Generar Meditación Personalizada",
+    "generatingMessage": "Generando audio, por favor espera un momento... esto puede tardar de 1 a 2 minutos.",
+    "errors": {
+      "noName": "Por favor, ingresa tu nombre.",
+      "noCustomPrompt": "Por favor, describe la meditación que deseas.",
+      "generationFailed": "No se pudo generar el audio. Por favor, inténtalo de nuevo.",
+      "downloadGenerateFirst": "Por favor, genera el audio primero."
+    },
+    "meditationOptions": {
+      "anxiety": "Liberar Ansiedad y Encontrar Paz Interior",
+      "healing": "Sanar Heridas Emocionales Pasadas",
+      "confidence": "Activación de Confianza y Amor Propio",
+      "cleanse": "Limpieza Energética y Reinicio Mental",
+      "morning": "Meditación Matutina de Empoderamiento"
+    },
+    "backgroundSounds": {
+      "rain": "Lluvia",
+      "forest": "Arroyo",
+      "ocean": "Olas",
+      "birds": "Pájaros"
+    }
+  },
+  "sosCalmDown": {
+    "title": "SOS Calma",
+    "description": "Alivio instantáneo para cuando te sientes abrumado. Concéntrate en tu respiración y deja que estas palabras te guíen de vuelta a tu centro.",
+    "initialAffirmation": "Concéntrate en el círculo y respira.",
+    "enableBinaural": "Activar Tono Binaural",
+    "binauralDescription": "Crea un zumbido relajante de 432Hz.",
+    "binauralVolumeQuiet": "Bajo",
+    "binauralVolumeLoud": "Alto",
+    "binauralHeadphones": "Se requieren auriculares para el efecto binaural.",
+    "startSessionButton": "Iniciar Sesión",
+    "tryAgainButton": "Intentar de Nuevo",
+    "generatingMessage": "Generando tu audio relajante, por favor espera...",
+    "whyItWorksTitle": "Por qué funciona",
+    "whyItWorksText": "La respiración controlada calma tu sistema nervioso, reduciendo la respuesta de 'lucha o huida'. Las afirmaciones positivas ayudan a interrumpir los ciclos de pensamientos ansiosos, recordándote tu fuerza y anclándote en el momento presente.",
+    "error": "No se pudo iniciar la sesión de calma. Por favor, inténtalo de nuevo.",
+    "breathing": {
+      "in": "Inhala",
+      "hold": "Sostén",
+      "out": "Exhala"
+    }
+  },
+  "recommendations": {
+    "title": "Recomendaciones Automáticas",
+    "description": "Tu mapa de ruta personalizado para la sanación y el crecimiento, basado en tu historial.",
+    "refreshButton": "Actualizar Recomendaciones",
+    "loading": "Analizando tus patrones y generando recomendaciones personalizadas...",
+    "error": "Lo sentimos, no pudimos generar recomendaciones personalizadas en este momento. Por favor, inténtalo de nuevo más tarde.",
+    "emptyTitle": "Tus Recomendaciones Aparecerán Aquí",
+    "emptyText": "A medida que analices situaciones, esta sección se llenará automáticamente con consejos personalizados, ejercicios de habilidades y estrategias de sanación basadas en tus patrones únicos.",
+    "genericError": "No se pudieron generar recomendaciones basadas en el historial actual."
+  },
+  "upgrade": {
+    "modalTitle": "Actualiza a NarciFY Premium",
+    "modalDescription": "Desbloquea el conjunto completo de herramientas para la claridad, sanación y empoderamiento.",
+    "feature1Title": "Detector de Patrones",
+    "feature1Desc": "Analiza todo tu historial para revelar tácticas de manipulación recurrentes y tendencias a largo plazo.",
+    "feature2Title": "Audios 8D Personalizados",
+    "feature2Desc": "Genera meditaciones de audio 8D personalizadas para tus necesidades específicas, desde calmar la ansiedad hasta aumentar la confianza.",
+    "feature3Title": "Recomendaciones Automáticas",
+    "feature3Desc": "Recibe un mapa de ruta personalizado para la sanación con consejos y ejercicios de desarrollo de habilidades impulsados por IA.",
+    "feature4Title": "Análisis de Audio Ilimitado",
+    "feature4Desc": "Analiza situaciones simplemente grabando tu voz, sin límites.",
+    "monthly": "Mensual",
+    "annual": "Anual",
+    "monthlyPrice": "/ mes",
+    "annualPrice": "/ año",
+    "annualSave": "Ahorra 16%",
+    "paymentInfo": "Pago seguro gestionado por Lemon Squeezy. Cancela en cualquier momento.",
+    "upgradeButton": "Actualizar Ahora",
+    "maybeLater": "Quizás más tarde",
+    "teaserPatternDetectorTitle": "Desbloquea el Detector de Patrones",
+    "teaserPatternDetectorDesc": "Mira el panorama completo. El Detector de Patrones analiza todo tu historial para revelar tácticas de manipulación recurrentes y tendencias emocionales, ayudándote a comprender dinámicas a largo plazo y a liberarte de ciclos dañinos.",
+    "teaserAudiosTitle": "Desbloquea Audios 8D Personalizados",
+    "teaserAudiosDesc": "Experimenta una sanación profunda con meditaciones de audio 8D inmersivas hechas a tu medida. Genera guiones personalizados para tus necesidades específicas, desde calmar la ansiedad hasta construir confianza, y deja que el paisaje sonoro 8D te guíe a un lugar de paz.",
+    "teaserRecommendationsTitle": "Desbloquea Recomendaciones Automáticas",
+    "teaserRecommendationsDesc": "Obtén un mapa de ruta personalizado para sanar. Nuestra IA analiza tu historial para proporcionar consejos a medida, ejercicios de desarrollo de habilidades y estrategias de sanación diseñadas para abordar los patrones específicos que enfrentas."
+  }
+}
