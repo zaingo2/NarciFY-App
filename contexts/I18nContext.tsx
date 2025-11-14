@@ -1,6 +1,27 @@
 
 import React, { createContext, useState, useEffect, ReactNode, useCallback } from 'react';
 
+// Define the structure for language metadata
+interface Language {
+  code: string;
+  name: string;
+  path: string;
+}
+
+// Define all supported languages
+const SUPPORTED_LANGUAGES: Language[] = [
+  { code: 'en', name: 'English', path: './locales/en.json' },
+  { code: 'es', name: 'Español', path: './locales/es.json' },
+  { code: 'de', name: 'Deutsch', path: './locales/de.json' },
+  { code: 'fr', name: 'Français', path: './locales/fr.json' },
+  { code: 'ja', name: '日本語', path: './locales/ja.json' },
+  { code: 'no', name: 'Norsk', path: './locales/no.json' },
+  { code: 'sv', name: 'Svenska', path: './locales/sv.json' },
+  { code: 'fi', name: 'Suomi', path: './locales/fi.json' },
+];
+
+const SUPPORTED_LANG_CODES = SUPPORTED_LANGUAGES.map(lang => lang.code);
+
 // A generic type for our translation files.
 interface Translations {
   [key: string]: string | Translations;
@@ -10,63 +31,71 @@ interface I18nContextType {
   language: string;
   changeLanguage: (lang: string) => void;
   t: (key: string, options?: { [key: string]: string | number }) => string;
+  languages: Language[];
 }
 
 export const I18nContext = createContext<I18nContextType | undefined>(undefined);
 
 export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState('en');
-  const [translations, setTranslations] = useState<{ [key: string]: Translations }>({});
+  const [translations, setTranslations] = useState<{ [key: string]: Translations } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch translation files on component mount
+  // Load all translations on initial mount
   useEffect(() => {
-    const fetchTranslations = async () => {
-      try {
-        const [enResponse, esResponse] = await Promise.all([
-          fetch('./locales/en.json'),
-          fetch('./locales/es.json')
-        ]);
+    const loadAllTranslations = async () => {
+        try {
+            const responses = await Promise.all(
+                SUPPORTED_LANGUAGES.map(lang => fetch(lang.path))
+            );
+            
+            for (const response of responses) {
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch translation file: ${response.url}`);
+                }
+            }
 
-        if (!enResponse.ok || !esResponse.ok) {
-            throw new Error('Failed to fetch translation files');
+            const data = await Promise.all(responses.map(res => res.json()));
+
+            const loadedTranslations = SUPPORTED_LANGUAGES.reduce((acc, lang, index) => {
+                acc[lang.code] = data[index];
+                return acc;
+            }, {} as { [key: string]: Translations });
+
+            setTranslations(loadedTranslations);
+
+            // Determine initial language after translations are loaded
+            const savedLang = localStorage.getItem('narciFyLanguage');
+            const browserLang = navigator.language.split('-')[0];
+            
+            if (savedLang && SUPPORTED_LANG_CODES.includes(savedLang)) {
+              setLanguage(savedLang);
+            } else if (SUPPORTED_LANG_CODES.includes(browserLang)) {
+              setLanguage(browserLang);
+            } else {
+              setLanguage('en'); // Default to English
+            }
+
+        } catch (error) {
+            console.error("Failed to load translations:", error);
+            // Fallback with minimal data to prevent app crash
+            const enResponse = await fetch('./locales/en.json');
+            if (enResponse.ok) {
+                const enData = await enResponse.json();
+                setTranslations({ en: enData });
+            } else {
+                setTranslations({ en: {} });
+            }
+        } finally {
+            setIsLoading(false);
         }
-
-        const enData = await enResponse.json();
-        const esData = await esResponse.json();
-        
-        setTranslations({ en: enData, es: esData });
-      } catch (error) {
-        console.error("Failed to load translation files:", error);
-        // In case of error, we can fall back to a minimal empty state.
-        // The `t` function will then just return the keys.
-        setTranslations({ en: {}, es: {} });
-      } finally {
-        setIsLoading(false);
-      }
     };
-
-    fetchTranslations();
+    
+    loadAllTranslations();
   }, []);
 
-  // Set initial language after translations are loaded
-  useEffect(() => {
-    if (!isLoading) {
-        const savedLang = localStorage.getItem('narciFyLanguage');
-        const browserLang = navigator.language.split('-')[0];
-        
-        if (savedLang && translations[savedLang]) {
-          setLanguage(savedLang);
-        } else if (translations[browserLang]) {
-          setLanguage(browserLang);
-        } else {
-          setLanguage('en'); // Default to English
-        }
-    }
-  }, [isLoading, translations]);
-
   const changeLanguage = (lang: string) => {
-    if (translations[lang]) {
+    if (translations && translations[lang]) {
       setLanguage(lang);
       try {
         localStorage.setItem('narciFyLanguage', lang);
@@ -77,28 +106,39 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const getNestedTranslation = useCallback((lang: string, key: string): string | undefined => {
+    if (!translations) return undefined;
     const langData = translations[lang];
     if (!langData) return undefined;
     return key.split('.').reduce((obj: any, k: string) => obj && obj[k], langData);
   }, [translations]);
 
   const t = useCallback((key: string, options?: { [key: string]: string | number }): string => {
-    // If translations are still loading, return the key as a fallback.
-    // This prevents empty strings from appearing during the initial load.
-    if (isLoading) return key;
+    if (isLoading || !translations) return key; // Return key if not loaded
 
     let translation = getNestedTranslation(language, key) || getNestedTranslation('en', key) || key;
 
+    // Handle pluralization for the specific key by parsing simple ICU format
     if (key === 'patternDetector.patternsCount' && options && typeof options.count === 'number') {
-        const pluralRules = new Intl.PluralRules(language);
-        const pluralCategory = pluralRules.select(options.count);
-        if (language === 'es') {
-            const text = pluralCategory === 'one' ? '{count} vez' : '{count} veces';
-            return text.replace('{count}', String(options.count));
+        const count = options.count;
+        const translationString = getNestedTranslation(language, key) || getNestedTranslation('en', key) || '{count} times';
+        
+        // Simple ICU message format parser for: {count, plural, one {#...} other {#...}}
+        const oneMatch = translationString.match(/one\s*{([^}]+)}/);
+        const otherMatch = translationString.match(/other\s*{([^}]+)}/);
+
+        if (oneMatch && otherMatch) {
+            const oneForm = oneMatch[1].replace('#', String(count));
+            const otherForm = otherMatch[1].replace('#', String(count));
+
+            const pluralRules = new Intl.PluralRules(language);
+            const category = pluralRules.select(count);
+
+            return category === 'one' ? oneForm : otherForm;
         }
-        const text = pluralCategory === 'one' ? '{count} time' : '{count} times';
-        return text.replace('{count}', String(options.count));
+        // Fallback for formats that don't use the plural rule (e.g., Japanese)
+        return translationString.replace('{count}', String(count));
     }
+
 
     if (options) {
       Object.keys(options).forEach(k => {
@@ -108,19 +148,23 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
 
     return translation;
-  }, [language, translations, isLoading, getNestedTranslation]);
+  }, [language, getNestedTranslation, isLoading, translations]);
 
   const value = {
     language,
     changeLanguage,
     t,
+    languages: SUPPORTED_LANGUAGES,
   };
   
-  // Render children only after translations are loaded to avoid UI flicker
-  // or showing untranslated keys. A loading screen could also be shown here.
+  if (isLoading) {
+    // Render nothing to prevent the app from showing untranslated keys while loading.
+    return null; 
+  }
+
   return (
     <I18nContext.Provider value={value}>
-        {!isLoading ? children : null}
+        {children}
     </I18nContext.Provider>
   );
 };

@@ -1,0 +1,210 @@
+
+{
+  "langName": "Norsk",
+  "navigation": {
+    "home": "Hjem",
+    "audios": "Personlige 8D-lyder",
+    "patternDetector": "Mønsterdetektor",
+    "recommendations": "Automatiske anbefalinger",
+    "sos": "SOS Ro ned",
+    "status": "Status",
+    "premium": "Premium",
+    "freeUser": "Gratis bruker",
+    "upgrade": "Oppgrader til Premium",
+    "languageSelectorLabel": "Velg språk",
+    "affiliateProgram": "Partnerprogram",
+    "copyright": "Alle rettigheter forbeholdt."
+  },
+  "disclaimer": {
+    "title": "Viktig ansvarsfraskrivelse",
+    "text": "NarciFY er et AI-drevet verktøy kun for informasjonsformål og er ikke en erstatning for profesjonell psykologisk eller juridisk rådgivning. Hvis du er i umiddelbar fare, vennligst kontakt dine lokale nødetater."
+  },
+  "analysisPanel": {
+    "title": "Hjem",
+    "description": "Beskriv en situasjon, samtale eller atferd. Vår AI vil hjelpe deg med å identifisere potensiell manipulasjon og tilby veiledning.",
+    "textInputTab": "Tekstinndata",
+    "audioInputTab": "Lydinndata",
+    "errorPrefix": "Feil",
+    "textPlaceholder": "F.eks. 'De fortalte meg at jeg overreagerte da jeg ble opprørt over at de avlyste planene våre i siste liten igjen...'",
+    "analyzeTextButton": "Analyser tekst",
+    "audioDescription": "Spill inn tankene dine, en nylig samtale, eller last opp en lydfil.",
+    "recordAudioButton": "Spill inn lyd",
+    "uploadFileButton": "Last opp fil",
+    "stopRecordingButton": "Stopp innspilling",
+    "fileReady": "Fil klar: \"{fileName}\"",
+    "recordingComplete": "Innspilling fullført!",
+    "transcribeAndAnalyzeButton": "Transkriber & Analyser",
+    "cancelButton": "Avbryt",
+    "analyzingMessage": "Analyserer, vennligst vent... Dette kan ta et øyeblikk for komplekse situasjoner.",
+    "errors": {
+      "emptySituation": "Vennligst beskriv en situasjon.",
+      "unknown": "En ukjent feil oppstod.",
+      "micDenied": "Mikrofontilgang ble nektet. Vennligst aktiver den i nettleserinnstillingene dine.",
+      "noAudio": "Vennligst spill inn eller last opp lyd først.",
+      "transcriptionFailed": "Lyden kunne ikke transkriberes eller var tom.",
+      "fileTooLarge": "Filstørrelsen overskrider grensen på 20 MB.",
+      "invalidFileType": "Ugyldig filtype. Vennligst last opp en lydfil."
+    }
+  },
+  "analysisResultDisplay": {
+    "title": "Analyse fullført",
+    "seekHelpTitle": "Anbefaling: Søk profesjonell hjelp",
+    "seekHelpText": "Basert på din beskrivelse, ser denne situasjonen ut til å være alvorlig. Vi anbefaler på det sterkeste å søke støtte fra en kvalifisert terapeut eller rådgiver.",
+    "readAloudButton": "Les høyt",
+    "tryAgainButton": "Prøv igjen",
+    "generatingButton": "Genererer...",
+    "generatingMessage": "Genererer lyd, vennligst vent et øyeblikk...",
+    "playButton": "Spill av",
+    "pauseButton": "Pause",
+    "resumeButton": "Gjenoppta",
+    "stopButton": "Stopp",
+    "downloadButton": "Last ned",
+    "accordion": {
+      "isManipulation": "Er dette manipulasjon?",
+      "suggestedResponses": "Foreslåtte responser",
+      "neutralizingTactics": "Nøytraliserende taktikker",
+      "miniLesson": "Mini-leksjon: {title}"
+    },
+    "errors": {
+      "ttsFailed": "Beklager, kunne ikke generere lyd for øyeblikket.",
+      "downloadGenerateFirst": "Generer lyden først før du laster ned.",
+      "downloadFailed": "Kunne ikke forberede lyd for nedlasting."
+    }
+  },
+  "localHelp": {
+    "title": "Finn lokal støtte",
+    "description": "Finn terapeuter, juridisk hjelp og støttesentre i nærheten av deg. Din posisjon brukes kun for dette søket og lagres ikke.",
+    "findHelpButton": "Finn hjelp i nærheten",
+    "viewOnMap": "Vis på kart",
+    "initialMessage": "Klikk på knappen for å søke etter lokale støttetjenester.",
+    "errors": {
+      "findFailed": "Beklager, det oppstod en feil under søk etter lokale hjelperessurser.",
+      "locationDenied": "Kunne ikke hente din posisjon. Vennligst aktiver posisjonstjenester i nettleseren din."
+    }
+  },
+  "chatWidget": {
+    "initialMessage": "Hei! Spør meg om hva som helst om forhold, kommunikasjon eller å sette grenser.",
+    "title": "Rask prat",
+    "placeholder": "Still et spørsmål...",
+    "errorMessage": "Beklager, jeg støtte på en feil. Vennligst prøv igjen."
+  },
+  "patternDetector": {
+    "title": "Mønsterdetektor",
+    "description": "Oppdag emosjonelle mønstre og kommunikasjonsvarsler på tvers av dine tidligere analyser.",
+    "noAnalysesTitle": "Ingen analyser ennå",
+    "noAnalysesText": "Dine tidligere analyser vil vises her når du begynner å analysere situasjoner.",
+    "historyTitle": "Analysehistorikk",
+    "downloadAllButton": "Last ned alle",
+    "deleteAllButton": "Slett alle",
+    "downloadOneTooltip": "Last ned denne analysen",
+    "deleteOneTooltip": "Slett denne analysen",
+    "patternsTitle": "Gjentakende mønstre",
+    "patternsCount": "{count, plural, one {# gang} other {# ganger}}",
+    "patternsInsight": "Du blir mer bevisst på grensene dine. Fortsett å observere disse mønstrene og stol på instinktene dine.",
+    "patternsEmpty": "Dine gjentakende mønstre vil bli oppsummert her etter hvert som du legger til flere analyser.",
+    "confirmDeleteOne": "Er du sikker på at du vil slette denne analysen permanent?",
+    "confirmDeleteAll": "Er du sikker på at du vil slette ALLE analyser permanent? Denne handlingen kan ikke angres."
+  },
+  "personalizedAudios": {
+    "title": "Personlige 8D-lyder",
+    "description": "Lag en personlig 8D-meditasjon for din nåværende situasjon.",
+    "howToTitle": "Hvordan bruke denne delen",
+    "howToStep1": "Personliggjør: Skriv inn navnet ditt slik at meditasjonen kan henvende seg direkte til deg.",
+    "howToStep2": "Sett stemningen: Velg en bakgrunnslyd og trykk på avspillingsknappen. Du kan justere volumet uavhengig. Hodetelefoner anbefales på det sterkeste!",
+    "howToStep3": "Velg ditt emne: Velg en ferdiglaget meditasjon fra rullegardinlisten for vanlige behov.",
+    "howToStep4": "Generer & Slapp av: Klikk på 'Generer & Spill av stemme'. AI-en vil lage og starte din unike 8D-lyd. Vær tålmodig, da dette kan ta et øyeblikk.",
+    "headphonesRecommended": "For den beste opplevelsen anbefaler vi på det sterkeste å bruke hodetelefoner.",
+    "step1Label": "1. Skriv inn navnet ditt",
+    "step1Placeholder": "Dette gjør meditasjonen personlig for deg",
+    "step2Label": "2. Velg en bakgrunnslyd",
+    "step3Label": "3. Velg et meditasjonsemne",
+    "generateAndPlayButton": "Generer & Spill av stemme",
+    "generatingVoiceButton": "Genererer stemme...",
+    "customTitle": "Eller lag en tilpasset meditasjon",
+    "customDescription": "Hvis du har et spesifikt behov, beskriv det her. Jo flere detaljer du gir, jo mer skreddersydd blir meditasjonen din.",
+    "customExamplesTitle": "Eksempel-prompter:",
+    "customExample1": "\"En 5-minutters meditasjon for å roe nervene før en vanskelig telefonsamtale.\"",
+    "customExample2": "\"Hjelp meg med å gi slipp på følelser av nag mot et familiemedlem.\"",
+    "customExample3": "\"En lyd for å hjelpe meg med å sovne når tankene raser.\"",
+    "customRequestLabel": "Din tilpassede forespørsel:",
+    "customPlaceholder": "F.eks. 'Hjelp meg med å bygge selvtillit før en vanskelig samtale...'",
+    "generateCustomButton": "Generer tilpasset meditasjon",
+    "generatingMessage": "Genererer lyd, vennligst vent et øyeblikk... dette kan ta 1 til 2 minutter.",
+    "errors": {
+      "noName": "Vennligst skriv inn navnet ditt.",
+      "noCustomPrompt": "Vennligst beskriv meditasjonen du ønsker.",
+      "generationFailed": "Kunne ikke generere lyd. Vennligst prøv igjen.",
+      "downloadGenerateFirst": "Vennligst generer lyden først."
+    },
+    "meditationOptions": {
+      "anxiety": "Slipp angst & Finn indre ro",
+      "healing": "Helbredelse av tidligere emosjonelle sår",
+      "confidence": "Aktivering av selvtillit & Egenkjærlighet",
+      "cleanse": "Energirens & Mental nullstilling",
+      "morning": "Morgen-empowerment-meditasjon"
+    },
+    "backgroundSounds": {
+      "rain": "Regn",
+      "forest": "Skogsbekk",
+      "ocean": "Havbølger",
+      "birds": "Skogsfugler"
+    }
+  },
+  "sosCalmDown": {
+    "title": "SOS Ro ned",
+    "description": "Øyeblikkelig lindring når du føler deg overveldet. Fokuser på pusten din og la disse ordene veilede deg tilbake til sentrum.",
+    "initialAffirmation": "Fokuser på sirkelen og pust.",
+    "enableBinaural": "Aktiver binaural tone",
+    "binauralDescription": "Skaper en avslappende 432Hz-summing.",
+    "binauralVolumeQuiet": "Stille",
+    "binauralVolumeLoud": "Høyt",
+    "binauralHeadphones": "Hodetelefoner er påkrevd for den binaurale effekten.",
+    "startSessionButton": "Start økt",
+    "tryAgainButton": "Prøv igjen",
+    "generatingMessage": "Genererer din beroligende lyd, vennligst vent...",
+    "whyItWorksTitle": "Hvorfor dette virker",
+    "whyItWorksText": "Kontrollert pusting roer nervesystemet ditt, og reduserer \"kjemp-eller-flykt\"-responsen. Positive affirmasjoner hjelper til med å bryte sykluser av engstelige tanker, minner deg om din styrke og jorder deg i øyeblikket.",
+    "error": "Kunne ikke starte den beroligende økten. Vennligst prøv igjen.",
+    "breathing": {
+      "in": "Pust inn",
+      "hold": "Hold",
+      "out": "Pust ut"
+    }
+  },
+  "recommendations": {
+    "title": "Automatiske anbefalinger",
+    "description": "Din personlige veikart for helbredelse og vekst, basert på din historikk.",
+    "refreshButton": "Oppdater anbefalinger",
+    "loading": "Analyserer mønstrene dine og genererer personlige anbefalinger...",
+    "error": "Beklager, vi kunne ikke generere personlige anbefalinger for øyeblikket. Vennligst prøv igjen senere.",
+    "emptyTitle": "Dine anbefalinger vil vises her",
+    "emptyText": "Når du analyserer situasjoner, vil denne delen automatisk fylles med personlige råd, ferdighetsbyggende øvelser og helbredelsesstrategier basert på dine unike mønstre.",
+    "genericError": "Kunne ikke generere anbefalinger basert på gjeldende historikk."
+  },
+  "upgrade": {
+    "modalTitle": "Oppgrader til NarciFY Premium",
+    "modalDescription": "Lås opp hele verktøykassen for klarhet, helbredelse og myndiggjøring.",
+    "feature1Title": "Mønsterdetektor",
+    "feature1Desc": "Analyser hele historikken din for å avdekke gjentakende manipulasjonstaktikker og langsiktige trender.",
+    "feature2Title": "Personlige 8D-lyder",
+    "feature2Desc": "Generer tilpassede 8D-lydmeditasjoner for dine spesifikke behov, fra å roe angst til å bygge selvtillit.",
+    "feature3Title": "Automatiske anbefalinger",
+    "feature3Desc": "Få en personlig veikart til helbredelse med AI-drevne råd og ferdighetsbyggende øvelser.",
+    "feature4Title": "Ubegrenset lydanalyse",
+    "feature4Desc": "Analyser situasjoner ved å bare spille inn stemmen din, uten grenser.",
+    "monthly": "Månedlig",
+    "annual": "Årlig",
+    "monthlyPrice": "/ md.",
+    "annualPrice": "/ år",
+    "annualSave": "Spar 16%",
+    "paymentInfo": "Sikker betaling drevet av Lemon Squeezy. Avbryt når som helst.",
+    "upgradeButton": "Oppgrader nå",
+    "maybeLater": "Kanskje senere",
+    "teaserPatternDetectorTitle": "Lås opp Mønsterdetektoren",
+    "teaserPatternDetectorDesc": "Se det store bildet. Mønsterdetektoren analyserer hele historikken din for å avdekke gjentakende manipulasjonstaktikker og emosjonelle trender, og hjelper deg med å forstå langsiktige dynamikker og bryte fri fra skadelige sykluser.",
+    "teaserAudiosTitle": "Lås opp Personlige 8D-lyder",
+    "teaserAudiosDesc": "Opplev dyp helbredelse med oppslukende 8D-lydmeditasjoner skreddersydd bare for deg. Generer tilpassede skript for dine spesifikke behov, fra å roe angst til å bygge selvtillit, og la 8D-lydbildet guide deg til et sted med fred.",
+    "teaserRecommendationsTitle": "Lås opp Automatiske Anbefalinger",
+    "teaserRecommendationsDesc": "Få en personlig veikart til helbredelse. Vår AI analyserer historikken din for å gi skreddersydde råd, ferdighetsbyggende øvelser og helbredelsesstrategier designet for å takle de spesifikke mønstrene du står overfor."
+  }
+}

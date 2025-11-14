@@ -13,7 +13,7 @@ interface NavigationProps {
 export const Navigation: React.FC<NavigationProps> = ({ currentView, setCurrentView, onUpgradeClick }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isPremium } = useAuth();
-  const { language, changeLanguage, t } = useTranslation();
+  const { language, changeLanguage, t, languages } = useTranslation();
 
   const navItems = [
     { id: 'home', title: t('navigation.home'), icon: 'fa-solid fa-house', isPremium: false },
@@ -89,8 +89,11 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, setCurrentV
                         backgroundSize: '1.5em 1.5em'
                     }}
                 >
-                    <option value="en">English</option>
-                    <option value="es">Español</option>
+                    {languages.map(lang => (
+                        <option key={lang.code} value={lang.code}>
+                            {lang.name}
+                        </option>
+                    ))}
                 </select>
             </div>
             <a href="https://zaingoapps.lemonsqueezy.com/affiliates" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 transition-colors block mb-2">

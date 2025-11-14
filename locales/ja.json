@@ -1,0 +1,210 @@
+
+{
+  "langName": "日本語",
+  "navigation": {
+    "home": "ホーム",
+    "audios": "パーソナライズ8Dオーディオ",
+    "patternDetector": "パターン検出器",
+    "recommendations": "自動推奨",
+    "sos": "SOSカームダウン",
+    "status": "ステータス",
+    "premium": "プレミアム",
+    "freeUser": "無料ユーザー",
+    "upgrade": "プレミアムにアップグレード",
+    "languageSelectorLabel": "言語を選択",
+    "affiliateProgram": "アフィリエイトプログラム",
+    "copyright": "無断複写・転載を禁じます。"
+  },
+  "disclaimer": {
+    "title": "重要免責事項",
+    "text": "NarciFYは情報提供のみを目的としたAI搭載ツールであり、専門的な心理的または法的助言に代わるものではありません。緊急の危険がある場合は、お近くの救急サービスにご連絡ください。"
+  },
+  "analysisPanel": {
+    "title": "ホーム",
+    "description": "状況、会話、または行動を説明してください。私たちのAIが、潜在的な操作を特定し、ガイダンスを提供するお手伝いをします。",
+    "textInputTab": "テキスト入力",
+    "audioInputTab": "音声入力",
+    "errorPrefix": "エラー",
+    "textPlaceholder": "例：「また直前に予定をキャンセルされたので怒ったら、私が大げさだと言われた…」",
+    "analyzeTextButton": "テキストを分析",
+    "audioDescription": "あなたの考えや最近の会話を録音するか、音声ファイルをアップロードしてください。",
+    "recordAudioButton": "音声を録音",
+    "uploadFileButton": "ファイルをアップロード",
+    "stopRecordingButton": "録音を停止",
+    "fileReady": "ファイルの準備ができました：\"{fileName}\"",
+    "recordingComplete": "録音が完了しました！",
+    "transcribeAndAnalyzeButton": "文字起こしして分析",
+    "cancelButton": "キャンセル",
+    "analyzingMessage": "分析中です、お待ちください...複雑な状況の場合、少し時間がかかることがあります。",
+    "errors": {
+      "emptySituation": "状況を説明してください。",
+      "unknown": "不明なエラーが発生しました。",
+      "micDenied": "マイクへのアクセスが拒否されました。ブラウザの設定で有効にしてください。",
+      "noAudio": "まず音声を録音またはアップロードしてください。",
+      "transcriptionFailed": "音声を文字起こしできませんでした、または音声が空でした。",
+      "fileTooLarge": "ファイルサイズが20MBの制限を超えています。",
+      "invalidFileType": "無効なファイルタイプです。音声ファイルをアップロードしてください。"
+    }
+  },
+  "analysisResultDisplay": {
+    "title": "分析完了",
+    "seekHelpTitle": "推奨：専門家の助けを求める",
+    "seekHelpText": "あなたの説明に基づくと、この状況は深刻であると思われます。資格のあるセラピストやカウンセラーからのサポートを求めることを強くお勧めします。",
+    "readAloudButton": "読み上げる",
+    "tryAgainButton": "再試行",
+    "generatingButton": "生成中...",
+    "generatingMessage": "音声を生成中です、しばらくお待ちください...",
+    "playButton": "再生",
+    "pauseButton": "一時停止",
+    "resumeButton": "再開",
+    "stopButton": "停止",
+    "downloadButton": "ダウンロード",
+    "accordion": {
+      "isManipulation": "これは操作ですか？",
+      "suggestedResponses": "提案された対応",
+      "neutralizingTactics": "無力化戦術",
+      "miniLesson": "ミニレッスン：{title}"
+    },
+    "errors": {
+      "ttsFailed": "申し訳ありませんが、現在音声を生成できませんでした。",
+      "downloadGenerateFirst": "ダウンロードする前に、まず音声を生成してください。",
+      "downloadFailed": "ダウンロード用の音声を準備できませんでした。"
+    }
+  },
+  "localHelp": {
+    "title": "地元のサポートを探す",
+    "description": "お近くのセラピスト、法的支援、サポートセンターを探します。あなたの位置情報はこの検索にのみ使用され、保存されません。",
+    "findHelpButton": "近くのヘルプを探す",
+    "viewOnMap": "地図で表示",
+    "initialMessage": "ボタンをクリックして、地元のサポートサービスを検索してください。",
+    "errors": {
+      "findFailed": "申し訳ありませんが、地元のヘルプリソースの検索中にエラーが発生しました。",
+      "locationDenied": "位置情報を取得できませんでした。ブラウザで位置情報サービスを有効にしてください。"
+    }
+  },
+  "chatWidget": {
+    "initialMessage": "こんにちは！人間関係、コミュニケーション、境界線の設定について何でも聞いてください。",
+    "title": "クイックチャット",
+    "placeholder": "質問を入力...",
+    "errorMessage": "申し訳ありません、エラーが発生しました。もう一度お試しください。"
+  },
+  "patternDetector": {
+    "title": "パターン検出器",
+    "description": "過去の分析から感情的なパターンやコミュニケーションの危険信号を発見します。",
+    "noAnalysesTitle": "まだ分析がありません",
+    "noAnalysesText": "状況の分析を開始すると、過去の分析がここに表示されます。",
+    "historyTitle": "分析履歴",
+    "downloadAllButton": "すべてダウンロード",
+    "deleteAllButton": "すべて削除",
+    "downloadOneTooltip": "この分析をダウンロード",
+    "deleteOneTooltip": "この分析を削除",
+    "patternsTitle": "繰り返されるパターン",
+    "patternsCount": "{count}回",
+    "patternsInsight": "あなたは自分の境界線をより意識するようになっています。これらのパターンを観察し続け、自分の直感を信じてください。",
+    "patternsEmpty": "分析を追加すると、繰り返されるパターンがここに要約されます。",
+    "confirmDeleteOne": "この分析を完全に削除してもよろしいですか？",
+    "confirmDeleteAll": "すべての分析を完全に削除してもよろしいですか？この操作は元に戻せません。"
+  },
+  "personalizedAudios": {
+    "title": "パーソナライズ8Dオーディオ",
+    "description": "現在の状況に合わせてパーソナライズされた8D瞑想を作成します。",
+    "howToTitle": "このセクションの使い方",
+    "howToStep1": "パーソナライズ：あなたの名前を入力して、瞑想が直接あなたに語りかけるようにします。",
+    "howToStep2": "ムード設定：背景音を選択し、再生ボタンを押します。音量は個別に調整できます。ヘッドホンの使用を強くお勧めします！",
+    "howToStep3": "トピックを選択：一般的なニーズに合わせて、ドロップダウンリストから既製の瞑想を選択します。",
+    "howToStep4": "生成してリラックス：「音声を生成して再生」をクリックします。AIがあなた独自の8Dオーディオを作成し、再生を開始します。これには少し時間がかかる場合がありますので、しばらくお待ちください。",
+    "headphonesRecommended": "最高の体験のために、ヘッドホンの使用を強くお勧めします。",
+    "step1Label": "1. あなたの名前を入力してください",
+    "step1Placeholder": "これにより、瞑想があなた個人向けになります",
+    "step2Label": "2. 背景音を選択してください",
+    "step3Label": "3. 瞑想のトピックを選択してください",
+    "generateAndPlayButton": "音声を生成して再生",
+    "generatingVoiceButton": "音声を生成中...",
+    "customTitle": "または、カスタム瞑想を作成",
+    "customDescription": "特定のニーズがある場合は、ここで説明してください。詳細を提供すればするほど、瞑想はよりカスタマイズされます。",
+    "customExamplesTitle": "プロンプトの例：",
+    "customExample1": "「難しい電話の前に神経を落ち着かせる5分間の瞑想」",
+    "customExample2": "「家族への恨みの感情を解放するのを手伝ってください」",
+    "customExample3": "「考えが巡って眠れないときに眠りにつくのを助けるオーディオ」",
+    "customRequestLabel": "あなたのカスタムリクエスト：",
+    "customPlaceholder": "例：「難しい会話の前に自信をつけるのを手伝ってください…」",
+    "generateCustomButton": "カスタム瞑想を生成",
+    "generatingMessage": "音声を生成中です、しばらくお待ちください...これには1〜2分かかることがあります。",
+    "errors": {
+      "noName": "あなたの名前を入力してください。",
+      "noCustomPrompt": "希望する瞑想を説明してください。",
+      "generationFailed": "音声の生成に失敗しました。もう一度お試しください。",
+      "downloadGenerateFirst": "まず音声を生成してください。"
+    },
+    "meditationOptions": {
+      "anxiety": "不安を解放し、内なる平和を見つける",
+      "healing": "過去の感情的な傷を癒す",
+      "confidence": "自信と自己愛の活性化",
+      "cleanse": "エネルギー浄化とメンタルリセット",
+      "morning": "朝のエンパワーメント瞑想"
+    },
+    "backgroundSounds": {
+      "rain": "雨",
+      "forest": "森の小川",
+      "ocean": "海の波",
+      "birds": "森の鳥"
+    }
+  },
+  "sosCalmDown": {
+    "title": "SOSカームダウン",
+    "description": "圧倒されそうなときの即時救済。呼吸に集中し、これらの言葉があなたを平静に導きます。",
+    "initialAffirmation": "円に集中して呼吸してください。",
+    "enableBinaural": "バイノーラル・トーンを有効にする",
+    "binauralDescription": "リラックスできる432Hzのハミング音を作成します。",
+    "binauralVolumeQuiet": "静か",
+    "binauralVolumeLoud": "大きい",
+    "binauralHeadphones": "バイノーラル効果にはヘッドホンが必要です。",
+    "startSessionButton": "セッションを開始",
+    "tryAgainButton": "再試行",
+    "generatingMessage": "あなたの心を落ち着かせる音声を生成中です、お待ちください...",
+    "whyItWorksTitle": "これが効く理由",
+    "whyItWorksText": "制御された呼吸は神経系を落ち着かせ、「闘争・逃走」反応を減少させます。ポジティブなアファメーションは不安な思考のサイクルを断ち切り、あなたの強さを思い出させ、現在の瞬間にグラウンディングさせます。",
+    "error": "カームセッションを開始できませんでした。もう一度お試しください。",
+    "breathing": {
+      "in": "吸って",
+      "hold": "止めて",
+      "out": "吐いて"
+    }
+  },
+  "recommendations": {
+    "title": "自動推奨",
+    "description": "あなたの履歴に基づいた、癒しと成長のためのパーソナライズされたロードマップ。",
+    "refreshButton": "推奨を更新",
+    "loading": "あなたのパターンを分析し、パーソナライズされた推奨を生成しています...",
+    "error": "申し訳ありませんが、現在パーソナライズされた推奨を生成できませんでした。後でもう一度お試しください。",
+    "emptyTitle": "あなたの推奨はここに表示されます",
+    "emptyText": "状況を分析すると、このセクションはあなたのユニークなパターンに基づいて、パーソナライズされたアドバイス、スキル構築演習、ヒーリング戦略で自動的に埋められます。",
+    "genericError": "現在の履歴に基づいて推奨を生成できませんでした。"
+  },
+  "upgrade": {
+    "modalTitle": "NarciFYプレミアムにアップグレード",
+    "modalDescription": "明快さ、癒し、エンパワーメントのための完全なツールキットをアンロックします。",
+    "feature1Title": "パターン検出器",
+    "feature1Desc": "あなたの全履歴を分析して、繰り返される操作戦術や長期的な傾向を明らかにします。",
+    "feature2Title": "パーソナライズ8Dオーディオ",
+    "feature2Desc": "不安を和らげることから自信をつけることまで、特定のニーズに合わせてカスタム8Dオーディオ瞑想を生成します。",
+    "feature3Title": "自動推奨",
+    "feature3Desc": "AIによるアドバイスとスキル構築演習で、癒しのためのパーソナライズされたロードマップを受け取ります。",
+    "feature4Title": "無制限の音声分析",
+    "feature4Desc": "制限なく、あなたの声を録音するだけで状況を分析します。",
+    "monthly": "月額",
+    "annual": "年額",
+    "monthlyPrice": "/月",
+    "annualPrice": "/年",
+    "annualSave": "16%お得",
+    "paymentInfo": "Lemon Squeezyによる安全な支払い。いつでもキャンセル可能。",
+    "upgradeButton": "今すぐアップグレード",
+    "maybeLater": "後で",
+    "teaserPatternDetectorTitle": "パターン検出器をアンロック",
+    "teaserPatternDetectorDesc": "全体像を把握しましょう。パターン検出器はあなたの全履歴を分析し、繰り返される操作戦術や感情的な傾向を明らかにし、長期的なダイナミクスを理解し、有害なサイクルから抜け出すのを助けます。",
+    "teaserAudiosTitle": "パーソナライズ8Dオーディオをアンロック",
+    "teaserAudiosDesc": "あなただけに合わせた没入型8Dオーディオ瞑想で深い癒しを体験してください。不安を和らげることから自信をつけることまで、特定のニーズに合わせてカスタムスクリプトを生成し、8Dサウンドスケープがあなたを平和な場所へと導きます。",
+    "teaserRecommendationsTitle": "自動推奨をアンロック",
+    "teaserRecommendationsDesc": "癒しのためのパーソナライズされたロードマップを手に入れましょう。私たちのAIはあなたの履歴を分析し、あなたが直面している特定のパターンに対処するために設計された、オーダーメイドのアドバイス、スキル構築演習、ヒーリング戦略を提供します。"
+  }
+}
