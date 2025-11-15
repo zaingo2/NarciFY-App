@@ -1,0 +1,16 @@
+{
+  "short_name": "NarciFY",
+  "name": "NarciFY",
+  "description": "A primary support platform for individuals in toxic or narcissistic relationships. Get AI-powered insights into manipulative behaviors, receive suggestions for handling difficult conversations, and find local professional help.",
+  "icons": [
+    {
+      "src": "/icon-512x512.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0F2B33",
+  "display": "standalone",
+  "theme_color": "#0F2B33"
+}
