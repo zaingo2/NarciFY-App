@@ -105,6 +105,11 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, setCurrentV
                     ))}
                 </select>
             </div>
+            {isPremium && (
+                 <a href="https://zaingoapps.lemonsqueezy.com/my-orders" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 transition-colors block mb-2">
+                    {t('navigation.manageSubscription')}
+                 </a>
+            )}
             <a href="https://zaingoapps.lemonsqueezy.com/affiliates" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 transition-colors block mb-2">
               {t('navigation.affiliateProgram')}
             </a>
