@@ -14,7 +14,9 @@
     "languageSelectorLabel": "Sprache auswählen",
     "manageSubscription": "Abonnement verwalten",
     "affiliateProgram": "Partnerprogramm",
-    "copyright": "Alle Rechte vorbehalten."
+    "copyright": "Alle Rechte vorbehalten.",
+    "trialStatus": "Testphase",
+    "trialDaysLeft": "{count, plural, one {Noch # Tag} other {Noch # Tage}}"
   },
   "disclaimer": {
     "title": "Wichtiger Haftungsausschluss",
@@ -200,6 +202,7 @@
     "annualSave": "16% sparen",
     "paymentInfo": "Sichere Zahlung über Lemon Squeezy. Jederzeit kündbar.",
     "upgradeButton": "Jetzt upgraden",
+    "startTrialButton": "Kostenlose 7-Tage-Testversion starten",
     "maybeLater": "Vielleicht später",
     "teaserPatternDetectorTitle": "Schalten Sie den Muster-Detektor frei",
     "teaserPatternDetectorDesc": "Sehen Sie das große Ganze. Der Muster-Detektor analysiert Ihren gesamten Verlauf, um wiederkehrende Manipulationstaktiken und emotionale Trends aufzudecken und Ihnen zu helfen, langfristige Dynamiken zu verstehen und sich aus schädlichen Zyklen zu befreien.",
@@ -207,5 +210,10 @@
     "teaserAudiosDesc": "Erleben Sie tiefe Heilung mit immersiven 8D-Audio-Meditationen, die nur für Sie maßgeschneidert sind. Generieren Sie benutzerdefinierte Skripte für Ihre spezifischen Bedürfnisse, von der Beruhigung von Angst bis zum Aufbau von Selbstvertrauen, und lassen Sie sich von der 8D-Klanglandschaft an einen Ort des Friedens führen.",
     "teaserRecommendationsTitle": "Schalten Sie automatische Empfehlungen frei",
     "teaserRecommendationsDesc": "Erhalten Sie einen personalisierten Fahrplan zur Heilung. Unsere KI analysiert Ihren Verlauf, um maßgeschneiderte Ratschläge, Übungen zum Kompetenzaufbau und Heilungsstrategien bereitzustellen, die auf die spezifischen Muster zugeschnitten sind, mit denen Sie konfrontiert sind."
+  },
+  "trialBanner": {
+    "title": "Schalten Sie alle Funktionen mit einer kostenlosen 7-Tage-Testversion frei!",
+    "description": "Erleben Sie die volle Leistung von NarciFY Premium, einschließlich des Muster-Detektors und der personalisierten Audios. Keine Kreditkarte erforderlich.",
+    "ctaButton": "Kostenlose Testversion starten"
   }
 }

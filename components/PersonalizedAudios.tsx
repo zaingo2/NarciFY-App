@@ -131,7 +131,7 @@ When you are ready, slowly open your eyes, bringing the light of your intention 
 type BackgroundSoundKey = 'rain' | 'forest' | 'ocean' | 'birds';
 
 export const PersonalizedAudios: React.FC<PersonalizedAudiosProps> = ({ onUpgrade }) => {
-    const { isPremium } = useAuth();
+    const { status } = useAuth();
     const { t } = useTranslation();
 
     const BACKGROUND_SOUNDS: Record<BackgroundSoundKey, { name: string; icon: string; url: string; height: string; }> = {
@@ -357,7 +357,7 @@ export const PersonalizedAudios: React.FC<PersonalizedAudiosProps> = ({ onUpgrad
         }
     };
     
-    if (!isPremium) {
+    if (status === 'free') {
         return (
             <UpgradeTeaser 
                 title={t('upgrade.teaserAudiosTitle')}

@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AnalysisPanel } from './components/AnalysisPanel';
 import { Navigation } from './components/Navigation';
 import { Disclaimer } from './components/Disclaimer';
@@ -27,10 +27,21 @@ function AppContent() {
   const [isFindingHelp, setIsFindingHelp] = useState(false);
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
   
-  const { isPremium, becomePremium } = useAuth();
+  const { status, becomePremium, startTrial } = useAuth();
   const { t } = useTranslation();
 
-  // Handle successful payment redirect from Stripe
+  // Ref to track previous status to detect trial expiration
+  const prevStatusRef = useRef(status);
+   useEffect(() => {
+    if (prevStatusRef.current === 'trial' && status === 'free') {
+        // The trial has just expired, show the upgrade modal
+        setIsUpgradeModalOpen(true);
+    }
+    prevStatusRef.current = status;
+  }, [status]);
+
+
+  // Handle successful payment redirect from Lemon Squeezy
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     if (query.get('payment_success')) {
@@ -139,6 +150,10 @@ function AppContent() {
                 onNewAnalysis={handleNewAnalysis}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
+                onStartTrial={() => {
+                  startTrial();
+                  // Optional: close any modals if open, or show a confirmation
+                }}
               />
             </div>
             <div className="lg:col-span-1">
@@ -179,6 +194,10 @@ function AppContent() {
       <UpgradeModal 
         isOpen={isUpgradeModalOpen} 
         onClose={() => setIsUpgradeModalOpen(false)} 
+        onStartTrial={() => {
+            startTrial();
+            setIsUpgradeModalOpen(false);
+        }}
       />
     </div>
   );

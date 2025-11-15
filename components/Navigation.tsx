@@ -12,7 +12,7 @@ interface NavigationProps {
 
 export const Navigation: React.FC<NavigationProps> = ({ currentView, setCurrentView, onUpgradeClick }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { isPremium } = useAuth();
+  const { status, trialEndDate } = useAuth();
   const { language, changeLanguage, t, languages } = useTranslation();
 
   const navItems = [
@@ -22,6 +22,16 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, setCurrentV
     { id: 'recommendations', title: t('navigation.recommendations'), icon: 'fa-solid fa-wand-magic-sparkles', isPremium: true },
     { id: 'sos', title: t('navigation.sos'), icon: 'fa-solid fa-hand-holding-heart', isPremium: false },
   ];
+  
+  const getDaysLeftInTrial = () => {
+      if (!trialEndDate) return 0;
+      const endDate = new Date(trialEndDate).getTime();
+      const now = Date.now();
+      const diff = endDate - now;
+      if (diff <= 0) return 0;
+      return Math.ceil(diff / (1000 * 60 * 60 * 24));
+  };
+
 
   const NavContent = () => (
      <div className="flex flex-col h-full">
@@ -36,7 +46,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, setCurrentV
         <nav>
           <ul>
             {navItems.map(item => {
-              const isLocked = item.isPremium && !isPremium;
+              const isLocked = item.isPremium && status === 'free';
               return (
                 <li key={item.id}>
                   <button
@@ -67,18 +77,23 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, setCurrentV
       
       <div className="mt-auto p-4 space-y-4">
           <div className="p-3 bg-slate-900/50 rounded-lg text-center h-28 flex items-center justify-center">
-             {isPremium ? (
+             {status === 'premium' ? (
                 <div className="flex flex-col items-center">
                     <i className="fa-solid fa-shield-halved text-amber-400 text-4xl" style={{ filter: 'drop-shadow(0 0 4px rgba(251, 191, 36, 0.6))' }}></i>
                     <p className="mt-2 text-sm font-bold uppercase tracking-widest text-amber-300">{t('navigation.premium')}</p>
                 </div>
+              ) : status === 'trial' ? (
+                 <div className="text-center">
+                    <p className="text-sm font-bold text-slate-50">{t('navigation.trialStatus')}</p>
+                    <p className="text-amber-300 text-lg font-bold mt-1">{t('navigation.trialDaysLeft', { count: getDaysLeftInTrial() })}</p>
+                 </div>
               ) : (
                  <p className="text-sm font-bold text-slate-50">
                     {t('navigation.status')}: <span className='text-amber-300'>{t('navigation.freeUser')}</span>
                  </p>
               )}
           </div>
-          {!isPremium && (
+          {status !== 'premium' && (
             <button onClick={onUpgradeClick} className="w-full bg-gradient-to-r from-teal-500 to-violet-500 text-white font-bold py-3 px-4 rounded-lg hover:opacity-90 transition-opacity">
                 <i className="fa-solid fa-rocket mr-2"></i>
                 {t('navigation.upgrade')}
@@ -105,7 +120,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, setCurrentV
                     ))}
                 </select>
             </div>
-            {isPremium && (
+            {status === 'premium' && (
                  <a href="https://zaingoapps.lemonsqueezy.com/my-orders" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 transition-colors block mb-2">
                     {t('navigation.manageSubscription')}
                  </a>

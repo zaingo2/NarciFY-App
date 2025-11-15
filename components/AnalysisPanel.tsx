@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import type { AnalysisResult } from '../types';
 import { analyzeSituation, transcribeAudio } from '../services/geminiService';
@@ -6,6 +5,8 @@ import { AnalysisResultDisplay } from './AnalysisResultDisplay';
 import { Spinner } from './Spinner';
 import { AnalysisBanner } from './AnalysisBanner';
 import { AudioBanner } from './AudioBanner';
+import { TrialBanner } from './TrialBanner';
+import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from '../hooks/useTranslation';
 
 interface AnalysisPanelProps {
@@ -13,15 +14,17 @@ interface AnalysisPanelProps {
   onNewAnalysis: (result: AnalysisResult) => void;
   isLoading: boolean;
   setIsLoading: (loading: boolean) => void;
+  onStartTrial: () => void;
 }
 
 type InputMode = 'text' | 'audio';
 
-export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ latestAnalysis, onNewAnalysis, isLoading, setIsLoading }) => {
+export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ latestAnalysis, onNewAnalysis, isLoading, setIsLoading, onStartTrial }) => {
   const [inputMode, setInputMode] = useState<InputMode>('text');
   const [textInput, setTextInput] = useState('');
   const [error, setError] = useState<string | null>(null);
   const { t } = useTranslation();
+  const { status } = useAuth();
   
   const [isRecording, setIsRecording] = useState(false);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
@@ -212,6 +215,10 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ latestAnalysis, on
                  </div>
             )}
         </div>
+      )}
+      
+      {status === 'free' && (
+        <TrialBanner onStartTrial={onStartTrial} />
       )}
 
       {isLoading && <div className="mt-6 text-center text-slate-300">{t('analysisPanel.analyzingMessage')}</div>}

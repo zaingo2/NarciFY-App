@@ -14,7 +14,9 @@
     "languageSelectorLabel": "言語を選択",
     "manageSubscription": "サブスクリプションを管理",
     "affiliateProgram": "アフィリエイトプログラム",
-    "copyright": "無断複写・転載を禁じます。"
+    "copyright": "無断複写・転載を禁じます。",
+    "trialStatus": "トライアル期間",
+    "trialDaysLeft": "残り{count}日"
   },
   "disclaimer": {
     "title": "重要免責事項",
@@ -200,6 +202,7 @@
     "annualSave": "16%お得",
     "paymentInfo": "Lemon Squeezyによる安全な支払い。いつでもキャンセル可能。",
     "upgradeButton": "今すぐアップグレード",
+    "startTrialButton": "7日間の無料トライアルを開始",
     "maybeLater": "後で",
     "teaserPatternDetectorTitle": "パターン検出器をアンロック",
     "teaserPatternDetectorDesc": "全体像を把握しましょう。パターン検出器はあなたの全履歴を分析し、繰り返される操作戦術や感情的な傾向を明らかにし、長期的なダイナミクスを理解し、有害なサイクルから抜け出すのを助けます。",
@@ -207,5 +210,10 @@
     "teaserAudiosDesc": "あなただけに合わせた没入型8Dオーディオ瞑想で深い癒しを体験してください。不安を和らげることから自信をつけることまで、特定のニーズに合わせてカスタムスクリプトを生成し、8Dサウンドスケープがあなたを平和な場所へと導きます。",
     "teaserRecommendationsTitle": "自動推奨をアンロック",
     "teaserRecommendationsDesc": "癒しのためのパーソナライズされたロードマップを手に入れましょう。私たちのAIはあなたの履歴を分析し、あなたが直面している特定のパターンに対処するために設計された、オーダーメイドのアドバイス、スキル構築演習、ヒーリング戦略を提供します。"
+  },
+  "trialBanner": {
+    "title": "7日間の無料トライアルで全機能をアンロック！",
+    "description": "パターン検出器やパーソナライズオーディオなど、NarciFYプレミアムの全機能を体験してください。クレジットカードは不要です。",
+    "ctaButton": "無料トライアルを開始"
   }
 }

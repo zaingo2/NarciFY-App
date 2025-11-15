@@ -14,7 +14,9 @@
     "languageSelectorLabel": "Sélectionner la langue",
     "manageSubscription": "Gérer l'Abonnement",
     "affiliateProgram": "Programme d'Affiliation",
-    "copyright": "Tous droits réservés."
+    "copyright": "Tous droits réservés.",
+    "trialStatus": "Période d'Essai",
+    "trialDaysLeft": "{count, plural, one {Encore # jour} other {Encore # jours}}"
   },
   "disclaimer": {
     "title": "Avis de Non-responsabilité Important",
@@ -200,6 +202,7 @@
     "annualSave": "Économisez 16%",
     "paymentInfo": "Paiement sécurisé par Lemon Squeezy. Annulez à tout moment.",
     "upgradeButton": "Mettre à Niveau Maintenant",
+    "startTrialButton": "Commencer l'Essai Gratuit de 7 Jours",
     "maybeLater": "Peut-être plus tard",
     "teaserPatternDetectorTitle": "Débloquez le Détecteur de Schémas",
     "teaserPatternDetectorDesc": "Voyez la situation dans son ensemble. Le Détecteur de Schémas analyse tout votre historique pour révéler des tactiques de manipulation récurrentes et des tendances émotionnelles, vous aidant à comprendre les dynamiques à long terme et à vous libérer des cycles nuisibles.",
@@ -207,5 +210,10 @@
     "teaserAudiosDesc": "Faites l'expérience d'une guérison profonde avec des méditations audio 8D immersives conçues spécialement pour vous. Générez des scripts personnalisés pour vos besoins spécifiques, de l'apaisement de l'anxiété au renforcement de la confiance, et laissez le paysage sonore 8D vous guider vers un lieu de paix.",
     "teaserRecommendationsTitle": "Débloquez les Recommandations Automatiques",
     "teaserRecommendationsDesc": "Obtenez une feuille de route personnalisée pour la guérison. Notre IA analyse votre historique pour fournir des conseils sur mesure, des exercices de renforcement des compétences et des stratégies de guérison conçus pour aborder les schémas spécifiques auxquels vous êtes confronté."
+  },
+  "trialBanner": {
+    "title": "Débloquez toutes les fonctionnalités avec un essai gratuit de 7 jours !",
+    "description": "Découvrez toute la puissance de NarciFY Premium, y compris le Détecteur de Schémas et les Audios Personnalisés. Aucune carte de crédit requise.",
+    "ctaButton": "Commencer l'Essai Gratuit"
   }
 }

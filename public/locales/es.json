@@ -14,7 +14,9 @@
     "languageSelectorLabel": "Seleccionar Idioma",
     "manageSubscription": "Gestionar Suscripción",
     "affiliateProgram": "Programa de Afiliados",
-    "copyright": "Todos los derechos reservados."
+    "copyright": "Todos los derechos reservados.",
+    "trialStatus": "Período de Prueba",
+    "trialDaysLeft": "{count, plural, one {# día restante} other {# días restantes}}"
   },
   "disclaimer": {
     "title": "Descargo de Responsabilidad Importante",
@@ -200,6 +202,7 @@
     "annualSave": "Ahorra 16%",
     "paymentInfo": "Pago seguro gestionado por Lemon Squeezy. Cancela en cualquier momento.",
     "upgradeButton": "Actualizar Ahora",
+    "startTrialButton": "Iniciar Prueba Gratuita de 7 Días",
     "maybeLater": "Quizás más tarde",
     "teaserPatternDetectorTitle": "Desbloquea el Detector de Patrones",
     "teaserPatternDetectorDesc": "Mira el panorama completo. El Detector de Patrones analiza todo tu historial para revelar tácticas de manipulación recurrentes y tendencias emocionales, ayudándote a comprender dinámicas a largo plazo y a liberarte de ciclos dañinos.",
@@ -207,5 +210,10 @@
     "teaserAudiosDesc": "Experimenta una sanación profunda con meditaciones de audio 8D inmersivas hechas a tu medida. Genera guiones personalizados para tus necesidades específicas, desde calmar la ansiedad hasta construir confianza, y deja que el paisaje sonoro 8D te guíe a un lugar de paz.",
     "teaserRecommendationsTitle": "Desbloquea Recomendaciones Automáticas",
     "teaserRecommendationsDesc": "Obtén un mapa de ruta personalizado para sanar. Nuestra IA analiza tu historial para proporcionar consejos a medida, ejercicios de desarrollo de habilidades y estrategias de sanación diseñadas para abordar los patrones específicos que enfrentas."
+  },
+  "trialBanner": {
+    "title": "¡Desbloquea Todas las Funciones con una Prueba Gratuita de 7 Días!",
+    "description": "Experimenta todo el poder de NarciFY Premium, incluyendo el Detector de Patrones y los Audios Personalizados. No se requiere tarjeta de crédito.",
+    "ctaButton": "Iniciar Prueba Gratuita"
   }
 }

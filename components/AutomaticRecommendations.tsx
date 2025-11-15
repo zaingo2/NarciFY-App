@@ -33,7 +33,7 @@ const RecommendationCard: React.FC<{ recommendation: Recommendation }> = ({ reco
 };
 
 export const AutomaticRecommendations: React.FC<AutomaticRecommendationsProps> = ({ analysisHistory, onUpgrade }) => {
-    const { isPremium } = useAuth();
+    const { status } = useAuth();
     const { t } = useTranslation();
     const [recommendations, setRecommendations] = useState<Recommendation[] | null>(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -61,14 +61,14 @@ export const AutomaticRecommendations: React.FC<AutomaticRecommendationsProps> =
     }, [analysisHistory, isHistoryEmpty, t]);
     
     useEffect(() => {
-        if(isPremium) {
+        if(status !== 'free') {
             fetchRecommendations();
         } else {
             setIsLoading(false);
         }
-    }, [fetchRecommendations, isPremium]);
+    }, [fetchRecommendations, status]);
     
-    if (!isPremium) {
+    if (status === 'free') {
         return (
              <UpgradeTeaser 
                 title={t('upgrade.teaserRecommendationsTitle')}

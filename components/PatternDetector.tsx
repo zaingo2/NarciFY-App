@@ -171,7 +171,7 @@ const AnalysisHistoryItem: React.FC<{ analysis: AnalysisResult, onDelete: (id: s
 
 
 export const PatternDetector: React.FC<PatternDetectorProps> = ({ analysisHistory, onDeleteAnalysis, onDeleteAll, onUpgrade }) => {
-    const { isPremium } = useAuth();
+    const { status } = useAuth();
     const { t } = useTranslation();
 
     const tacticCounts = React.useMemo(() => {
@@ -196,7 +196,7 @@ export const PatternDetector: React.FC<PatternDetectorProps> = ({ analysisHistor
         triggerTextFileDownload(textContent, 'NarciFY_All_Analyses.txt');
     };
     
-    if (!isPremium) {
+    if (status === 'free') {
         return (
             <UpgradeTeaser 
                 title={t('upgrade.teaserPatternDetectorTitle')}

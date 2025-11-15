@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
+import { useAuth } from '../contexts/AuthContext';
 
 // =================================================================================
 // ¡ACCIÓN REQUERIDA!
@@ -14,11 +15,13 @@ const LEMON_SQUEEZY_ANNUAL_LINK = 'https://zaingoapps.lemonsqueezy.com/buy/0e3a8
 interface UpgradeModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onStartTrial: () => void;
 }
 
 
-export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) => {
+export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose, onStartTrial }) => {
   const { t } = useTranslation();
+  const { status } = useAuth();
   const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'annual'>('annual');
   
   const premiumFeatures = [
@@ -38,7 +41,32 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) =
         return '#'; // Return a safe link to prevent errors
     }
     return link;
-  }
+  };
+
+  const MainActionButton = () => {
+    if (status === 'free') {
+      return (
+        <button
+          onClick={onStartTrial}
+          className="w-full bg-violet-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-violet-700 transition-colors flex items-center justify-center"
+        >
+          <i className="fa-solid fa-bolt mr-2"></i>
+          {t('upgrade.startTrialButton')}
+        </button>
+      );
+    }
+    return (
+      <a 
+        href={getCheckoutLink()}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-full bg-violet-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-violet-700 transition-colors flex items-center justify-center"
+      >
+        <i className="fa-solid fa-lock mr-2"></i>
+        {t('upgrade.upgradeButton')}
+      </a>
+    );
+  };
 
   return (
     <div 
@@ -97,15 +125,7 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) =
                {t('upgrade.paymentInfo')}
             </p>
             <div className="flex flex-col gap-3">
-                 <a 
-                    href={getCheckoutLink()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full bg-violet-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-violet-700 transition-colors flex items-center justify-center"
-                >
-                    <i className="fa-solid fa-lock mr-2"></i>
-                    {t('upgrade.upgradeButton')}
-                </a>
+                 <MainActionButton />
             </div>
             <button onClick={onClose} className="w-full text-center text-slate-400 mt-4 text-sm hover:text-white">
                 {t('upgrade.maybeLater')}

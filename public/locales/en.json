@@ -14,7 +14,9 @@
     "languageSelectorLabel": "Select Language",
     "manageSubscription": "Manage Subscription",
     "affiliateProgram": "Affiliate Program",
-    "copyright": "All Rights Reserved."
+    "copyright": "All Rights Reserved.",
+    "trialStatus": "Trial Period",
+    "trialDaysLeft": "{count, plural, one {# day left} other {# days left}}"
   },
   "disclaimer": {
     "title": "Important Disclaimer",
@@ -200,6 +202,7 @@
     "annualSave": "Save 16%",
     "paymentInfo": "Secure payment powered by Lemon Squeezy. Cancel anytime.",
     "upgradeButton": "Upgrade Now",
+    "startTrialButton": "Start 7-Day Free Trial",
     "maybeLater": "Maybe later",
     "teaserPatternDetectorTitle": "Unlock the Pattern Detector",
     "teaserPatternDetectorDesc": "See the bigger picture. The Pattern Detector analyzes your entire history to reveal recurring manipulation tactics and emotional trends, helping you understand long-term dynamics and break free from harmful cycles.",
@@ -207,5 +210,10 @@
     "teaserAudiosDesc": "Experience deep healing with immersive 8D audio meditations tailored just for you. Generate custom scripts for your specific needs, from calming anxiety to building confidence, and let the 8D soundscape guide you to a place of peace.",
     "teaserRecommendationsTitle": "Unlock Automatic Recommendations",
     "teaserRecommendationsDesc": "Get a personalized roadmap to healing. Our AI analyzes your history to provide custom-tailored advice, skill-building exercises, and healing strategies designed to address the specific patterns you're facing."
+  },
+  "trialBanner": {
+    "title": "Unlock All Features with a Free 7-Day Trial!",
+    "description": "Experience the full power of NarciFY Premium, including the Pattern Detector and Personalized Audios. No credit card required.",
+    "ctaButton": "Start Free Trial"
   }
 }
