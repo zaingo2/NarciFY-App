@@ -1,4 +1,5 @@
 
+
 import React, { useState } from 'react';
 import { Logo } from './Logo';
 import { useAuth } from '../contexts/AuthContext';
@@ -85,7 +86,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, setCurrentV
               ) : status === 'trial' ? (
                  <div className="text-center">
                     <p className="text-sm font-bold text-slate-50">{t('navigation.trialStatus')}</p>
-                    <p className="text-amber-300 text-lg font-bold mt-1">{t('navigation.trialDaysLeft', { count: getDaysLeftInTrial() })}</p>
+                    <p className="text-amber-300 text-sm mt-1">{t('navigation.trialDaysLeft', { count: getDaysLeftInTrial() })}</p>
                  </div>
               ) : (
                  <p className="text-sm font-bold text-slate-50">

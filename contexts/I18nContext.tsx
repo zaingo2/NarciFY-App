@@ -126,29 +126,26 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     let translation = getNestedTranslation(language, key) || getNestedTranslation('en', key) || key;
 
-    // Handle pluralization for the specific key by parsing simple ICU format
-    if (key === 'patternDetector.patternsCount' && options && typeof options.count === 'number') {
+    // Handle pluralization first, if applicable
+    if (options && typeof options.count === 'number' && translation.includes('{count, plural,')) {
         const count = options.count;
-        const translationString = getNestedTranslation(language, key) || getNestedTranslation('en', key) || '{count} times';
         
-        // Simple ICU message format parser for: {count, plural, one {#...} other {#...}}
-        const oneMatch = translationString.match(/one\s*{([^}]+)}/);
-        const otherMatch = translationString.match(/other\s*{([^}]+)}/);
+        const oneMatch = translation.match(/one\s*{([^}]+)}/);
+        const otherMatch = translation.match(/other\s*{([^}]+)}/);
 
         if (oneMatch && otherMatch) {
-            const oneForm = oneMatch[1].replace('#', String(count));
-            const otherForm = otherMatch[1].replace('#', String(count));
+            const oneForm = oneMatch[1].replace(/#/g, String(count));
+            const otherForm = otherMatch[1].replace(/#/g, String(count));
 
             const pluralRules = new Intl.PluralRules(language);
             const category = pluralRules.select(count);
-
+            
+            // Pluralization handled, this is the final string for this case.
             return category === 'one' ? oneForm : otherForm;
         }
-        // Fallback for formats that don't use the plural rule (e.g., Japanese)
-        return translationString.replace('{count}', String(count));
     }
 
-
+    // Handle simple variable replacement for all other cases
     if (options) {
       Object.keys(options).forEach(k => {
         const regex = new RegExp(`{${k}}`, 'g');
