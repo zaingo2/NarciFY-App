@@ -14,7 +14,9 @@
     "languageSelectorLabel": "Velg språk",
     "manageSubscription": "Administrer abonnement",
     "affiliateProgram": "Partnerprogram",
-    "copyright": "Alle rettigheter forbeholdt."
+    "copyright": "Alle rettigheter forbeholdt.",
+    "trialStatus": "Prøveperiode",
+    "trialDaysLeft": "{count, plural, one {# dag igjen} other {# dager igjen}}"
   },
   "disclaimer": {
     "title": "Viktig ansvarsfraskrivelse",
@@ -200,6 +202,7 @@
     "annualSave": "Spar 16%",
     "paymentInfo": "Sikker betaling drevet av Lemon Squeezy. Avbryt når som helst.",
     "upgradeButton": "Oppgrader nå",
+    "startTrialButton": "Start 7-dagers gratis prøveperiode",
     "maybeLater": "Kanskje senere",
     "teaserPatternDetectorTitle": "Lås opp Mønsterdetektoren",
     "teaserPatternDetectorDesc": "Se det store bildet. Mønsterdetektoren analyserer hele historikken din for å avdekke gjentakende manipulasjonstaktikker og emosjonelle trender, og hjelper deg med å forstå langsiktige dynamikker og bryte fri fra skadelige sykluser.",
@@ -207,5 +210,10 @@
     "teaserAudiosDesc": "Opplev dyp helbredelse med oppslukende 8D-lydmeditasjoner skreddersydd bare for deg. Generer tilpassede skript for dine spesifikke behov, fra å roe angst til å bygge selvtillit, og la 8D-lydbildet guide deg til et sted med fred.",
     "teaserRecommendationsTitle": "Lås opp Automatiske Anbefalinger",
     "teaserRecommendationsDesc": "Få en personlig veikart til helbredelse. Vår AI analyserer historikken din for å gi skreddersydde råd, ferdighetsbyggende øvelser og helbredelsesstrategier designet for å takle de spesifikke mønstrene du står overfor."
+  },
+  "trialBanner": {
+    "title": "Lås opp alle funksjoner med en gratis 7-dagers prøveperiode!",
+    "description": "Opplev den fulle kraften av NarciFY Premium, inkludert Mønsterdetektoren og Personlige lyder. Ingen kredittkort kreves.",
+    "ctaButton": "Start gratis prøveperiode"
   }
 }

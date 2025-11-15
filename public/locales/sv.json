@@ -14,7 +14,9 @@
     "languageSelectorLabel": "Välj språk",
     "manageSubscription": "Hantera prenumeration",
     "affiliateProgram": "Affiliate-program",
-    "copyright": "Alla rättigheter förbehållna."
+    "copyright": "Alla rättigheter förbehållna.",
+    "trialStatus": "Provperiod",
+    "trialDaysLeft": "{count, plural, one {# dag kvar} other {# dagar kvar}}"
   },
   "disclaimer": {
     "title": "Viktig ansvarsfriskrivning",
@@ -200,6 +202,7 @@
     "annualSave": "Spara 16%",
     "paymentInfo": "Säker betalning via Lemon Squeezy. Avsluta när som helst.",
     "upgradeButton": "Uppgradera nu",
+    "startTrialButton": "Starta 7-dagars gratis provperiod",
     "maybeLater": "Kanske senare",
     "teaserPatternDetectorTitle": "Lås upp Mönsterdetektorn",
     "teaserPatternDetectorDesc": "Se helheten. Mönsterdetektorn analyserar hela din historik för att avslöja återkommande manipulationstaktiker och känslomässiga trender, vilket hjälper dig att förstå långsiktig dynamik och bryta dig fri från skadliga cykler.",
@@ -207,5 +210,10 @@
     "teaserAudiosDesc": "Upplev djup läkning med uppslukande 8D-ljudmeditationer skräddarsydda just för dig. Generera anpassade manus för dina specifika behov, från att lugna ångest till att bygga självförtroende, och låt 8D-ljudlandskapet guida dig till en plats av frid.",
     "teaserRecommendationsTitle": "Lås upp Automatiska Rekommendationer",
     "teaserRecommendationsDesc": "Få en personlig färdplan för läkning. Vår AI analyserar din historik för att ge skräddarsydda råd, färdighetsbyggande övningar och läkningsstrategier utformade för att hantera de specifika mönster du möter."
+  },
+  "trialBanner": {
+    "title": "Lås upp alla funktioner med en gratis 7-dagars provperiod!",
+    "description": "Upplev den fulla kraften av NarciFY Premium, inklusive Mönsterdetektorn och Personliga ljud. Inget kreditkort krävs.",
+    "ctaButton": "Starta gratis provperiod"
   }
 }

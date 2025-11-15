@@ -26,6 +26,7 @@ function AppContent() {
   const [localHelpResults, setLocalHelpResults] = useState<LocalHelpResult[]>([]);
   const [isFindingHelp, setIsFindingHelp] = useState(false);
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+  const [isDisclaimerVisible, setIsDisclaimerVisible] = useState(false);
   
   const { status, becomePremium, startTrial } = useAuth();
   const { t } = useTranslation();
@@ -39,6 +40,29 @@ function AppContent() {
     }
     prevStatusRef.current = status;
   }, [status]);
+
+  // Check session storage for disclaimer visibility on mount
+  useEffect(() => {
+    try {
+        const disclaimerDismissed = sessionStorage.getItem('narciFyDisclaimerDismissed');
+        if (disclaimerDismissed !== 'true') {
+            setIsDisclaimerVisible(true);
+        }
+    } catch (error) {
+        console.error("Could not read from sessionStorage", error);
+        setIsDisclaimerVisible(true);
+    }
+  }, []);
+
+  const handleDismissDisclaimer = () => {
+    try {
+        sessionStorage.setItem('narciFyDisclaimerDismissed', 'true');
+        setIsDisclaimerVisible(false);
+    } catch (error) {
+        console.error("Could not write to sessionStorage", error);
+        setIsDisclaimerVisible(false); // Still hide it visually
+    }
+  };
 
 
   // Handle successful payment redirect from Lemon Squeezy
@@ -187,7 +211,7 @@ function AppContent() {
         onUpgradeClick={() => setIsUpgradeModalOpen(true)}
       />
       <main className="lg:ml-64 p-4 sm:p-6 lg:p-8">
-        <Disclaimer />
+        {isDisclaimerVisible && <Disclaimer onClose={handleDismissDisclaimer} />}
         {renderView()}
       </main>
       <ChatWidget />

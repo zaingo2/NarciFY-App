@@ -19,6 +19,7 @@ const SUPPORTED_LANGUAGES: Omit<Language, 'name'>[] = [
   { code: 'no', path: '/locales/no.json' },
   { code: 'sv', path: '/locales/sv.json' },
   { code: 'fi', path: '/locales/fi.json' },
+  { code: 'pt', path: '/locales/pt.json' },
 ];
 
 const SUPPORTED_LANG_CODES = SUPPORTED_LANGUAGES.map(lang => lang.code);
@@ -46,23 +47,42 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   useEffect(() => {
     const loadAllTranslations = async () => {
         try {
-            const responses = await Promise.all(
-                SUPPORTED_LANGUAGES.map(lang => fetch(lang.path))
+            const promises = SUPPORTED_LANGUAGES.map(lang => 
+                fetch(lang.path)
+                    .then(res => {
+                        if (!res.ok) throw new Error(`Failed to load ${lang.code} translations at ${lang.path}`);
+                        return res.json();
+                    })
+                    .then(data => ({ code: lang.code, data }))
             );
-            
-            for (const response of responses) {
-                if (!response.ok) {
-                    throw new Error(`Failed to fetch translation file: ${response.url}`);
+
+            // Use Promise.allSettled to ensure that even if one language file fails to load, the others are still processed.
+            const results = await Promise.allSettled(promises);
+
+            const loadedTranslations = results.reduce((acc, result) => {
+                if (result.status === 'fulfilled') {
+                    acc[result.value.code] = result.value.data;
+                } else {
+                    console.error(`Could not load translation for a language:`, result.reason);
                 }
-            }
-
-            const data = await Promise.all(responses.map(res => res.json()));
-
-            const loadedTranslations = SUPPORTED_LANGUAGES.reduce((acc, lang, index) => {
-                acc[lang.code] = data[index];
                 return acc;
             }, {} as { [key: string]: Translations });
 
+            // Ensure English is always available as a fallback
+            if (!loadedTranslations.en) {
+                console.warn("English translations failed to load. Attempting a fallback fetch.");
+                 try {
+                    const enResponse = await fetch('/locales/en.json');
+                    if (enResponse.ok) {
+                        loadedTranslations.en = await enResponse.json();
+                    } else {
+                         loadedTranslations.en = { langName: "English" }; // Minimal fallback
+                    }
+                } catch (e) {
+                     loadedTranslations.en = { langName: "English" };
+                }
+            }
+            
             setTranslations(loadedTranslations);
 
             // Determine initial language after translations are loaded
@@ -78,19 +98,8 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             }
 
         } catch (error) {
-            console.error("Failed to load translations:", error);
-            // Fallback with minimal data to prevent app crash
-            try {
-                const enResponse = await fetch('/locales/en.json');
-                if (enResponse.ok) {
-                    const enData = await enResponse.json();
-                    setTranslations({ en: enData });
-                } else {
-                     setTranslations({ en: {} });
-                }
-            } catch (e) {
-                 setTranslations({ en: {} });
-            }
+            console.error("A critical error occurred during translation loading:", error);
+            setTranslations({ en: { langName: "English" } }); // Minimal fallback to prevent crash
         } finally {
             setIsLoading(false);
         }
@@ -100,10 +109,6 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, []);
 
   const changeLanguage = (lang: string) => {
-    // BUG FIX: The previous check `if (translations && translations[lang])`
-    // prevented the language from changing if the initial load failed.
-    // This new check allows the state to update, and the t() function's
-    // fallback mechanism will handle displaying text correctly.
     if (SUPPORTED_LANG_CODES.includes(lang)) {
       setLanguage(lang);
       try {

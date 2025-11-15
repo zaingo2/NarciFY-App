@@ -14,7 +14,9 @@
     "languageSelectorLabel": "Valitse kieli",
     "manageSubscription": "Hallinnoi tilausta",
     "affiliateProgram": "Kumppanuusohjelma",
-    "copyright": "Kaikki oikeudet pidätetään."
+    "copyright": "Kaikki oikeudet pidätetään.",
+    "trialStatus": "Kokeilujakso",
+    "trialDaysLeft": "{count, plural, one {# päivä jäljellä} other {# päivää jäljellä}}"
   },
   "disclaimer": {
     "title": "Tärkeä vastuuvapauslauseke",
@@ -200,6 +202,7 @@
     "annualSave": "Säästä 16%",
     "paymentInfo": "Turvallinen maksu Lemon Squeezyn kautta. Peruuta milloin tahansa.",
     "upgradeButton": "Päivitä nyt",
+    "startTrialButton": "Aloita 7 päivän ilmainen kokeilu",
     "maybeLater": "Ehkä myöhemmin",
     "teaserPatternDetectorTitle": "Avaa Mallintunnistin",
     "teaserPatternDetectorDesc": "Näe kokonaiskuva. Mallintunnistin analysoi koko historiasi paljastaakseen toistuvia manipulointitaktiikoita ja emotionaalisia trendejä, auttaen sinua ymmärtämään pitkän aikavälin dynamiikkaa ja vapautumaan haitallisista kierteistä.",
@@ -207,5 +210,10 @@
     "teaserAudiosDesc": "Koe syvällistä paranemista immersiivisillä 8D-äänimeditaatioilla, jotka on räätälöity juuri sinulle. Luo mukautettuja käsikirjoituksia erityistarpeisiisi, ahdistuksen rauhoittamisesta itseluottamuksen rakentamiseen, ja anna 8D-äänimaiseman ohjata sinut rauhan paikkaan.",
     "teaserRecommendationsTitle": "Avaa automaattiset suositukset",
     "teaserRecommendationsDesc": "Saa henkilökohtainen etenemissuunnitelma paranemiseen. Tekoälymme analysoi historiasi tarjotakseen räätälöityjä neuvoja, taitojen kehittämisharjoituksia ja paranemisstrategioita, jotka on suunniteltu vastaamaan kohtaamiasi erityisiä malleja."
+  },
+  "trialBanner": {
+    "title": "Avaa kaikki ominaisuudet 7 päivän ilmaisella kokeilulla!",
+    "description": "Koe NarciFY Premiumin täysi teho, mukaan lukien Mallintunnistin ja Personoidut äänet. Luottokorttia ei tarvita.",
+    "ctaButton": "Aloita ilmainen kokeilu"
   }
 }
