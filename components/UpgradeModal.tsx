@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
 import { useAuth } from '../contexts/AuthContext';
@@ -19,7 +18,8 @@ interface UpgradeModalProps {
   onStartTrial: () => void;
 }
 
-const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID || "test";
+// Fix: Replaced `import.meta.env` with `process.env` to resolve TypeScript error.
+const PAYPAL_CLIENT_ID = process.env.VITE_PAYPAL_CLIENT_ID || "test";
 
 const PayPalPaymentButtons: React.FC<{
     plan: 'monthly' | 'annual';
@@ -66,7 +66,7 @@ const PayPalPaymentButtons: React.FC<{
         return <div className="flex justify-center items-center h-24"><Spinner /></div>;
     }
 
-    if (isRejected) {
+    if (isRejected || PAYPAL_CLIENT_ID === "test") {
         return (
             <div className="bg-rose-500/10 text-rose-300 p-4 rounded-lg text-sm">
                 <p className="font-bold mb-2">{t('upgrade.paypalErrorTitle')}</p>
@@ -74,7 +74,7 @@ const PayPalPaymentButtons: React.FC<{
                 <ol className="list-decimal list-inside mt-2 space-y-1">
                     <li><a href="https://developer.paypal.com/dashboard/applications/live/" target="_blank" rel="noopener noreferrer" className="underline font-semibold">{t('upgrade.paypalErrorStep1')}</a></li>
                     <li>{t('upgrade.paypalErrorStep2')}</li>
-                    <li>{t('upgrade.paypalErrorStep3')}</li>
+                    <li>{t('upgrade.paypalErrorStep3', { variableName: 'VITE_PAYPAL_CLIENT_ID' })}</li>
                 </ol>
                 <p className="mt-2 font-semibold">{t('upgrade.paypalErrorNote')}</p>
             </div>
