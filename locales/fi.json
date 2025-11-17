@@ -200,7 +200,7 @@
     "monthlyPrice": "/ kk",
     "annualPrice": "/ vuosi",
     "annualSave": "Säästä 16%",
-    "paymentInfo": "Turvallinen maksu Lemon Squeezyn kautta. Peruuta milloin tahansa.",
+    "paymentInfo": "Turvallinen maksu PayPalin kautta. Peruuta milloin tahansa.",
     "upgradeButton": "Päivitä nyt",
     "startTrialButton": "Aloita 7 päivän ilmainen kokeilu",
     "maybeLater": "Ehkä myöhemmin",
@@ -209,7 +209,13 @@
     "teaserAudiosTitle": "Avaa personoidut 8D-äänet",
     "teaserAudiosDesc": "Koe syvällistä paranemista immersiivisillä 8D-äänimeditaatioilla, jotka on räätälöity juuri sinulle. Luo mukautettuja käsikirjoituksia erityistarpeisiisi, ahdistuksen rauhoittamisesta itseluottamuksen rakentamiseen, ja anna 8D-äänimaiseman ohjata sinut rauhan paikkaan.",
     "teaserRecommendationsTitle": "Avaa automaattiset suositukset",
-    "teaserRecommendationsDesc": "Saa henkilökohtainen etenemissuunnitelma paranemiseen. Tekoälymme analysoi historiasi tarjotakseen räätälöityjä neuvoja, taitojen kehittämisharjoituksia ja paranemisstrategioita, jotka on suunniteltu vastaamaan kohtaamiasi erityisiä malleja."
+    "teaserRecommendationsDesc": "Saa henkilökohtainen etenemissuunnitelma paranemiseen. Tekoälymme analysoi historiasi tarjotakseen räätälöityjä neuvoja, taitojen kehittämisharjoituksia ja paranemisstrategioita, jotka on suunniteltu vastaamaan kohtaamiasi erityisiä malleja.",
+    "paypalErrorTitle": "Maksuasetusvirhe",
+    "paypalErrorDescription": "PayPal-asiakastunnusta ei ole määritetty oikein. Seuraa näitä ohjeita:",
+    "paypalErrorStep1": "Siirry PayPal-kehittäjäpaneeliin",
+    "paypalErrorStep2": "Luo uusi 'Live'-sovellus saadaksesi asiakastunnuksesi ('Client ID').",
+    "paypalErrorStep3": "Lisää avain ympäristömuuttujaksi nimellä `PAYPAL_CLIENT_ID` käyttöönottopalvelussasi (esim. Vercel) ja ota uudelleen käyttöön.",
+    "paypalErrorNote": "Huomautus: Jos näet 'unauthorized'- tai 404-virheen, yritä löytää 'Developer Dashboard Apps' -linkki virhesivulta saadaksesi pääsyn. Tämä on yleinen PayPal-ongelma."
   },
   "trialBanner": {
     "title": "Avaa kaikki ominaisuudet 7 päivän ilmaisella kokeilulla!",

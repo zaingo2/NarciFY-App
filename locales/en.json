@@ -200,7 +200,7 @@
     "monthlyPrice": "/ month",
     "annualPrice": "/ year",
     "annualSave": "Save 16%",
-    "paymentInfo": "Secure payment powered by Lemon Squeezy. Cancel anytime.",
+    "paymentInfo": "Secure payment powered by PayPal. Cancel anytime.",
     "upgradeButton": "Upgrade Now",
     "startTrialButton": "Start 7-Day Free Trial",
     "maybeLater": "Maybe later",
@@ -209,7 +209,13 @@
     "teaserAudiosTitle": "Unlock Personalized 8D Audios",
     "teaserAudiosDesc": "Experience deep healing with immersive 8D audio meditations tailored just for you. Generate custom scripts for your specific needs, from calming anxiety to building confidence, and let the 8D soundscape guide you to a place of peace.",
     "teaserRecommendationsTitle": "Unlock Automatic Recommendations",
-    "teaserRecommendationsDesc": "Get a personalized roadmap to healing. Our AI analyzes your history to provide custom-tailored advice, skill-building exercises, and healing strategies designed to address the specific patterns you're facing."
+    "teaserRecommendationsDesc": "Get a personalized roadmap to healing. Our AI analyzes your history to provide custom-tailored advice, skill-building exercises, and healing strategies designed to address the specific patterns you're facing.",
+    "paypalErrorTitle": "Payment Setup Error",
+    "paypalErrorDescription": "The PayPal Client ID is not configured correctly. Please follow these steps:",
+    "paypalErrorStep1": "Go to your PayPal developer dashboard",
+    "paypalErrorStep2": "Create a new 'Live' application to get your 'Client ID'.",
+    "paypalErrorStep3": "Add that key as an environment variable named `PAYPAL_CLIENT_ID` in your deployment service (e.g., Vercel) and redeploy.",
+    "paypalErrorNote": "Note: If you see an 'unauthorized' or 404 error, try finding a 'Developer Dashboard Apps' link on the error page to get access. This is a common PayPal issue."
   },
   "trialBanner": {
     "title": "Unlock All Features with a Free 7-Day Trial!",

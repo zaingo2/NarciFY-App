@@ -200,7 +200,7 @@
     "monthlyPrice": "/ mes",
     "annualPrice": "/ año",
     "annualSave": "Ahorra 16%",
-    "paymentInfo": "Pago seguro gestionado por Lemon Squeezy. Cancela en cualquier momento.",
+    "paymentInfo": "Pago seguro gestionado por PayPal. Cancela en cualquier momento.",
     "upgradeButton": "Actualizar Ahora",
     "startTrialButton": "Iniciar Prueba Gratuita de 7 Días",
     "maybeLater": "Quizás más tarde",
@@ -209,7 +209,13 @@
     "teaserAudiosTitle": "Desbloquea Audios 8D Personalizados",
     "teaserAudiosDesc": "Experimenta una sanación profunda con meditaciones de audio 8D inmersivas hechas a tu medida. Genera guiones personalizados para tus necesidades específicas, desde calmar la ansiedad hasta construir confianza, y deja que el paisaje sonoro 8D te guíe a un lugar de paz.",
     "teaserRecommendationsTitle": "Desbloquea Recomendaciones Automáticas",
-    "teaserRecommendationsDesc": "Obtén un mapa de ruta personalizado para sanar. Nuestra IA analiza tu historial para proporcionar consejos a medida, ejercicios de desarrollo de habilidades y estrategias de sanación diseñadas para abordar los patrones específicos que enfrentas."
+    "teaserRecommendationsDesc": "Obtén un mapa de ruta personalizado para sanar. Nuestra IA analiza tu historial para proporcionar consejos a medida, ejercicios de desarrollo de habilidades y estrategias de sanación diseñadas para abordar los patrones específicos que enfrentas.",
+    "paypalErrorTitle": "Error de Configuración de Pagos",
+    "paypalErrorDescription": "La clave de cliente de PayPal (PAYPAL_CLIENT_ID) no está configurada correctamente. Por favor, sigue estos pasos:",
+    "paypalErrorStep1": "Ve a tu panel de desarrollador de PayPal",
+    "paypalErrorStep2": "Crea una nueva aplicación 'Live' para obtener tu 'Client ID'.",
+    "paypalErrorStep3": "Añade esa clave como una variable de entorno llamada `PAYPAL_CLIENT_ID` en tu servicio de despliegue (ej. Vercel) y redespliega.",
+    "paypalErrorNote": "Nota: Si ves un error 'unauthorized' o 404, intenta encontrar un enlace 'Developer Dashboard Apps' en la página de error para obtener acceso. Este es un problema común de PayPal."
   },
   "trialBanner": {
     "title": "¡Desbloquea Todas las Funciones con una Prueba Gratuita de 7 Días!",

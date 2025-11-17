@@ -200,7 +200,7 @@
     "monthlyPrice": "/ md.",
     "annualPrice": "/ år",
     "annualSave": "Spar 16%",
-    "paymentInfo": "Sikker betaling drevet av Lemon Squeezy. Avbryt når som helst.",
+    "paymentInfo": "Sikker betaling drevet av PayPal. Avbryt når som helst.",
     "upgradeButton": "Oppgrader nå",
     "startTrialButton": "Start 7-dagers gratis prøveperiode",
     "maybeLater": "Kanskje senere",
@@ -209,7 +209,13 @@
     "teaserAudiosTitle": "Lås opp Personlige 8D-lyder",
     "teaserAudiosDesc": "Opplev dyp helbredelse med oppslukende 8D-lydmeditasjoner skreddersydd bare for deg. Generer tilpassede skript for dine spesifikke behov, fra å roe angst til å bygge selvtillit, og la 8D-lydbildet guide deg til et sted med fred.",
     "teaserRecommendationsTitle": "Lås opp Automatiske Anbefalinger",
-    "teaserRecommendationsDesc": "Få en personlig veikart til helbredelse. Vår AI analyserer historikken din for å gi skreddersydde råd, ferdighetsbyggende øvelser og helbredelsesstrategier designet for å takle de spesifikke mønstrene du står overfor."
+    "teaserRecommendationsDesc": "Få en personlig veikart til helbredelse. Vår AI analyserer historikken din for å gi skreddersydde råd, ferdighetsbyggende øvelser og helbredelsesstrategier designet for å takle de spesifikke mønstrene du står overfor.",
+    "paypalErrorTitle": "Feil med betalingsoppsett",
+    "paypalErrorDescription": "PayPal Client ID er ikke riktig konfigurert. Følg disse trinnene:",
+    "paypalErrorStep1": "Gå til ditt PayPal-utviklerdashbord",
+    "paypalErrorStep2": "Opprett en ny 'Live'-applikasjon for å få din 'Client ID'.",
+    "paypalErrorStep3": "Legg til den nøkkelen som en miljøvariabel med navnet `PAYPAL_CLIENT_ID` i din distribusjonstjeneste (f.eks. Vercel) og distribuer på nytt.",
+    "paypalErrorNote": "Merk: Hvis du ser en 'unauthorized'- eller 404-feil, prøv å finne en 'Developer Dashboard Apps'-lenke på feilsiden for å få tilgang. Dette er et vanlig PayPal-problem."
   },
   "trialBanner": {
     "title": "Lås opp alle funksjoner med en gratis 7-dagers prøveperiode!",

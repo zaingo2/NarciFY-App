@@ -65,7 +65,7 @@ function AppContent() {
   };
 
 
-  // Handle successful payment redirect from Lemon Squeezy
+  // Handle successful payment redirect
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     if (query.get('payment_success')) {
@@ -232,7 +232,7 @@ function App() {
   return (
     <AuthProvider>
       <I18nProvider>
-        <AppContent />
+         <AppContent />
       </I18nProvider>
     </AuthProvider>
   );

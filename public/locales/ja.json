@@ -200,7 +200,7 @@
     "monthlyPrice": "/月",
     "annualPrice": "/年",
     "annualSave": "16%お得",
-    "paymentInfo": "Lemon Squeezyによる安全な支払い。いつでもキャンセル可能。",
+    "paymentInfo": "PayPalによる安全な支払い。いつでもキャンセル可能。",
     "upgradeButton": "今すぐアップグレード",
     "startTrialButton": "7日間の無料トライアルを開始",
     "maybeLater": "後で",
@@ -209,7 +209,13 @@
     "teaserAudiosTitle": "パーソナライズ8Dオーディオをアンロック",
     "teaserAudiosDesc": "あなただけに合わせた没入型8Dオーディオ瞑想で深い癒しを体験してください。不安を和らげることから自信をつけることまで、特定のニーズに合わせてカスタムスクリプトを生成し、8Dサウンドスケープがあなたを平和な場所へと導きます。",
     "teaserRecommendationsTitle": "自動推奨をアンロック",
-    "teaserRecommendationsDesc": "癒しのためのパーソナライズされたロードマップを手に入れましょう。私たちのAIはあなたの履歴を分析し、あなたが直面している特定のパターンに対処するために設計された、オーダーメイドのアドバイス、スキル構築演習、ヒーリング戦略を提供します。"
+    "teaserRecommendationsDesc": "癒しのためのパーソナライズされたロードマップを手に入れましょう。私たちのAIはあなたの履歴を分析し、あなたが直面している特定のパターンに対処するために設計された、オーダーメイドのアドバイス、スキル構築演習、ヒーリング戦略を提供します。",
+    "paypalErrorTitle": "支払い設定エラー",
+    "paypalErrorDescription": "PayPalクライアントIDが正しく設定されていません。以下の手順に従ってください：",
+    "paypalErrorStep1": "PayPal開発者ダッシュボードに移動します",
+    "paypalErrorStep2": "新しい「ライブ」アプリケーションを作成して「クライアントID」を取得します。",
+    "paypalErrorStep3": "そのキーをデプロイメントサービス（例：Vercel）で `PAYPAL_CLIENT_ID` という名前の環境変数として追加し、再デプロイします。",
+    "paypalErrorNote": "注意：「unauthorized」または404エラーが表示される場合は、エラーページで「Developer Dashboard Apps」のリンクを見つけてアクセスしてみてください。これは一般的なPayPalの問題です。"
   },
   "trialBanner": {
     "title": "7日間の無料トライアルで全機能をアンロック！",

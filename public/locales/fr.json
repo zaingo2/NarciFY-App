@@ -112,7 +112,7 @@
     "title": "Audios 8D Personnalisés",
     "description": "Créez une méditation 8D personnalisée pour votre situation actuelle.",
     "howToTitle": "Comment Utiliser Cette Section",
-    "howToStep1": "Personnalisez : Entrez votre nom pour que la méditation s'adresse directly à vous.",
+    "howToStep1": "Personnalisez : Entrez votre nom pour que la méditation s'adresse directement à vous.",
     "howToStep2": "Créez l'ambiance : Choisissez un son de fond et appuyez sur son bouton de lecture. Vous pouvez ajuster son volume indépendamment. Les écouteurs sont fortement recommandés !",
     "howToStep3": "Choisissez votre sujet : Sélectionnez une méditation pré-faite dans la liste déroulante pour les besoins courants.",
     "howToStep4": "Générez & Détendez-vous : Cliquez sur 'Générer & Jouer la Voix'. L'IA créera et lancera votre audio 8D unique. Veuillez être patient, car cela peut prendre un moment.",
@@ -200,7 +200,7 @@
     "monthlyPrice": "/ mois",
     "annualPrice": "/ an",
     "annualSave": "Économisez 16%",
-    "paymentInfo": "Paiement sécurisé par Lemon Squeezy. Annulez à tout moment.",
+    "paymentInfo": "Paiement sécurisé par PayPal. Annulez à tout moment.",
     "upgradeButton": "Mettre à Niveau Maintenant",
     "startTrialButton": "Commencer l'Essai Gratuit de 7 Jours",
     "maybeLater": "Peut-être plus tard",
@@ -209,7 +209,13 @@
     "teaserAudiosTitle": "Débloquez les Audios 8D Personnalisés",
     "teaserAudiosDesc": "Faites l'expérience d'une guérison profonde avec des méditations audio 8D immersives conçues spécialement pour vous. Générez des scripts personnalisés pour vos besoins spécifiques, de l'apaisement de l'anxiété au renforcement de la confiance, et laissez le paysage sonore 8D vous guider vers un lieu de paix.",
     "teaserRecommendationsTitle": "Débloquez les Recommandations Automatiques",
-    "teaserRecommendationsDesc": "Obtenez une feuille de route personnalisée pour la guérison. Notre IA analyse votre historique pour fournir des conseils sur mesure, des exercices de renforcement des compétences et des stratégies de guérison conçus pour aborder les schémas spécifiques auxquels vous êtes confronté."
+    "teaserRecommendationsDesc": "Obtenez une feuille de route personnalisée pour la guérison. Notre IA analyse votre historique pour fournir des conseils sur mesure, des exercices de renforcement des compétences et des stratégies de guérison conçus pour aborder les schémas spécifiques auxquels vous êtes confronté.",
+    "paypalErrorTitle": "Erreur de Configuration du Paiement",
+    "paypalErrorDescription": "L'ID Client PayPal n'est pas configuré correctly. Veuillez suivre ces étapes :",
+    "paypalErrorStep1": "Allez à votre tableau de bord développeur PayPal",
+    "paypalErrorStep2": "Créez une nouvelle application 'Live' pour obtenir votre 'Client ID'.",
+    "paypalErrorStep3": "Ajoutez cette clé en tant que variable d'environnement nommée `PAYPAL_CLIENT_ID` dans votre service de déploiement (par ex. Vercel) et redéployez.",
+    "paypalErrorNote": "Note : Si vous voyez une erreur 'unauthorized' ou 404, essayez de trouver un lien 'Developer Dashboard Apps' sur la page d'erreur pour y accéder. C'est un problème courant de PayPal."
   },
   "trialBanner": {
     "title": "Débloquez toutes les fonctionnalités avec un essai gratuit de 7 jours !",

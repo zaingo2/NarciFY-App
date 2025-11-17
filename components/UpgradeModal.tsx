@@ -2,15 +2,16 @@
 import React, { useState } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
 import { useAuth } from '../contexts/AuthContext';
-
-// =================================================================================
-// ¡ACCIÓN REQUERIDA!
-// Pega aquí los "Checkout Links" que obtuviste de tu panel de Lemon Squeezy.
-// Los encontrarás en la sección "Store" -> "Products" -> "Share".
-// =================================================================================
-const LEMON_SQUEEZY_MONTHLY_LINK = 'https://zaingoapps.lemonsqueezy.com/buy/619200eb-fbd6-46bc-b558-1bbb5f7e308f'; // <-- FINAL LINK
-const LEMON_SQUEEZY_ANNUAL_LINK = 'https://zaingoapps.lemonsqueezy.com/buy/0e3a803a-19c9-4f4c-8f48-909311d2b42c';  // <-- FINAL LINK
-
+import { 
+    PayPalScriptProvider,
+    PayPalButtons, 
+    usePayPalScriptReducer,
+    type CreateOrderData,
+    type CreateOrderActions,
+    type OnApproveData,
+    type OnApproveActions,
+} from '@paypal/react-paypal-js';
+import { Spinner } from './Spinner';
 
 interface UpgradeModalProps {
   isOpen: boolean;
@@ -18,10 +19,86 @@ interface UpgradeModalProps {
   onStartTrial: () => void;
 }
 
+const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID || "test";
+
+const PayPalPaymentButtons: React.FC<{
+    plan: 'monthly' | 'annual';
+    onSuccess: () => void;
+}> = ({ plan, onSuccess }) => {
+    const [{ isPending, isRejected }] = usePayPalScriptReducer();
+    const [error, setError] = useState<string | null>(null);
+    const { t } = useTranslation();
+
+    const createOrder = (data: CreateOrderData, actions: CreateOrderActions) => {
+        const amount = plan === 'annual' ? '49.99' : '4.99';
+        return actions.order.create({
+            purchase_units: [{
+                description: `NarciFY Premium - ${plan === 'annual' ? 'Annual' : 'Monthly'} Plan`,
+                amount: {
+                    value: amount,
+                    currency_code: 'USD',
+                },
+            }],
+        });
+    };
+
+    const onApprove = async (data: OnApproveData, actions: OnApproveActions) => {
+        try {
+            if (actions.order) {
+                const details = await actions.order.capture();
+                console.log('Payment Successful:', details);
+                onSuccess();
+            } else {
+                 throw new Error("Order actions not available.");
+            }
+        } catch (err) {
+            console.error('Payment capture failed:', err);
+            setError('There was an issue processing your payment. Please try again.');
+        }
+    };
+    
+    const onError = (err: any) => {
+        console.error('PayPal Button Error:', err);
+        setError('An error occurred with PayPal. Please check your details or try again later.');
+    };
+
+    if (isPending) {
+        return <div className="flex justify-center items-center h-24"><Spinner /></div>;
+    }
+
+    if (isRejected) {
+        return (
+            <div className="bg-rose-500/10 text-rose-300 p-4 rounded-lg text-sm">
+                <p className="font-bold mb-2">{t('upgrade.paypalErrorTitle')}</p>
+                <p>{t('upgrade.paypalErrorDescription')}</p>
+                <ol className="list-decimal list-inside mt-2 space-y-1">
+                    <li><a href="https://developer.paypal.com/dashboard/applications/live/" target="_blank" rel="noopener noreferrer" className="underline font-semibold">{t('upgrade.paypalErrorStep1')}</a></li>
+                    <li>{t('upgrade.paypalErrorStep2')}</li>
+                    <li>{t('upgrade.paypalErrorStep3')}</li>
+                </ol>
+                <p className="mt-2 font-semibold">{t('upgrade.paypalErrorNote')}</p>
+            </div>
+        );
+    }
+
+    return (
+        <div>
+            {error && <div className="bg-rose-400/20 text-rose-300 p-3 rounded-md mb-3">{error}</div>}
+            <PayPalButtons
+                style={{ layout: "vertical", color: "blue", shape: "rect", label: "pay" }}
+                createOrder={createOrder}
+                onApprove={onApprove}
+                onError={onError}
+                forceReRender={[plan]} // Re-render buttons if the plan changes
+            />
+        </div>
+    );
+};
+
 
 export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose, onStartTrial }) => {
   const { t } = useTranslation();
-  const { status } = useAuth();
+  const { status, becomePremium } = useAuth();
   const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'annual'>('annual');
   
   const premiumFeatures = [
@@ -33,14 +110,9 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose, onS
 
   if (!isOpen) return null;
 
-  const getCheckoutLink = () => {
-    const link = selectedPlan === 'annual' ? LEMON_SQUEEZY_ANNUAL_LINK : LEMON_SQUEEZY_MONTHLY_LINK;
-    if (link.includes('URL_')) {
-        // This is a friendly alert for the developer, not the end-user.
-        alert("Configuration needed: Please replace the placeholder Lemon Squeezy URLs in the components/UpgradeModal.tsx file.");
-        return '#'; // Return a safe link to prevent errors
-    }
-    return link;
+  const handlePaymentSuccess = () => {
+      becomePremium();
+      onClose();
   };
 
   const MainActionButton = () => {
@@ -55,16 +127,17 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose, onS
         </button>
       );
     }
+
+    const initialOptions = {
+        "client-id": PAYPAL_CLIENT_ID,
+        currency: "USD",
+        intent: "capture",
+    };
+
     return (
-      <a 
-        href={getCheckoutLink()}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="w-full bg-violet-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-violet-700 transition-colors flex items-center justify-center"
-      >
-        <i className="fa-solid fa-lock mr-2"></i>
-        {t('upgrade.upgradeButton')}
-      </a>
+      <PayPalScriptProvider options={initialOptions}>
+        <PayPalPaymentButtons plan={selectedPlan} onSuccess={handlePaymentSuccess} />
+      </PayPalScriptProvider>
     );
   };
 

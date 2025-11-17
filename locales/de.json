@@ -200,7 +200,7 @@
     "monthlyPrice": "/ Monat",
     "annualPrice": "/ Jahr",
     "annualSave": "16% sparen",
-    "paymentInfo": "Sichere Zahlung über Lemon Squeezy. Jederzeit kündbar.",
+    "paymentInfo": "Sichere Zahlung über PayPal. Jederzeit kündbar.",
     "upgradeButton": "Jetzt upgraden",
     "startTrialButton": "Kostenlose 7-Tage-Testversion starten",
     "maybeLater": "Vielleicht später",
@@ -209,7 +209,13 @@
     "teaserAudiosTitle": "Schalten Sie personalisierte 8D-Audios frei",
     "teaserAudiosDesc": "Erleben Sie tiefe Heilung mit immersiven 8D-Audio-Meditationen, die nur für Sie maßgeschneidert sind. Generieren Sie benutzerdefinierte Skripte für Ihre spezifischen Bedürfnisse, von der Beruhigung von Angst bis zum Aufbau von Selbstvertrauen, und lassen Sie sich von der 8D-Klanglandschaft an einen Ort des Friedens führen.",
     "teaserRecommendationsTitle": "Schalten Sie automatische Empfehlungen frei",
-    "teaserRecommendationsDesc": "Erhalten Sie einen personalisierten Fahrplan zur Heilung. Unsere KI analysiert Ihren Verlauf, um maßgeschneiderte Ratschläge, Übungen zum Kompetenzaufbau und Heilungsstrategien bereitzustellen, die auf die spezifischen Muster zugeschnitten sind, mit denen Sie konfrontiert sind."
+    "teaserRecommendationsDesc": "Erhalten Sie einen personalisierten Fahrplan zur Heilung. Unsere KI analysiert Ihren Verlauf, um maßgeschneiderte Ratschläge, Übungen zum Kompetenzaufbau und Heilungsstrategien bereitzustellen, die auf die spezifischen Muster zugeschnitten sind, mit denen Sie konfrontiert sind.",
+    "paypalErrorTitle": "Fehler bei der Zahlungseinrichtung",
+    "paypalErrorDescription": "Die PayPal-Client-ID ist nicht korrekt konfiguriert. Bitte befolgen Sie diese Schritte:",
+    "paypalErrorStep1": "Gehen Sie zu Ihrem PayPal-Entwickler-Dashboard",
+    "paypalErrorStep2": "Erstellen Sie eine neue 'Live'-Anwendung, um Ihre 'Client ID' zu erhalten.",
+    "paypalErrorStep3": "Fügen Sie diesen Schlüssel als Umgebungsvariable mit dem Namen `PAYPAL_CLIENT_ID` in Ihrem Bereitstellungsdienst (z. B. Vercel) hinzu und stellen Sie ihn erneut bereit.",
+    "paypalErrorNote": "Hinweis: Wenn Sie einen 'unauthorized'- oder 404-Fehler sehen, versuchen Sie, einen 'Developer Dashboard Apps'-Link auf der Fehlerseite zu finden, um Zugriff zu erhalten. Dies ist ein häufiges PayPal-Problem."
   },
   "trialBanner": {
     "title": "Schalten Sie alle Funktionen mit einer kostenlosen 7-Tage-Testversion frei!",
