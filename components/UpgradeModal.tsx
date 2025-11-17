@@ -143,13 +143,13 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose, onS
 
   return (
     <div 
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/70" 
+        className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/70 p-4 sm:p-8" 
         onClick={onClose}
         aria-modal="true"
         role="dialog"
     >
       <div 
-        className="bg-slate-800 rounded-2xl shadow-2xl w-11/12 max-w-lg m-4 transform transition-all"
+        className="bg-slate-800 rounded-2xl shadow-2xl w-11/12 max-w-lg my-auto transform transition-all"
         onClick={e => e.stopPropagation()}
       >
         <div className="p-6 text-center">
