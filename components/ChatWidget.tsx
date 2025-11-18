@@ -14,38 +14,40 @@ export const ChatWidget: React.FC = () => {
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
     const isInitialized = useRef(false);
     
-    // Set initial message only once when translations are ready
+    // Set initial message and initialize chat client
     useEffect(() => {
         if (t && !isInitialized.current) {
             setMessages([{ role: 'model', text: t('chatWidget.initialMessage') }]);
+            const apiKey = process.env.VITE_API_KEY;
+            if (apiKey) {
+                try {
+                    const ai = new GoogleGenAI({ apiKey });
+                    chatRef.current = ai.chats.create({
+                        model: 'gemini-flash-lite-latest',
+                        config: {
+                            systemInstruction: 'You are a friendly and concise AI assistant for the NarciFY app. Provide supportive and brief answers to user questions about relationships and personal well-being. Keep responses under 100 words.',
+                        }
+                    });
+                } catch (error) {
+                    console.error("Failed to initialize GoogleGenAI:", error);
+                    chatRef.current = null;
+                }
+            }
             isInitialized.current = true;
         }
     }, [t]);
-
-    useEffect(() => {
-        if (!chatRef.current) {
-            // Use process.env.API_KEY as required by the execution environment and coding guidelines.
-            const apiKey = process.env.API_KEY;
-            if (!apiKey) {
-                console.error("API_KEY is not set. Chat widget will not work.");
-                return;
-            }
-            const ai = new GoogleGenAI({ apiKey });
-            chatRef.current = ai.chats.create({
-                model: 'gemini-flash-lite-latest',
-                config: {
-                    systemInstruction: 'You are a friendly and concise AI assistant for the NarciFY app. Provide supportive and brief answers to user questions about relationships and personal well-being. Keep responses under 100 words.',
-                }
-            });
-        }
-    }, []);
     
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
     const handleSend = async () => {
-        if (!input.trim() || !chatRef.current) return;
+        if (!input.trim()) return;
+
+        if (!chatRef.current) {
+            setMessages(prev => [...prev, { role: 'model', text: "Chat is unavailable. The API_KEY is not configured correctly." }]);
+            return;
+        }
 
         const userMessage: ChatMessage = { role: 'user', text: input };
         setMessages(prev => [...prev, userMessage]);
@@ -110,7 +112,7 @@ export const ChatWidget: React.FC = () => {
                             <div className="flex items-center">
                                 <input
                                     type="text"
-                                    className="flex-1 p-2 border rounded-l-lg bg-slate-900 border-slate-700 text-slate-50 focus:ring-pink-300 focus:border-pink-300"
+                                    className="flex-1 p-2 border rounded-l-lg bg-slate-900 border-slate-700 text-slate-50 focus:ring-pink-300 focus:border-pink-300 disabled:bg-slate-800"
                                     placeholder={t('chatWidget.placeholder')}
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}

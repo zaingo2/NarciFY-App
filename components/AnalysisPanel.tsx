@@ -1,3 +1,4 @@
+
 import React, { useState, useRef } from 'react';
 import type { AnalysisResult } from '../types';
 import { analyzeSituation, transcribeAudio } from '../services/geminiService';
@@ -153,8 +154,9 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ latestAnalysis, on
           </button>
         </nav>
       </div>
-
+      
       {error && <div className="bg-rose-400/20 text-rose-300 p-3 rounded-md mb-4">{error}</div>}
+
 
       {inputMode === 'text' && (
         <div>
@@ -163,8 +165,9 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ latestAnalysis, on
             placeholder={t('analysisPanel.textPlaceholder')}
             value={textInput}
             onChange={(e) => setTextInput(e.target.value)}
+            disabled={isLoading}
           />
-          <button onClick={handleTextSubmit} disabled={isLoading} className="mt-4 w-full bg-teal-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-teal-600 disabled:bg-teal-500/50 transition-colors flex items-center justify-center">
+          <button onClick={handleTextSubmit} disabled={isLoading} className="mt-4 w-full bg-teal-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-teal-600 disabled:bg-teal-500/50 disabled:cursor-not-allowed transition-colors flex items-center justify-center">
             {isLoading ? <Spinner /> : t('analysisPanel.analyzeTextButton')}
           </button>
         </div>
@@ -176,7 +179,7 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ latestAnalysis, on
             
             {!isRecording && !audioBlob && (
                 <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-                    <button onClick={startRecording} disabled={isLoading} className="bg-violet-500 text-white font-bold py-3 px-6 rounded-full hover:bg-violet-600 transition-colors flex items-center justify-center w-full sm:w-auto">
+                    <button onClick={startRecording} disabled={isLoading} className="bg-violet-500 text-white font-bold py-3 px-6 rounded-full hover:bg-violet-600 disabled:bg-violet-500/50 disabled:cursor-not-allowed transition-colors flex items-center justify-center w-full sm:w-auto">
                         <i className="fa fa-microphone mr-2"></i> {t('analysisPanel.recordAudioButton')}
                     </button>
                     <span className="text-slate-300">OR</span>
@@ -186,8 +189,9 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ latestAnalysis, on
                         onChange={handleFileChange}
                         className="hidden"
                         accept="audio/*"
+                        disabled={isLoading}
                     />
-                    <button onClick={() => fileInputRef.current?.click()} disabled={isLoading} className="bg-violet-500 text-white font-bold py-3 px-6 rounded-full hover:bg-violet-600 transition-colors flex items-center justify-center w-full sm:w-auto">
+                    <button onClick={() => fileInputRef.current?.click()} disabled={isLoading} className="bg-violet-500 text-white font-bold py-3 px-6 rounded-full hover:bg-violet-600 disabled:bg-violet-500/50 disabled:cursor-not-allowed transition-colors flex items-center justify-center w-full sm:w-auto">
                         <i className="fa fa-upload mr-2"></i> {t('analysisPanel.uploadFileButton')}
                     </button>
                 </div>
@@ -205,7 +209,7 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ latestAnalysis, on
                         {audioFileName ? t('analysisPanel.fileReady', { fileName: audioFileName }) : t('analysisPanel.recordingComplete')}
                     </p>
                     <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-                        <button onClick={handleAudioSubmit} disabled={isLoading} className="w-full sm:w-auto bg-teal-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-teal-600 disabled:bg-teal-500/50 transition-colors flex items-center justify-center">
+                        <button onClick={handleAudioSubmit} disabled={isLoading} className="w-full sm:w-auto bg-teal-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-teal-600 disabled:bg-teal-500/50 disabled:cursor-not-allowed transition-colors flex items-center justify-center">
                             {isLoading ? <Spinner/> : t('analysisPanel.transcribeAndAnalyzeButton')}
                         </button>
                         <button onClick={clearAudio} disabled={isLoading} className="w-full sm:w-auto bg-slate-700 text-slate-300 font-bold py-3 px-4 rounded-lg hover:bg-slate-600 transition-colors">

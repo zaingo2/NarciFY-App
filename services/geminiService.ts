@@ -4,10 +4,10 @@ import type { AnalysisResult, LocalHelpResult, UserLocation, Recommendation } fr
 import { decode, decodeAudioData } from '../utils/audio';
 
 const getAiClient = () => {
-  // Use process.env.API_KEY as required by the execution environment and coding guidelines.
-  const apiKey = process.env.API_KEY;
+  // Reverted to VITE_API_KEY to match the Vercel environment configuration.
+  const apiKey = process.env.VITE_API_KEY;
   if (!apiKey) {
-    throw new Error("API_KEY environment variable not set. Please configure it in your hosting provider.");
+    throw new Error("VITE_API_KEY environment variable not set. Please configure it in your hosting provider.");
   }
   return new GoogleGenAI({ apiKey });
 };
