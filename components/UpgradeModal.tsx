@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
 import { useAuth } from '../contexts/AuthContext';
@@ -18,7 +19,7 @@ interface UpgradeModalProps {
   onStartTrial: () => void;
 }
 
-// Fix: Use process.env to access environment variables to resolve TypeScript error.
+// Use process.env as required by the execution environment.
 const PAYPAL_CLIENT_ID = process.env.VITE_PAYPAL_CLIENT_ID || "test";
 
 const PayPalPaymentButtons: React.FC<{

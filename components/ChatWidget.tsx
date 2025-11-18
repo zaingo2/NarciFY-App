@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import type { ChatMessage } from '../types';
 import { GoogleGenAI, Chat } from "@google/genai";
@@ -23,10 +24,9 @@ export const ChatWidget: React.FC = () => {
 
     useEffect(() => {
         if (!chatRef.current) {
-            // Fix: Use process.env.API_KEY to access the Gemini API key as per guidelines.
+            // Use process.env.API_KEY as required by the execution environment and coding guidelines.
             const apiKey = process.env.API_KEY;
             if (!apiKey) {
-                // Fix: Updated error message to reflect the correct environment variable name.
                 console.error("API_KEY is not set. Chat widget will not work.");
                 return;
             }

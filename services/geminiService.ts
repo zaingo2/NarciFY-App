@@ -4,11 +4,10 @@ import type { AnalysisResult, LocalHelpResult, UserLocation, Recommendation } fr
 import { decode, decodeAudioData } from '../utils/audio';
 
 const getAiClient = () => {
-  // Fix: Use process.env.API_KEY to access the Gemini API key as per guidelines.
+  // Use process.env.API_KEY as required by the execution environment and coding guidelines.
   const apiKey = process.env.API_KEY;
   if (!apiKey) {
-    // Fix: Updated error message to reflect the correct environment variable name.
-    throw new Error("API_KEY environment variable not set. Please configure it in your hosting provider (e.g., Vercel).");
+    throw new Error("API_KEY environment variable not set. Please configure it in your hosting provider.");
   }
   return new GoogleGenAI({ apiKey });
 };
