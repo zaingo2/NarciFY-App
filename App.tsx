@@ -1,4 +1,6 @@
 
+
+
 import React, { useState, useEffect, useRef } from 'react';
 import { AnalysisPanel } from './components/AnalysisPanel';
 import { Navigation } from './components/Navigation';
@@ -214,6 +216,12 @@ function AppContent() {
       <main className="lg:ml-64 p-4 sm:p-6 lg:p-8">
         {isDisclaimerVisible && <Disclaimer onClose={handleDismissDisclaimer} />}
         {renderView()}
+        
+        <footer className="mt-16 border-t border-slate-800 pt-8 pb-4 text-center px-4">
+            <p className="text-xs text-slate-600 max-w-4xl mx-auto leading-relaxed">
+                {t('upgrade.clickbankDisclaimer')}
+            </p>
+        </footer>
       </main>
       <ChatWidget />
       <UpgradeModal 
