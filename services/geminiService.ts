@@ -1,12 +1,13 @@
+
 import { GoogleGenAI, Type, Modality } from "@google/genai";
 import type { AnalysisResult, LocalHelpResult, UserLocation, Recommendation } from '../types';
 import { decode, decodeAudioData } from '../utils/audio';
 
 const getAiClient = () => {
-  // Fix: Per coding guidelines, the API key must be obtained from process.env.API_KEY, not import.meta.env.VITE_API_KEY. This resolves the TypeScript error.
+  // Fix: Use process.env.API_KEY to access the Gemini API key as per guidelines.
   const apiKey = process.env.API_KEY;
   if (!apiKey) {
-    // This provides a clear error if the API key is not configured in the environment.
+    // Fix: Updated error message to reflect the correct environment variable name.
     throw new Error("API_KEY environment variable not set. Please configure it in your hosting provider (e.g., Vercel).");
   }
   return new GoogleGenAI({ apiKey });

@@ -18,7 +18,7 @@ interface UpgradeModalProps {
   onStartTrial: () => void;
 }
 
-// Fix: Use process.env as configured in vite.config.ts to avoid TypeScript errors with import.meta.env.
+// Fix: Use process.env to access environment variables to resolve TypeScript error.
 const PAYPAL_CLIENT_ID = process.env.VITE_PAYPAL_CLIENT_ID || "test";
 
 const PayPalPaymentButtons: React.FC<{
@@ -66,7 +66,7 @@ const PayPalPaymentButtons: React.FC<{
         return <div className="flex justify-center items-center h-24"><Spinner /></div>;
     }
 
-    if (isRejected || PAYPAL_CLIENT_ID === "test") {
+    if (isRejected || !PAYPAL_CLIENT_ID || PAYPAL_CLIENT_ID === "test") {
         return (
             <div className="bg-rose-500/10 text-rose-300 p-4 rounded-lg text-sm">
                 <p className="font-bold mb-2">{t('upgrade.paypalErrorTitle')}</p>
