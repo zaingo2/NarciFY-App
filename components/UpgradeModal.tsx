@@ -97,7 +97,7 @@ const PayPalPaymentButtons: React.FC<{
 
 
 export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose, onStartTrial }) => {
-  const { t } = useTranslation();
+  const { language, t } = useTranslation();
   const { status, becomePremium, isDevMode } = useAuth();
   const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'annual'>('annual');
   
@@ -113,6 +113,13 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose, onS
   const handlePaymentSuccess = () => {
       becomePremium();
       onClose();
+  };
+
+  const getPayPalLocale = (lang: string): string => {
+    // By passing the generic 2-letter language code, we let PayPal handle
+    // regional specifics based on the user's account and location.
+    // This is more robust and avoids conflicts.
+    return lang;
   };
 
   const MainActionButton = () => {
@@ -132,7 +139,7 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose, onS
         "client-id": PAYPAL_CLIENT_ID,
         currency: "USD",
         intent: "capture",
-        locale: "en_US"
+        locale: getPayPalLocale(language),
     };
 
     return (
