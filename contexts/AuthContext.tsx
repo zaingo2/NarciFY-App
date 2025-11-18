@@ -9,6 +9,8 @@ interface AuthContextType {
   startTrial: () => void;
   becomePremium: () => void;
   becomeFree: () => void;
+  isDevMode: boolean;
+  toggleDevMode: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -17,11 +19,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [status, setStatus] = useState<UserStatus>('free');
   const [trialEndDate, setTrialEndDate] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isDevMode, setIsDevMode] = useState(false);
 
   useEffect(() => {
     try {
       const storedPremiumStatus = localStorage.getItem('narciFyPremiumStatus');
       const storedTrialEndDate = localStorage.getItem('narciFyTrialEndDate');
+      const devModeEnabled = sessionStorage.getItem('narciFyDevMode') === 'true';
+      setIsDevMode(devModeEnabled);
 
       if (storedPremiumStatus === 'true') {
         setStatus('premium');
@@ -83,6 +88,22 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   }, []);
 
+  const toggleDevMode = useCallback(() => {
+    setIsDevMode(prev => {
+        const newMode = !prev;
+        try {
+            if (newMode) {
+                sessionStorage.setItem('narciFyDevMode', 'true');
+            } else {
+                sessionStorage.removeItem('narciFyDevMode');
+            }
+        } catch (error) {
+            console.error("Failed to save dev mode to sessionStorage", error);
+        }
+        return newMode;
+    });
+  }, []);
+
 
   const value = {
     status,
@@ -91,6 +112,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     startTrial,
     becomePremium,
     becomeFree,
+    isDevMode,
+    toggleDevMode,
   };
 
   return (

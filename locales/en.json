@@ -215,7 +215,8 @@
     "paypalErrorStep1": "Go to your PayPal developer dashboard",
     "paypalErrorStep2": "Create a new 'Live' application to get your 'Client ID'.",
     "paypalErrorStep3": "Add that key as an environment variable named `VITE_PAYPAL_CLIENT_ID` in your deployment service (e.g., Vercel) and redeploy.",
-    "paypalErrorNote": "Note: If you see an 'unauthorized' or 404 error, try finding a 'Developer Dashboard Apps' link on the error page to get access. This is a common PayPal issue."
+    "paypalErrorNote": "Note: If you see an 'unauthorized' or 404 error, try finding a 'Developer Dashboard Apps' link on the error page to get access. This is a common PayPal issue.",
+    "simulatePayment": "Simulate Successful Payment (Dev)"
   },
   "trialBanner": {
     "title": "Unlock All Features with a Free 7-Day Trial!",

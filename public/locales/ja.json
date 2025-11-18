@@ -215,7 +215,8 @@
     "paypalErrorStep1": "PayPal開発者ダッシュボードに移動します",
     "paypalErrorStep2": "新しい「ライブ」アプリケーションを作成して「クライアントID」を取得します。",
     "paypalErrorStep3": "そのキーをデプロイメントサービス（例：Vercel）で `PAYPAL_CLIENT_ID` という名前の環境変数として追加し、再デプロイします。",
-    "paypalErrorNote": "注意：「unauthorized」または404エラーが表示される場合は、エラーページで「Developer Dashboard Apps」のリンクを見つけてアクセスしてみてください。これは一般的なPayPalの問題です。"
+    "paypalErrorNote": "注意：「unauthorized」または404エラーが表示される場合は、エラーページで「Developer Dashboard Apps」のリンクを見つけてアクセスしてみてください。これは一般的なPayPalの問題です。",
+    "simulatePayment": "支払成功をシミュレート (開発用)"
   },
   "trialBanner": {
     "title": "7日間の無料トライアルで全機能をアンロック！",

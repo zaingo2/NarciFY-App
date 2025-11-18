@@ -5,7 +5,7 @@
     "home": "Accueil",
     "audios": "Audios 8D Personnalisés",
     "patternDetector": "Détecteur de Schémas",
-    "recommendations": "Recommandations Automatiques",
+    "recommendations": "Recomendations Automatiques",
     "sos": "SOS Calme",
     "status": "Statut",
     "premium": "Premium",
@@ -215,7 +215,8 @@
     "paypalErrorStep1": "Allez à votre tableau de bord développeur PayPal",
     "paypalErrorStep2": "Créez une nouvelle application 'Live' pour obtenir votre 'Client ID'.",
     "paypalErrorStep3": "Ajoutez cette clé en tant que variable d'environnement nommée `PAYPAL_CLIENT_ID` dans votre service de déploiement (par ex. Vercel) et redéployez.",
-    "paypalErrorNote": "Note : Si vous voyez une erreur 'unauthorized' ou 404, essayez de trouver un lien 'Developer Dashboard Apps' sur la page d'erreur pour y accéder. C'est un problème courant de PayPal."
+    "paypalErrorNote": "Note : Si vous voyez une erreur 'unauthorized' ou 404, essayez de trouver un lien 'Developer Dashboard Apps' sur la page d'erreur pour y accéder. C'est un problème courant de PayPal.",
+    "simulatePayment": "Simuler un Paiement Réussi (Dev)"
   },
   "trialBanner": {
     "title": "Débloquez toutes les fonctionnalités avec un essai gratuit de 7 jours !",

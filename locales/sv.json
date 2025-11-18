@@ -207,7 +207,7 @@
     "teaserPatternDetectorTitle": "Lås upp Mönsterdetektorn",
     "teaserPatternDetectorDesc": "Se helheten. Mönsterdetektorn analyserar hela din historik för att avslöja återkommande manipulationstaktiker och känslomässiga trender, vilket hjälper dig att förstå långsiktig dynamik och bryta dig fri från skadliga cykler.",
     "teaserAudiosTitle": "Lås upp Personliga 8D-ljud",
-    "teaserAudiosDesc": "Upplev djup läkning med uppslukande 8D-ljudmeditationer skräddarsydda just för dig. Generera anpassade manus för dina specifika behov, från att lugna ångest till att bygga självförtroende, och låt 8D-ljudlandskapet guida dig till en plats av frid.",
+    "teaserAudiosDesc": "Upplev djup läkning med uppslukande 8D-ljudmeditationer skräddarsydda just for dig. Generera anpassade manus för dina specifika behov, från att lugna ångest till att bygga självförtroende, och låt 8D-ljudlandskapet guida dig till en plats av frid.",
     "teaserRecommendationsTitle": "Lås upp Automatiska Rekommendationer",
     "teaserRecommendationsDesc": "Få en personlig färdplan för läkning. Vår AI analyserar din historik för att ge skräddarsydda råd, färdighetsbyggande övningar och läkningsstrategier utformade för att hantera de specifika mönster du möter.",
     "paypalErrorTitle": "Fel vid betalningsinställning",
@@ -215,7 +215,8 @@
     "paypalErrorStep1": "Gå till din PayPal-utvecklarpanel",
     "paypalErrorStep2": "Skapa en ny 'Live'-applikation för att få ditt 'Client ID'.",
     "paypalErrorStep3": "Lägg till den nyckeln som en miljövariabel med namnet `PAYPAL_CLIENT_ID` i din distributionstjänst (t.ex. Vercel) och distribuera om.",
-    "paypalErrorNote": "Obs: Om du ser ett 'unauthorized'- eller 404-fel, försök hitta en 'Developer Dashboard Apps'-länk på felsidan för att få åtkomst. Detta är ett vanligt PayPal-problem."
+    "paypalErrorNote": "Obs: Om du ser ett 'unauthorized'- eller 404-fel, försök hitta en 'Developer Dashboard Apps'-länk på felsidan för att få åtkomst. Detta är ett vanligt PayPal-problem.",
+    "simulatePayment": "Simulera lyckad betalning (dev)"
   },
   "trialBanner": {
     "title": "Lås upp alla funktioner med en gratis 7-dagars provperiod!",

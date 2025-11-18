@@ -215,7 +215,8 @@
     "paypalErrorStep1": "Siirry PayPal-kehittäjäpaneeliin",
     "paypalErrorStep2": "Luo uusi 'Live'-sovellus saadaksesi asiakastunnuksesi ('Client ID').",
     "paypalErrorStep3": "Lisää avain ympäristömuuttujaksi nimellä `PAYPAL_CLIENT_ID` käyttöönottopalvelussasi (esim. Vercel) ja ota uudelleen käyttöön.",
-    "paypalErrorNote": "Huomautus: Jos näet 'unauthorized'- tai 404-virheen, yritä löytää 'Developer Dashboard Apps' -linkki virhesivulta saadaksesi pääsyn. Tämä on yleinen PayPal-ongelma."
+    "paypalErrorNote": "Huomautus: Jos näet 'unauthorized'- tai 404-virheen, yritä löytää 'Developer Dashboard Apps' -linkki virhesivulta saadaksesi pääsyn. Tämä on yleinen PayPal-ongelma.",
+    "simulatePayment": "Simuloi Onnistunut Maksu (Kehitys)"
   },
   "trialBanner": {
     "title": "Avaa kaikki ominaisuudet 7 päivän ilmaisella kokeilulla!",

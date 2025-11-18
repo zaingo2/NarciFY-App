@@ -215,7 +215,8 @@
     "paypalErrorStep1": "Gehen Sie zu Ihrem PayPal-Entwickler-Dashboard",
     "paypalErrorStep2": "Erstellen Sie eine neue 'Live'-Anwendung, um Ihre 'Client ID' zu erhalten.",
     "paypalErrorStep3": "Fügen Sie diesen Schlüssel als Umgebungsvariable mit dem Namen `PAYPAL_CLIENT_ID` in Ihrem Bereitstellungsdienst (z. B. Vercel) hinzu und stellen Sie ihn erneut bereit.",
-    "paypalErrorNote": "Hinweis: Wenn Sie einen 'unauthorized'- oder 404-Fehler sehen, versuchen Sie, einen 'Developer Dashboard Apps'-Link auf der Fehlerseite zu finden, um Zugriff zu erhalten. Dies ist ein häufiges PayPal-Problem."
+    "paypalErrorNote": "Hinweis: Wenn Sie einen 'unauthorized'- oder 404-Fehler sehen, versuchen Sie, einen 'Developer Dashboard Apps'-Link auf der Fehlerseite zu finden, um Zugriff zu erhalten. Dies ist ein häufiges PayPal-Problem.",
+    "simulatePayment": "Erfolgreiche Zahlung simulieren (Dev)"
   },
   "trialBanner": {
     "title": "Schalten Sie alle Funktionen mit einer kostenlosen 7-Tage-Testversion frei!",

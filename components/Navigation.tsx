@@ -1,6 +1,6 @@
 
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Logo } from './Logo';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from '../hooks/useTranslation';
@@ -13,8 +13,10 @@ interface NavigationProps {
 
 export const Navigation: React.FC<NavigationProps> = ({ currentView, setCurrentView, onUpgradeClick }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { status, trialEndDate } = useAuth();
+  const { status, trialEndDate, isDevMode, toggleDevMode } = useAuth();
   const { language, changeLanguage, t, languages } = useTranslation();
+  const [devClickCount, setDevClickCount] = useState(0);
+  const devClickTimeoutRef = useRef<number | null>(null);
 
   const navItems = [
     { id: 'home', title: t('navigation.home'), icon: 'fa-solid fa-house', isPremium: false },
@@ -31,6 +33,24 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, setCurrentV
       const diff = endDate - now;
       if (diff <= 0) return 0;
       return Math.ceil(diff / (1000 * 60 * 60 * 24));
+  };
+
+  const handleDevModeToggle = () => {
+    if (devClickTimeoutRef.current) {
+        clearTimeout(devClickTimeoutRef.current);
+    }
+
+    const newCount = devClickCount + 1;
+    setDevClickCount(newCount);
+
+    if (newCount >= 7) {
+        toggleDevMode();
+        setDevClickCount(0);
+    }
+
+    devClickTimeoutRef.current = window.setTimeout(() => {
+        setDevClickCount(0);
+    }, 2000); // Reset after 2 seconds of inactivity
   };
 
 
@@ -129,7 +149,13 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, setCurrentV
             <a href="https://zaingoapps.lemonsqueezy.com/affiliates" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 transition-colors block mb-2">
               {t('navigation.affiliateProgram')}
             </a>
-            <p className="text-slate-500">&copy; {new Date().getFullYear()} NarciFY. {t('navigation.copyright')}</p>
+            {isDevMode && (
+               <p className="text-xs text-amber-300 font-bold uppercase tracking-wider">
+                   <i className="fa-solid fa-bug mr-1"></i>
+                   Dev Mode Active
+               </p>
+           )}
+            <p className="text-slate-500 cursor-pointer" onClick={handleDevModeToggle}>&copy; {new Date().getFullYear()} NarciFY. {t('navigation.copyright')}</p>
           </div>
       </div>
     </div>

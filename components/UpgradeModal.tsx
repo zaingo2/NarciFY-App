@@ -98,7 +98,7 @@ const PayPalPaymentButtons: React.FC<{
 
 export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose, onStartTrial }) => {
   const { t } = useTranslation();
-  const { status, becomePremium } = useAuth();
+  const { status, becomePremium, isDevMode } = useAuth();
   const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'annual'>('annual');
   
   const premiumFeatures = [
@@ -132,6 +132,7 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose, onS
         "client-id": PAYPAL_CLIENT_ID,
         currency: "USD",
         intent: "capture",
+        locale: "en_US"
     };
 
     return (
@@ -199,6 +200,15 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose, onS
             </p>
             <div className="flex flex-col gap-3">
                  <MainActionButton />
+                 {isDevMode && (
+                    <button
+                        onClick={handlePaymentSuccess}
+                        className="w-full bg-amber-500 text-slate-900 font-bold py-3 px-4 rounded-lg hover:bg-amber-600 transition-colors flex items-center justify-center"
+                    >
+                        <i className="fa-solid fa-bug mr-2"></i>
+                        {t('upgrade.simulatePayment')}
+                    </button>
+                )}
             </div>
             <button onClick={onClose} className="w-full text-center text-slate-400 mt-4 text-sm hover:text-white">
                 {t('upgrade.maybeLater')}

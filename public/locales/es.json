@@ -214,8 +214,9 @@
     "paypalErrorDescription": "La clave de cliente de PayPal (PAYPAL_CLIENT_ID) no está configurada correctamente. Por favor, sigue estos pasos:",
     "paypalErrorStep1": "Ve a tu panel de desarrollador de PayPal",
     "paypalErrorStep2": "Crea una nueva aplicación 'Live' para obtener tu 'Client ID'.",
-    "paypalErrorStep3": "Añade esa clave como una variable de entorno llamada `PAYPAL_CLIENT_ID` en tu servicio de despliegue (ej. Vercel) y redespliega.",
-    "paypalErrorNote": "Nota: Si ves un error 'unauthorized' o 404, intenta encontrar un enlace 'Developer Dashboard Apps' en la página de error para obtener acceso. Este es un problema común de PayPal."
+    "paypalErrorStep3": "Añade esa clave como una variable de entorno llamada `{variableName}` en tu servicio de despliegue (ej. Vercel) y redespliega.",
+    "paypalErrorNote": "Nota: Si ves un error 'unauthorized' o 404, intenta encontrar un enlace 'Developer Dashboard Apps' en la página de error para obtener acceso. Este es un problema común de PayPal.",
+    "simulatePayment": "Simular Pago Exitoso (Dev)"
   },
   "trialBanner": {
     "title": "¡Desbloquea Todas las Funciones con una Prueba Gratuita de 7 Días!",
