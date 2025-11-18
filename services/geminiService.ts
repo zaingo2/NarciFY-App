@@ -4,8 +4,8 @@ import type { AnalysisResult, LocalHelpResult, UserLocation, Recommendation } fr
 import { decode, decodeAudioData } from '../utils/audio';
 
 const getAiClient = () => {
-  // The API key is injected into process.env.API_KEY in this environment.
-  const apiKey = process.env.API_KEY;
+  // This environment injects variables into process.env
+  const apiKey = process.env.VITE_API_KEY;
   if (!apiKey) {
     // Return null to allow for graceful degradation in the UI.
     return null;
@@ -13,7 +13,9 @@ const getAiClient = () => {
   return new GoogleGenAI({ apiKey });
 };
 
-const ERROR_MESSAGE = "API_KEY environment variable not set. Please configure it in your hosting provider.";
+const ERROR_MESSAGE = "VITE_API_KEY environment variable not set. Please configure it in your hosting provider.";
+
+const getLanguageInstruction = (language: string) => `\n\nIMPORTANT: Your entire response must be in the language with the ISO 639-1 code: '${language}'.`;
 
 // Schema for the analyzeSituation function
 const analysisSchema = {
@@ -36,7 +38,7 @@ const analysisSchema = {
     required: ['isManipulationAnalysis', 'identifiedTactics', 'suggestedResponses', 'neutralizingTactics', 'miniLesson', 'professionalHelpNeeded'],
 };
 
-export const analyzeSituation = async (situation: string): Promise<AnalysisResult> => {
+export const analyzeSituation = async (situation: string, language: string): Promise<AnalysisResult> => {
     const ai = getAiClient();
     if (!ai) throw new Error(ERROR_MESSAGE);
 
@@ -44,7 +46,7 @@ export const analyzeSituation = async (situation: string): Promise<AnalysisResul
 
 Situation: "${situation}"
 
-Your analysis should be empathetic, clear, and empowering. Identify specific tactics, suggest actionable responses, and provide a small educational lesson. Also, assess if the situation is severe enough to recommend professional help.`;
+Your analysis should be empathetic, clear, and empowering. Identify specific tactics, suggest actionable responses, and provide a small educational lesson. Also, assess if the situation is severe enough to recommend professional help.` + getLanguageInstruction(language);
 
     const response = await ai.models.generateContent({
         model: 'gemini-2.5-flash',
@@ -92,7 +94,7 @@ export const transcribeAudio = async (audioBlob: Blob): Promise<string> => {
     };
 
     const textPart = {
-        text: 'Transcribe this audio recording. The user is describing a personal situation, so be accurate with the words spoken.'
+        text: 'Transcribe this audio recording. The user is describing a personal situation, so be accurate with the words spoken. The audio could be in any language; please detect and transcribe in the spoken language.'
     };
 
     const response = await ai.models.generateContent({
@@ -115,6 +117,7 @@ export const textToSpeech = async (text: string): Promise<AudioBuffer> => {
     const ai = getAiClient();
     if (!ai) throw new Error(ERROR_MESSAGE);
     
+    // The model should infer the language from the script itself.
     const ttsPrompt = `Please read the following meditation script in a soft, calm, and gentle ASMR-like tone. Speak slowly and pause between sentences to create a relaxing experience.
 
 Script: "${text}"`;
@@ -144,7 +147,7 @@ Script: "${text}"`;
     return audioBuffer;
 };
 
-export const generateMeditationScript = async (prompt: string): Promise<string> => {
+export const generateMeditationScript = async (prompt: string, language: string): Promise<string> => {
     const ai = getAiClient();
     if (!ai) throw new Error(ERROR_MESSAGE);
 
@@ -152,7 +155,7 @@ export const generateMeditationScript = async (prompt: string): Promise<string> 
 
 User Request: "${prompt}"
 
-Generate only the script text, without any introductory or concluding remarks like "Here is the script:".`;
+Generate only the script text, without any introductory or concluding remarks like "Here is the script:".` + getLanguageInstruction(language);
 
     const response = await ai.models.generateContent({
         model: 'gemini-2.5-flash',
@@ -166,11 +169,11 @@ Generate only the script text, without any introductory or concluding remarks li
 };
 
 
-export const findLocalHelp = async (location: UserLocation): Promise<LocalHelpResult[]> => {
+export const findLocalHelp = async (location: UserLocation, language: string): Promise<LocalHelpResult[]> => {
     const ai = getAiClient();
     if (!ai) throw new Error(ERROR_MESSAGE);
 
-    const prompt = "Find local mental health services, therapists specializing in relationship abuse, legal aid, and domestic violence support centers near the user's location. Provide a list of places.";
+    const prompt = `Find local mental health services, therapists specializing in relationship abuse, legal aid, and domestic violence support centers near the user's location. Provide a list of places.` + getLanguageInstruction(language);
 
     const response = await ai.models.generateContent({
         model: "gemini-2.5-flash",
@@ -223,7 +226,7 @@ const recommendationsSchema = {
     }
 };
 
-export const generateRecommendations = async (history: AnalysisResult[]): Promise<Recommendation[]> => {
+export const generateRecommendations = async (history: AnalysisResult[], language: string): Promise<Recommendation[]> => {
     const ai = getAiClient();
     if (!ai) throw new Error(ERROR_MESSAGE);
 
@@ -253,7 +256,7 @@ export const generateRecommendations = async (history: AnalysisResult[]): Promis
         4.  **Red Flag Spotlight:** A related, more subtle red flag to watch for, helping the user expand their awareness.
 
         Your response must be empathetic, empowering, and structured according to the provided JSON schema.
-    `;
+    ` + getLanguageInstruction(language);
 
     const response = await ai.models.generateContent({
         model: 'gemini-2.5-flash',

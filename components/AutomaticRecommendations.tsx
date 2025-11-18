@@ -34,7 +34,7 @@ const RecommendationCard: React.FC<{ recommendation: Recommendation }> = ({ reco
 
 export const AutomaticRecommendations: React.FC<AutomaticRecommendationsProps> = ({ analysisHistory, onUpgrade }) => {
     const { status } = useAuth();
-    const { t } = useTranslation();
+    const { t, language } = useTranslation();
     const [recommendations, setRecommendations] = useState<Recommendation[] | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -50,7 +50,7 @@ export const AutomaticRecommendations: React.FC<AutomaticRecommendationsProps> =
         setIsLoading(true);
         setError(null);
         try {
-            const results = await generateRecommendations(analysisHistory);
+            const results = await generateRecommendations(analysisHistory, language);
             setRecommendations(results);
         } catch (err: any) {
             console.error("Failed to generate recommendations:", err);
@@ -58,7 +58,7 @@ export const AutomaticRecommendations: React.FC<AutomaticRecommendationsProps> =
         } finally {
             setIsLoading(false);
         }
-    }, [analysisHistory, isHistoryEmpty, t]);
+    }, [analysisHistory, isHistoryEmpty, t, language]);
     
     useEffect(() => {
         if(status !== 'free') {

@@ -132,7 +132,7 @@ type BackgroundSoundKey = 'rain' | 'forest' | 'ocean' | 'birds';
 
 export const PersonalizedAudios: React.FC<PersonalizedAudiosProps> = ({ onUpgrade }) => {
     const { status } = useAuth();
-    const { t } = useTranslation();
+    const { t, language } = useTranslation();
 
     const BACKGROUND_SOUNDS: Record<BackgroundSoundKey, { name: string; icon: string; url: string; height: string; }> = {
         rain: { name: t('personalizedAudios.backgroundSounds.rain'), icon: 'fa-cloud-showers-heavy', url: 'https://earth.fm/embed/22866?theme=green&size=190', height: '190' },
@@ -217,7 +217,7 @@ export const PersonalizedAudios: React.FC<PersonalizedAudiosProps> = ({ onUpgrad
             let script: string;
             if (isCustom) {
                 const generationPrompt = `Create a custom meditation for ${userName} about: "${customPrompt}"`;
-                script = await generateMeditationScript(generationPrompt);
+                script = await generateMeditationScript(generationPrompt, language);
             } else {
                 const option = MEDITATION_OPTIONS[selectedMeditation];
                 script = option.script.replace(/\[NAME\]/g, userName);

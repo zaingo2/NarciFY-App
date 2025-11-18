@@ -89,7 +89,8 @@
     "initialMessage": "Hej! Fråga mig vad som helst om relationer, kommunikation eller att sätta gränser.",
     "title": "Snabbchatt",
     "placeholder": "Ställ en fråga...",
-    "errorMessage": "Tyvärr, jag stötte på ett fel. Försök igen."
+    "errorMessage": "Tyvärr, jag stötte på ett fel. Försök igen.",
+    "apiKeyError": "Chatten är inte tillgänglig. Miljövariabeln `{variableName}` är inte korrekt konfigurerad."
   },
   "patternDetector": {
     "title": "Mönsterdetektor",
@@ -214,7 +215,7 @@
     "paypalErrorDescription": "PayPal Client ID är inte korrekt konfigurerat. Följ dessa steg:",
     "paypalErrorStep1": "Gå till din PayPal-utvecklarpanel",
     "paypalErrorStep2": "Skapa en ny 'Live'-applikation för att få ditt 'Client ID'.",
-    "paypalErrorStep3": "Lägg till den nyckeln som en miljövariabel med namnet `VITE_PAYPAL_CLIENT_ID` i din distributionstjänst (t.ex. Vercel) och distribuera om.",
+    "paypalErrorStep3": "Lägg till den nyckeln som en miljövariabel med namnet `{variableName}` i din distributionstjänst (t.ex. Vercel) och distribuera om.",
     "paypalErrorNote": "Obs: Om du ser ett 'unauthorized'- eller 404-fel, försök hitta en 'Developer Dashboard Apps'-länk på felsidan för att få åtkomst. Detta är ett vanligt PayPal-problem.",
     "simulatePayment": "Simulera lyckad betalning (dev)"
   },

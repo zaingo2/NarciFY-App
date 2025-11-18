@@ -19,7 +19,7 @@ interface UpgradeModalProps {
   onStartTrial: () => void;
 }
 
-// Environment variables are on process.env in this environment.
+// This environment injects variables into process.env
 const PAYPAL_CLIENT_ID = process.env.VITE_PAYPAL_CLIENT_ID || "test";
 
 const PayPalPaymentButtons: React.FC<{

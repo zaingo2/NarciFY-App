@@ -19,8 +19,8 @@ export const ChatWidget: React.FC = () => {
         if (t && !isInitialized.current) {
             setMessages([{ role: 'model', text: t('chatWidget.initialMessage') }]);
             
-            // The API key is injected into process.env.API_KEY in this environment.
-            const apiKey = process.env.API_KEY;
+            // This environment injects variables into process.env
+            const apiKey = process.env.VITE_API_KEY;
             if (apiKey) {
                 try {
                     const ai = new GoogleGenAI({ apiKey });
@@ -36,7 +36,7 @@ export const ChatWidget: React.FC = () => {
                     chatRef.current = null;
                 }
             } else {
-                 console.warn("API_KEY is not set. Chat widget AI features disabled.");
+                 console.warn("VITE_API_KEY is not set. Chat widget AI features disabled.");
             }
             isInitialized.current = true;
         }
@@ -50,7 +50,7 @@ export const ChatWidget: React.FC = () => {
         if (!input.trim()) return;
 
         if (!chatRef.current) {
-            setMessages(prev => [...prev, { role: 'model', text: t('chatWidget.apiKeyError', { variableName: 'API_KEY' }) }]);
+            setMessages(prev => [...prev, { role: 'model', text: t('chatWidget.apiKeyError', { variableName: 'VITE_API_KEY' }) }]);
             return;
         }
 

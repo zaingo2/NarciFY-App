@@ -29,7 +29,7 @@ function AppContent() {
   const [isDisclaimerVisible, setIsDisclaimerVisible] = useState(false);
   
   const { status, becomePremium, startTrial } = useAuth();
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   // Ref to track previous status to detect trial expiration
   const prevStatusRef = useRef(status);
@@ -146,7 +146,7 @@ function AppContent() {
           longitude: position.coords.longitude,
         };
         try {
-          const results = await findLocalHelp(location);
+          const results = await findLocalHelp(location, language);
           setLocalHelpResults(results);
         } catch (error) {
           console.error("Failed to find local help:", error);
@@ -178,6 +178,7 @@ function AppContent() {
                   startTrial();
                   // Optional: close any modals if open, or show a confirmation
                 }}
+                language={language}
               />
             </div>
             <div className="lg:col-span-1">

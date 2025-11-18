@@ -16,11 +16,12 @@ interface AnalysisPanelProps {
   isLoading: boolean;
   setIsLoading: (loading: boolean) => void;
   onStartTrial: () => void;
+  language: string;
 }
 
 type InputMode = 'text' | 'audio';
 
-export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ latestAnalysis, onNewAnalysis, isLoading, setIsLoading, onStartTrial }) => {
+export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ latestAnalysis, onNewAnalysis, isLoading, setIsLoading, onStartTrial, language }) => {
   const [inputMode, setInputMode] = useState<InputMode>('text');
   const [textInput, setTextInput] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -42,7 +43,7 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ latestAnalysis, on
     setIsLoading(true);
     setError(null);
     try {
-      const result = await analyzeSituation(textInput);
+      const result = await analyzeSituation(textInput, language);
       onNewAnalysis(result);
     } catch (err: any) {
       setError(err.message || t('analysisPanel.errors.unknown'));
@@ -97,7 +98,7 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ latestAnalysis, on
             throw new Error(t('analysisPanel.errors.transcriptionFailed'));
           }
           setTextInput(transcription); 
-          const result = await analyzeSituation(`A user recorded or uploaded the following: "${transcription}"`);
+          const result = await analyzeSituation(`A user recorded or uploaded the following: "${transcription}"`, language);
           onNewAnalysis(result);
       } catch (err: any) {
           setError(err.message || t('analysisPanel.errors.unknown'));

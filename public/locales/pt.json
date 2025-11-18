@@ -89,7 +89,8 @@
     "initialMessage": "Olá! Pergunte-me qualquer coisa sobre relacionamentos, comunicação ou como estabelecer limites.",
     "title": "Chat Rápido",
     "placeholder": "Faça uma pergunta...",
-    "errorMessage": "Desculpe, encontrei um erro. Por favor, tente novamente."
+    "errorMessage": "Desculpe, encontrei um erro. Por favor, tente novamente.",
+    "apiKeyError": "O chat não está disponível. A variável de ambiente `{variableName}` não está configurada corretamente."
   },
   "patternDetector": {
     "title": "Detector de Padrões",
@@ -113,7 +114,7 @@
     "description": "Crie uma meditação 8D personalizada para a sua situação atual.",
     "howToTitle": "Como Usar Esta Secção",
     "howToStep1": "Personalize: Insira o seu nome para que a meditação se possa dirigir a si diretamente.",
-    "howToStep2": "Crie o Ambiente: Escolha um som de fundo и prima o seu botão de reprodução. Pode ajustar o volume independentemente. Auscultadores são altamente recomendados!",
+    "howToStep2": "Crie o Ambiente: Escolha um som de fundo e prima o seu botão de reprodução. Pode ajustar o volume independentemente. Auscultadores são altamente recomendados!",
     "howToStep3": "Escolha o Seu Tópico: Selecione uma meditação pré-feita da lista para necessidades comuns.",
     "howToStep4": "Gere e Relaxe: Clique em 'Gerar e Reproduzir Voz'. A IA irá criar e iniciar o seu áudio 8D único. Por favor, seja paciente, pois isto pode demorar um momento.",
     "headphonesRecommended": "Para a melhor experiência, recomendamos vivamente o uso de auscultadores.",
@@ -214,8 +215,9 @@
     "paypalErrorDescription": "O ID de Cliente do PayPal não está configurado corretamente. Por favor, siga estes passos:",
     "paypalErrorStep1": "Vá para o seu painel de programador do PayPal",
     "paypalErrorStep2": "Crie uma nova aplicação 'Live' para obter o seu 'Client ID'.",
-    "paypalErrorStep3": "Adicione essa chave como uma variável de ambiente chamada `PAYPAL_CLIENT_ID` no seu serviço de implementação (ex: Vercel) e reimplemente.",
-    "paypalErrorNote": "Nota: Se vir um erro 'unauthorized' ou 404, tente encontrar um link 'Developer Dashboard Apps' na página de erro para obter acesso. Este é um problema comum do PayPal."
+    "paypalErrorStep3": "Adicione essa chave como uma variável de ambiente chamada `{variableName}` no seu serviço de implementação (ex: Vercel) e reimplemente.",
+    "paypalErrorNote": "Nota: Se vir um erro 'unauthorized' ou 404, tente encontrar um link 'Developer Dashboard Apps' na página de erro para obter acesso. Este é um problema comum do PayPal.",
+    "simulatePayment": "Simular Pagamento Bem-sucedido (Dev)"
   },
   "trialBanner": {
     "title": "Desbloqueie Todas as Funcionalidades com um Teste Gratuito de 7 Dias!",
