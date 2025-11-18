@@ -19,7 +19,7 @@ interface UpgradeModalProps {
   onStartTrial: () => void;
 }
 
-// Use process.env with VITE_ prefix as required by the user's Vite/Vercel configuration.
+// Environment variables are on process.env in this environment.
 const PAYPAL_CLIENT_ID = process.env.VITE_PAYPAL_CLIENT_ID || "test";
 
 const PayPalPaymentButtons: React.FC<{

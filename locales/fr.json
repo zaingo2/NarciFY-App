@@ -89,7 +89,8 @@
     "initialMessage": "Bonjour ! Posez-moi des questions sur les relations, la communication ou l'établissement de limites.",
     "title": "Chat Rapide",
     "placeholder": "Posez une question...",
-    "errorMessage": "Désolé, j'ai rencontré une erreur. Veuillez réessayer."
+    "errorMessage": "Désolé, j'ai rencontré une erreur. Veuillez réessayer.",
+    "apiKeyError": "Le chat n'est pas disponible. La variable d'environnement `{variableName}` n'est pas configurée correctement."
   },
   "patternDetector": {
     "title": "Détecteur de Schémas",
@@ -214,7 +215,7 @@
     "paypalErrorDescription": "L'ID Client PayPal n'est pas configuré correctement. Veuillez suivre ces étapes :",
     "paypalErrorStep1": "Allez à votre tableau de bord développeur PayPal",
     "paypalErrorStep2": "Créez une nouvelle application 'Live' pour obtenir votre 'Client ID'.",
-    "paypalErrorStep3": "Ajoutez cette clé en tant que variable d'environnement nommée `PAYPAL_CLIENT_ID` dans votre service de déploiement (par ex. Vercel) et redéployez.",
+    "paypalErrorStep3": "Ajoutez cette clé en tant que variable d'environnement nommée `{variableName}` dans votre service de déploiement (par ex. Vercel) et redéployez.",
     "paypalErrorNote": "Note : Si vous voyez une erreur 'unauthorized' ou 404, essayez de trouver un lien 'Developer Dashboard Apps' sur la page d'erreur pour y accéder. C'est un problème courant de PayPal.",
     "simulatePayment": "Simuler un Paiement Réussi (Dev)"
   },

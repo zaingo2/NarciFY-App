@@ -89,7 +89,8 @@
     "initialMessage": "Hei! Kysy minulta mitä tahansa ihmissuhteista, viestinnästä tai rajojen asettamisesta.",
     "title": "Pikakeskustelu",
     "placeholder": "Kysy jotain...",
-    "errorMessage": "Valitettavasti tapahtui virhe. Yritä uudelleen."
+    "errorMessage": "Valitettavasti tapahtui virhe. Yritä uudelleen.",
+    "apiKeyError": "Chat ei ole käytettävissä. Ympäristömuuttujaa `{variableName}` ei ole määritetty oikein."
   },
   "patternDetector": {
     "title": "Mallintunnistin",
@@ -214,7 +215,7 @@
     "paypalErrorDescription": "PayPal-asiakastunnusta ei ole määritetty oikein. Seuraa näitä ohjeita:",
     "paypalErrorStep1": "Siirry PayPal-kehittäjäpaneeliin",
     "paypalErrorStep2": "Luo uusi 'Live'-sovellus saadaksesi asiakastunnuksesi ('Client ID').",
-    "paypalErrorStep3": "Lisää avain ympäristömuuttujaksi nimellä `PAYPAL_CLIENT_ID` käyttöönottopalvelussasi (esim. Vercel) ja ota uudelleen käyttöön.",
+    "paypalErrorStep3": "Lisää avain ympäristömuuttujaksi nimellä `{variableName}` käyttöönottopalvelussasi (esim. Vercel) ja ota uudelleen käyttöön.",
     "paypalErrorNote": "Huomautus: Jos näet 'unauthorized'- tai 404-virheen, yritä löytää 'Developer Dashboard Apps' -linkki virhesivulta saadaksesi pääsyn. Tämä on yleinen PayPal-ongelma.",
     "simulatePayment": "Simuloi Onnistunut Maksu (Kehitys)"
   },

@@ -89,7 +89,8 @@
     "initialMessage": "Hello! Ask me anything about relationships, communication, or setting boundaries.",
     "title": "Quick Chat",
     "placeholder": "Ask a question...",
-    "errorMessage": "Sorry, I encountered an error. Please try again."
+    "errorMessage": "Sorry, I encountered an error. Please try again.",
+    "apiKeyError": "Chat is unavailable. The `{variableName}` environment variable is not configured correctly."
   },
   "patternDetector": {
     "title": "Pattern Detector",

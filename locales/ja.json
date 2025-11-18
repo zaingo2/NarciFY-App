@@ -89,7 +89,8 @@
     "initialMessage": "こんにちは！人間関係、コミュニケーション、境界線の設定について何でも聞いてください。",
     "title": "クイックチャット",
     "placeholder": "質問を入力...",
-    "errorMessage": "申し訳ありません、エラーが発生しました。もう一度お試しください。"
+    "errorMessage": "申し訳ありません、エラーが発生しました。もう一度お試しください。",
+    "apiKeyError": "チャットは利用できません。環境変数 `{variableName}` が正しく設定されていません。"
   },
   "patternDetector": {
     "title": "パターン検出器",
@@ -214,7 +215,7 @@
     "paypalErrorDescription": "PayPalクライアントIDが正しく設定されていません。以下の手順に従ってください：",
     "paypalErrorStep1": "PayPal開発者ダッシュボードに移動します",
     "paypalErrorStep2": "新しい「ライブ」アプリケーションを作成して「クライアントID」を取得します。",
-    "paypalErrorStep3": "そのキーをデプロイメントサービス（例：Vercel）で `PAYPAL_CLIENT_ID` という名前の環境変数として追加し、再デプロイします。",
+    "paypalErrorStep3": "そのキーをデプロイメントサービス（例：Vercel）で `{variableName}` という名前の環境変数として追加し、再デプロイします。",
     "paypalErrorNote": "注意：「unauthorized」または404エラーが表示される場合は、エラーページで「Developer Dashboard Apps」のリンクを見つけてアクセスしてみてください。これは一般的なPayPalの問題です。",
     "simulatePayment": "支払成功をシミュレート (開発用)"
   },

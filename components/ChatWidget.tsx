@@ -18,7 +18,9 @@ export const ChatWidget: React.FC = () => {
     useEffect(() => {
         if (t && !isInitialized.current) {
             setMessages([{ role: 'model', text: t('chatWidget.initialMessage') }]);
-            const apiKey = process.env.VITE_API_KEY;
+            
+            // The API key is injected into process.env.API_KEY in this environment.
+            const apiKey = process.env.API_KEY;
             if (apiKey) {
                 try {
                     const ai = new GoogleGenAI({ apiKey });
@@ -30,8 +32,11 @@ export const ChatWidget: React.FC = () => {
                     });
                 } catch (error) {
                     console.error("Failed to initialize GoogleGenAI:", error);
+                    setMessages(prev => [...prev, { role: 'model', text: "Failed to initialize AI Chat." }]);
                     chatRef.current = null;
                 }
+            } else {
+                 console.warn("API_KEY is not set. Chat widget AI features disabled.");
             }
             isInitialized.current = true;
         }
@@ -45,7 +50,7 @@ export const ChatWidget: React.FC = () => {
         if (!input.trim()) return;
 
         if (!chatRef.current) {
-            setMessages(prev => [...prev, { role: 'model', text: "Chat is unavailable. The API_KEY is not configured correctly." }]);
+            setMessages(prev => [...prev, { role: 'model', text: t('chatWidget.apiKeyError', { variableName: 'API_KEY' }) }]);
             return;
         }
 

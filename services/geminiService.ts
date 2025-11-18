@@ -4,13 +4,16 @@ import type { AnalysisResult, LocalHelpResult, UserLocation, Recommendation } fr
 import { decode, decodeAudioData } from '../utils/audio';
 
 const getAiClient = () => {
-  // Reverted to VITE_API_KEY to match the Vercel environment configuration.
-  const apiKey = process.env.VITE_API_KEY;
+  // The API key is injected into process.env.API_KEY in this environment.
+  const apiKey = process.env.API_KEY;
   if (!apiKey) {
-    throw new Error("VITE_API_KEY environment variable not set. Please configure it in your hosting provider.");
+    // Return null to allow for graceful degradation in the UI.
+    return null;
   }
   return new GoogleGenAI({ apiKey });
 };
+
+const ERROR_MESSAGE = "API_KEY environment variable not set. Please configure it in your hosting provider.";
 
 // Schema for the analyzeSituation function
 const analysisSchema = {
@@ -35,6 +38,8 @@ const analysisSchema = {
 
 export const analyzeSituation = async (situation: string): Promise<AnalysisResult> => {
     const ai = getAiClient();
+    if (!ai) throw new Error(ERROR_MESSAGE);
+
     const prompt = `Analyze the following user-described situation for signs of emotional manipulation. Provide a structured analysis based on the provided JSON schema. The user is looking for help identifying red flags and getting guidance.
 
 Situation: "${situation}"
@@ -75,6 +80,8 @@ const toBase64 = (blob: Blob) => new Promise<string>((resolve, reject) => {
 
 export const transcribeAudio = async (audioBlob: Blob): Promise<string> => {
     const ai = getAiClient();
+    if (!ai) throw new Error(ERROR_MESSAGE);
+
     const base64Audio = await toBase64(audioBlob);
 
     const audioPart = {
@@ -106,6 +113,8 @@ const getAudioContext = () => {
 
 export const textToSpeech = async (text: string): Promise<AudioBuffer> => {
     const ai = getAiClient();
+    if (!ai) throw new Error(ERROR_MESSAGE);
+    
     const ttsPrompt = `Please read the following meditation script in a soft, calm, and gentle ASMR-like tone. Speak slowly and pause between sentences to create a relaxing experience.
 
 Script: "${text}"`;
@@ -137,6 +146,8 @@ Script: "${text}"`;
 
 export const generateMeditationScript = async (prompt: string): Promise<string> => {
     const ai = getAiClient();
+    if (!ai) throw new Error(ERROR_MESSAGE);
+
     const fullPrompt = `You are a compassionate and skilled meditation guide. Create a detailed and immersive meditation script of approximately 10-12 minutes in length (around 1200-1500 words) based on the following user request. The script should be structured as a complete mental journey with a clear beginning (grounding/breathing), middle (deep visualization/exploration), and end (affirmations/gentle return). Speak in a gentle, empowering tone.
 
 User Request: "${prompt}"
@@ -157,6 +168,8 @@ Generate only the script text, without any introductory or concluding remarks li
 
 export const findLocalHelp = async (location: UserLocation): Promise<LocalHelpResult[]> => {
     const ai = getAiClient();
+    if (!ai) throw new Error(ERROR_MESSAGE);
+
     const prompt = "Find local mental health services, therapists specializing in relationship abuse, legal aid, and domestic violence support centers near the user's location. Provide a list of places.";
 
     const response = await ai.models.generateContent({
@@ -212,6 +225,8 @@ const recommendationsSchema = {
 
 export const generateRecommendations = async (history: AnalysisResult[]): Promise<Recommendation[]> => {
     const ai = getAiClient();
+    if (!ai) throw new Error(ERROR_MESSAGE);
+
     const tacticCounts: { [key: string]: number } = {};
     history.forEach(analysis => {
         analysis.identifiedTactics.forEach(tactic => {
@@ -235,7 +250,7 @@ export const generateRecommendations = async (history: AnalysisResult[]): Promis
         1.  **Deep Dive:** A deeper explanation of the primary tactic. Explain the psychology, long-term effects, and why it's used.
         2.  **Skill Builder:** A practical, step-by-step guide to developing a specific counter-skill (e.g., setting boundaries, assertive communication, reality checking).
         3.  **Healing Path:** A suggested activity for emotional healing (e.g., a journaling prompt, a mindfulness exercise, a small step to reconnect with their identity).
-        4.  **Red Flag Spotlight:** A related, more subtle red flag to watch out for, helping the user expand their awareness.
+        4.  **Red Flag Spotlight:** A related, more subtle red flag to watch for, helping the user expand their awareness.
 
         Your response must be empathetic, empowering, and structured according to the provided JSON schema.
     `;

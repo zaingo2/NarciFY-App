@@ -89,7 +89,8 @@
     "initialMessage": "¡Hola! Pregúntame lo que quieras sobre relaciones, comunicación o cómo establecer límites.",
     "title": "Chat Rápido",
     "placeholder": "Haz una pregunta...",
-    "errorMessage": "Lo siento, encontré un error. Por favor, inténtalo de nuevo."
+    "errorMessage": "Lo siento, encontré un error. Por favor, inténtalo de nuevo.",
+    "apiKeyError": "El chat no está disponible. La variable de entorno `{variableName}` no está configurada correctamente."
   },
   "patternDetector": {
     "title": "Detector de Patrones",

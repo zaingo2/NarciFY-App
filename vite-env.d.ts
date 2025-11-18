@@ -1,11 +1,11 @@
+/// <reference types="vite/client" />
 
-// This augments the NodeJS namespace to add type definitions for environment
-// variables accessed via `process.env`. This is the standard and robust way
-// to make TypeScript aware of variables injected by the execution environment
-// without causing redeclaration errors.
+// Fix: The variable `process` is already declared, likely by `@types/node`.
+// This change augments the existing `NodeJS.ProcessEnv` interface to add
+// custom environment variables, resolving the "Cannot redeclare" error.
 declare namespace NodeJS {
-  interface ProcessEnv {
-    readonly VITE_API_KEY: string;
-    readonly VITE_PAYPAL_CLIENT_ID: string;
-  }
+    interface ProcessEnv {
+        API_KEY?: string;
+        VITE_PAYPAL_CLIENT_ID?: string;
+    }
 }

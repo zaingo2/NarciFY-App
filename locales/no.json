@@ -89,7 +89,8 @@
     "initialMessage": "Hei! Spør meg om hva som helst om forhold, kommunikasjon eller å sette grenser.",
     "title": "Rask prat",
     "placeholder": "Still et spørsmål...",
-    "errorMessage": "Beklager, jeg støtte på en feil. Vennligst prøv igjen."
+    "errorMessage": "Beklager, jeg støtte på en feil. Vennligst prøv igjen.",
+    "apiKeyError": "Chat er utilgjengelig. Miljøvariabelen `{variableName}` er ikke riktig konfigurert."
   },
   "patternDetector": {
     "title": "Mønsterdetektor",
@@ -214,7 +215,7 @@
     "paypalErrorDescription": "PayPal Client ID er ikke riktig konfigurert. Følg disse trinnene:",
     "paypalErrorStep1": "Gå til ditt PayPal-utviklerdashbord",
     "paypalErrorStep2": "Opprett en ny 'Live'-applikasjon for å få din 'Client ID'.",
-    "paypalErrorStep3": "Legg til den nøkkelen som en miljøvariabel med navnet `PAYPAL_CLIENT_ID` i din distribusjonstjeneste (f.eks. Vercel) og distribuer på nytt.",
+    "paypalErrorStep3": "Legg til den nøkkelen som en miljøvariabel med navnet `{variableName}` i din distribusjonstjeneste (f.eks. Vercel) og distribuer på nytt.",
     "paypalErrorNote": "Merk: Hvis du ser en 'unauthorized'- eller 404-feil, prøv å finne en 'Developer Dashboard Apps'-lenke på feilsiden for å få tilgang. Dette er et vanlig PayPal-problem.",
     "simulatePayment": "Simuler vellykket betaling (dev)"
   },
