@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { ErrorInfo, ReactNode } from 'react';
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 interface State {
@@ -9,24 +9,21 @@ interface State {
 }
 
 class ErrorBoundary extends React.Component<Props, State> {
-  // Fix for "Property 'props' does not exist on type 'ErrorBoundary'".
-  // Replaced the class property state initialization with a standard constructor
-  // to help resolve potential TypeScript type inference issues.
   constructor(props: Props) {
     super(props);
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(_: Error): State {
+  public static getDerivedStateFromError(_: Error): State {
     // Update state so the next render will show the fallback UI.
     return { hasError: true };
   }
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error("Uncaught error:", error, errorInfo);
   }
 
-  render() {
+  public render() {
     if (this.state.hasError) {
       return (
         <div className="bg-slate-900 min-h-screen text-slate-50 flex flex-col items-center justify-center p-8 text-center main-bg">

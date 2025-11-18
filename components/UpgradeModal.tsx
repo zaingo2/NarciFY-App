@@ -19,7 +19,28 @@ interface UpgradeModalProps {
   onStartTrial: () => void;
 }
 
-const PAYPAL_CLIENT_ID = process.env.VITE_PAYPAL_CLIENT_ID || "test";
+const getPayPalClientId = () => {
+    let clientId = '';
+    // 1. Try standard Vite import.meta.env
+    try {
+        if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_PAYPAL_CLIENT_ID) {
+            clientId = import.meta.env.VITE_PAYPAL_CLIENT_ID;
+        }
+    } catch (e) { /* ignore */ }
+
+    // 2. Try process.env fallback
+    if (!clientId) {
+        try {
+            if (typeof process !== 'undefined' && process.env && process.env.VITE_PAYPAL_CLIENT_ID) {
+                clientId = process.env.VITE_PAYPAL_CLIENT_ID;
+            }
+        } catch (e) { /* ignore */ }
+    }
+    
+    return clientId || "test";
+}
+
+const PAYPAL_CLIENT_ID = getPayPalClientId();
 
 const PayPalPaymentButtons: React.FC<{
     plan: 'monthly' | 'annual';

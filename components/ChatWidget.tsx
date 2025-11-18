@@ -19,10 +19,27 @@ export const ChatWidget: React.FC = () => {
         if (t && !isInitialized.current) {
             setMessages([{ role: 'model', text: t('chatWidget.initialMessage') }]);
             
-            // Fix: Adhere to Gemini API guidelines by using process.env.API_KEY.
-            if (process.env.API_KEY) {
+            let apiKey = '';
+            // 1. Try standard Vite import.meta.env
+            try {
+                if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_KEY) {
+                    apiKey = import.meta.env.VITE_API_KEY;
+                }
+            } catch (e) { /* ignore */ }
+
+            // 2. Try process.env fallback
+            if (!apiKey) {
                 try {
-                    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+                    if (typeof process !== 'undefined' && process.env) {
+                        if (process.env.VITE_API_KEY) apiKey = process.env.VITE_API_KEY;
+                        else if (process.env.API_KEY) apiKey = process.env.API_KEY;
+                    }
+                } catch (e) { /* ignore */ }
+            }
+
+            if (apiKey) {
+                try {
+                    const ai = new GoogleGenAI({ apiKey: apiKey });
                     chatRef.current = ai.chats.create({
                         model: 'gemini-flash-lite-latest',
                         config: {
@@ -35,9 +52,8 @@ export const ChatWidget: React.FC = () => {
                     chatRef.current = null;
                 }
             } else {
-                 // Fix: Update warning and error message to reference API_KEY instead of VITE_API_KEY.
-                 console.warn("API_KEY is not set. Chat widget AI features disabled.");
-                 setMessages(prev => [...prev, { role: 'model', text: t('chatWidget.apiKeyError', { variableName: 'API_KEY' }) }]);
+                 console.warn("VITE_API_KEY is not set. Chat widget AI features disabled.");
+                 setMessages(prev => [...prev, { role: 'model', text: t('chatWidget.apiKeyError', { variableName: 'VITE_API_KEY' }) }]);
             }
             isInitialized.current = true;
         }
@@ -51,8 +67,7 @@ export const ChatWidget: React.FC = () => {
         if (!input.trim()) return;
 
         if (!chatRef.current) {
-            // Fix: Update error message to reference API_KEY.
-            setMessages(prev => [...prev, { role: 'model', text: t('chatWidget.apiKeyError', { variableName: 'API_KEY' }) }]);
+            setMessages(prev => [...prev, { role: 'model', text: t('chatWidget.apiKeyError', { variableName: 'VITE_API_KEY' }) }]);
             return;
         }
 
@@ -85,7 +100,7 @@ export const ChatWidget: React.FC = () => {
 
     return (
         <>
-            <div className={`fixed bottom-8 right-8 transition-all duration-300 ${isOpen ? 'w-11/12 max-w-md h-3/4 max-h-[600px] shadow-2xl rounded-xl' : 'w-16 h-16 rounded-full' } bg-slate-800 flex flex-col`}>
+            <div className={`fixed bottom-8 right-8 transition-all duration-300 ${isOpen ? 'w-11/12 max-w-md h-3/4 max-h-[600px] shadow-2xl rounded-xl' : 'w-16 h-16 rounded-full' } bg-slate-800 flex flex-col z-50`}>
                 {isOpen ? (
                     <>
                         <header className="flex items-center justify-between p-4 border-b border-slate-700">

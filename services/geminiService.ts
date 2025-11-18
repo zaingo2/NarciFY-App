@@ -3,17 +3,45 @@ import { GoogleGenAI, Type, Modality } from "@google/genai";
 import type { AnalysisResult, LocalHelpResult, UserLocation, Recommendation } from '../types';
 import { decode, decodeAudioData } from '../utils/audio';
 
-// Per guidelines, API key should be sourced from process.env.API_KEY, not import.meta.env.
-const API_KEY_ERROR_MESSAGE = "Gemini API key not found. Please ensure the API_KEY environment variable is correctly set.";
+const API_KEY_ERROR_MESSAGE = "Gemini API key not found. Please ensure the VITE_API_KEY environment variable is correctly set in Vercel.";
 
+const getApiKey = () => {
+    let key = '';
+
+    // 1. Try standard Vite import.meta.env
+    try {
+        if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_KEY) {
+            key = import.meta.env.VITE_API_KEY;
+        }
+    } catch (e) {
+        // Ignore errors if import.meta is not available
+    }
+
+    // 2. Try process.env (Fallback for Vercel runtime or specific build configs)
+    if (!key) {
+        try {
+            if (typeof process !== 'undefined' && process.env) {
+                if (process.env.VITE_API_KEY) {
+                    key = process.env.VITE_API_KEY;
+                } else if (process.env.API_KEY) {
+                    key = process.env.API_KEY;
+                }
+            }
+        } catch (e) {
+            // Ignore errors if process is not available
+        }
+    }
+
+    return key;
+};
 
 const getAiClient = () => {
-  // Per guidelines, API_KEY is assumed to be available on process.env.
-  if (!process.env.API_KEY) {
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    console.error("API Key is missing!");
     return null;
   }
-  // Per guidelines, initialize with { apiKey: process.env.API_KEY }.
-  return new GoogleGenAI({ apiKey: process.env.API_KEY });
+  return new GoogleGenAI({ apiKey: apiKey });
 };
 
 const getLanguageInstruction = (language: string) => `\n\nIMPORTANT: Your entire response must be in the language with the ISO 639-1 code: '${language}'.`;
