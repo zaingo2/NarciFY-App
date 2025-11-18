@@ -3,17 +3,18 @@ import { GoogleGenAI, Type, Modality } from "@google/genai";
 import type { AnalysisResult, LocalHelpResult, UserLocation, Recommendation } from '../types';
 import { decode, decodeAudioData } from '../utils/audio';
 
+// Per guidelines, API key should be sourced from process.env.API_KEY, not import.meta.env.
+const API_KEY_ERROR_MESSAGE = "Gemini API key not found. Please ensure the API_KEY environment variable is correctly set.";
+
+
 const getAiClient = () => {
-  // This environment injects variables into process.env
-  const apiKey = process.env.VITE_API_KEY;
-  if (!apiKey) {
-    // Return null to allow for graceful degradation in the UI.
+  // Per guidelines, API_KEY is assumed to be available on process.env.
+  if (!process.env.API_KEY) {
     return null;
   }
-  return new GoogleGenAI({ apiKey });
+  // Per guidelines, initialize with { apiKey: process.env.API_KEY }.
+  return new GoogleGenAI({ apiKey: process.env.API_KEY });
 };
-
-const ERROR_MESSAGE = "VITE_API_KEY environment variable not set. Please configure it in your hosting provider.";
 
 const getLanguageInstruction = (language: string) => `\n\nIMPORTANT: Your entire response must be in the language with the ISO 639-1 code: '${language}'.`;
 
@@ -40,7 +41,7 @@ const analysisSchema = {
 
 export const analyzeSituation = async (situation: string, language: string): Promise<AnalysisResult> => {
     const ai = getAiClient();
-    if (!ai) throw new Error(ERROR_MESSAGE);
+    if (!ai) throw new Error(API_KEY_ERROR_MESSAGE);
 
     const prompt = `Analyze the following user-described situation for signs of emotional manipulation. Provide a structured analysis based on the provided JSON schema. The user is looking for help identifying red flags and getting guidance.
 
@@ -82,7 +83,7 @@ const toBase64 = (blob: Blob) => new Promise<string>((resolve, reject) => {
 
 export const transcribeAudio = async (audioBlob: Blob): Promise<string> => {
     const ai = getAiClient();
-    if (!ai) throw new Error(ERROR_MESSAGE);
+    if (!ai) throw new Error(API_KEY_ERROR_MESSAGE);
 
     const base64Audio = await toBase64(audioBlob);
 
@@ -115,7 +116,7 @@ const getAudioContext = () => {
 
 export const textToSpeech = async (text: string): Promise<AudioBuffer> => {
     const ai = getAiClient();
-    if (!ai) throw new Error(ERROR_MESSAGE);
+    if (!ai) throw new Error(API_KEY_ERROR_MESSAGE);
     
     // The model should infer the language from the script itself.
     const ttsPrompt = `Please read the following meditation script in a soft, calm, and gentle ASMR-like tone. Speak slowly and pause between sentences to create a relaxing experience.
@@ -149,7 +150,7 @@ Script: "${text}"`;
 
 export const generateMeditationScript = async (prompt: string, language: string): Promise<string> => {
     const ai = getAiClient();
-    if (!ai) throw new Error(ERROR_MESSAGE);
+    if (!ai) throw new Error(API_KEY_ERROR_MESSAGE);
 
     const fullPrompt = `You are a compassionate and skilled meditation guide. Create a detailed and immersive meditation script of approximately 10-12 minutes in length (around 1200-1500 words) based on the following user request. The script should be structured as a complete mental journey with a clear beginning (grounding/breathing), middle (deep visualization/exploration), and end (affirmations/gentle return). Speak in a gentle, empowering tone.
 
@@ -171,7 +172,7 @@ Generate only the script text, without any introductory or concluding remarks li
 
 export const findLocalHelp = async (location: UserLocation, language: string): Promise<LocalHelpResult[]> => {
     const ai = getAiClient();
-    if (!ai) throw new Error(ERROR_MESSAGE);
+    if (!ai) throw new Error(API_KEY_ERROR_MESSAGE);
 
     const prompt = `Find local mental health services, therapists specializing in relationship abuse, legal aid, and domestic violence support centers near the user's location. Provide a list of places.` + getLanguageInstruction(language);
 
@@ -228,7 +229,7 @@ const recommendationsSchema = {
 
 export const generateRecommendations = async (history: AnalysisResult[], language: string): Promise<Recommendation[]> => {
     const ai = getAiClient();
-    if (!ai) throw new Error(ERROR_MESSAGE);
+    if (!ai) throw new Error(API_KEY_ERROR_MESSAGE);
 
     const tacticCounts: { [key: string]: number } = {};
     history.forEach(analysis => {
