@@ -18,8 +18,7 @@ interface UpgradeModalProps {
   onStartTrial: () => void;
 }
 
-// Consistent with how API_KEY is handled, this now uses the variable explicitly defined in vite.config.ts.
-// This is a more robust way to ensure environment variables are available on the client.
+// Fix: Use process.env as configured in vite.config.ts to avoid TypeScript errors with import.meta.env.
 const PAYPAL_CLIENT_ID = process.env.VITE_PAYPAL_CLIENT_ID || "test";
 
 const PayPalPaymentButtons: React.FC<{
