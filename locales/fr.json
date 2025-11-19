@@ -93,7 +93,7 @@
   },
   "patternDetector": {
     "title": "Détecteur de Schémas",
-    "description": "Découvrez des schémas émotionnels et des signaux d'alarme de communication à travers vos analyses passées.",
+    "description": "Découvrez des schémas émotionnels et des signaux d'alarme de communication à travers vos analyses passadas.",
     "noAnalysesTitle": "Pas Encore d'Analyses",
     "noAnalysesText": "Vos analyses passées apparaîtront ici une fois que vous commencerez à analyser des situations.",
     "historyTitle": "Historique des Analyses",

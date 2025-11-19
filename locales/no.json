@@ -4,7 +4,7 @@
     "home": "Hjem",
     "audios": "Personlige 8D-lyder",
     "patternDetector": "Mønsterdetektor",
-    "recommendations": "Automatiske anbefalinger",
+    "recommendations": "Automatiska anbefalinger",
     "sos": "SOS Ro ned",
     "status": "Status",
     "premium": "Premium",
@@ -175,7 +175,7 @@
     }
   },
   "recommendations": {
-    "title": "Automatiska anbefalinger",
+    "title": "Automatiske anbefalinger",
     "description": "Din personlige veikart for helbredelse og vekst, basert på din historikk.",
     "refreshButton": "Oppdater anbefalinger",
     "loading": "Analyserer mønstrene dine og genererer personlige anbefalinger...",

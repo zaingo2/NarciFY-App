@@ -1,6 +1,7 @@
 
 
 
+
 import React, { useState } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
 import { useAuth } from '../contexts/AuthContext';
@@ -198,10 +199,10 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose, onS
                 )}
             </div>
             
-             <div className="text-center mt-4 flex items-center justify-center gap-4 text-slate-500 text-xs">
-                <span className="flex items-center gap-1"><i className="fa-solid fa-lock"></i> {t('upgrade.securePayment')}</span>
-                <span>|</span>
-                <span>{t('upgrade.cancelAnytime')}</span>
+             <div className="text-center mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-slate-500 text-xs">
+                <span className="flex items-center gap-1 whitespace-nowrap"><i className="fa-solid fa-lock"></i> {t('upgrade.securePayment')}</span>
+                <span className="hidden sm:inline">|</span>
+                <span className="whitespace-nowrap">{t('upgrade.cancelAnytime')}</span>
             </div>
 
             <p className="text-[10px] text-slate-600 mt-6 text-center leading-tight max-w-lg mx-auto">
