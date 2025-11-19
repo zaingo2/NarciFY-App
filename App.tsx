@@ -1,6 +1,4 @@
 
-
-
 import React, { useState, useEffect, useRef } from 'react';
 import { AnalysisPanel } from './components/AnalysisPanel';
 import { Navigation } from './components/Navigation';
@@ -169,7 +167,7 @@ function AppContent() {
     switch(currentView) {
       case 'home':
         return (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
             <div className="lg:col-span-2">
               <AnalysisPanel 
                 latestAnalysis={analysisHistory[0] && !analysisHistory[0].id.startsWith('placeholder-') ? analysisHistory[0] : null}
@@ -183,7 +181,7 @@ function AppContent() {
                 language={language}
               />
             </div>
-            <div className="lg:col-span-1">
+            <div className="lg:col-span-1 h-full">
               <LocalHelp results={localHelpResults} onFindHelp={handleFindHelp} isLoading={isFindingHelp} />
             </div>
           </div>
@@ -213,12 +211,12 @@ function AppContent() {
         setCurrentView={setCurrentView} 
         onUpgradeClick={() => setIsUpgradeModalOpen(true)}
       />
-      <main className="lg:ml-64 p-4 sm:p-6 lg:p-8">
+      <main className="lg:ml-64 p-4 sm:p-5 lg:p-6 xl:p-8 pt-16 lg:pt-6">
         {isDisclaimerVisible && <Disclaimer onClose={handleDismissDisclaimer} />}
         {renderView()}
         
-        <footer className="mt-16 border-t border-slate-800 pt-8 pb-4 text-center px-4">
-            <p className="text-xs text-slate-600 max-w-4xl mx-auto leading-relaxed">
+        <footer className="mt-12 border-t border-slate-800 pt-6 pb-4 text-center px-4">
+            <p className="text-[10px] text-slate-600 max-w-4xl mx-auto leading-relaxed">
                 {t('upgrade.clickbankDisclaimer')}
             </p>
         </footer>
