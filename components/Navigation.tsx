@@ -1,5 +1,4 @@
 
-
 import React, { useState, useRef } from 'react';
 import { Logo } from './Logo';
 import { useAuth } from '../contexts/AuthContext';
@@ -146,9 +145,6 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, setCurrentV
                     {t('navigation.manageSubscription')}
                  </a>
             )}
-            <a href="https://zaingoapps.lemonsqueezy.com/affiliates" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 transition-colors block mb-2">
-              {t('navigation.affiliateProgram')}
-            </a>
             {isDevMode && (
                <p className="text-xs text-amber-300 font-bold uppercase tracking-wider">
                    <i className="fa-solid fa-bug mr-1"></i>

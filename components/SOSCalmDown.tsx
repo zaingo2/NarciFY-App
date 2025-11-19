@@ -5,28 +5,6 @@ import { Spinner } from './Spinner';
 import { bufferToWav } from '../utils/audio';
 import { useTranslation } from '../hooks/useTranslation';
 
-const affirmations = [
-    "This feeling is temporary and it will pass.",
-    "I am safe and in control of my breath.",
-    "I release the need to control things outside of myself.",
-    "I am grounded in this present moment.",
-    "With every exhale, I let go of tension.",
-    "My mind is becoming calmer with each breath.",
-    "I am allowed to feel this way, and I will be okay.",
-    "I choose peace over this feeling of anxiety.",
-    "I am resilient and I can handle this.",
-    "I inhale calm and exhale worry.",
-    "I am anchored in the here and now.",
-    "I give myself permission to find stillness.",
-    "This situation does not define my worth.",
-    "I am strong enough to overcome this moment."
-];
-
-const getSessionAffirmations = () => {
-    const shuffled = [...affirmations].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, 10);
-};
-
 const BREATH_CYCLE_DURATION = 14000; // 4s in, 2s hold, 8s out = 14s
 
 type SessionState = 'idle' | 'generating' | 'playing' | 'paused' | 'error';
@@ -55,6 +33,13 @@ export const SOSCalmDown: React.FC = () => {
         setCurrentAffirmation(t('sosCalmDown.initialAffirmation'));
     }, [t]);
     
+    const getSessionAffirmations = () => {
+        const affirmationsString = t('sosCalmDown.affirmations');
+        const affirmations = affirmationsString.split('|');
+        const shuffled = [...affirmations].sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, 10);
+    };
+
     const stopSession = useCallback((isComponentUnmounting = false) => {
         setSessionState('idle');
         setCurrentAffirmation(t('sosCalmDown.initialAffirmation'));
