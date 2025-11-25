@@ -244,7 +244,16 @@ export const resources = {
       "teaserAudiosDesc": "Experience deep healing with immersive 8D audio meditations tailored just for you. Generate custom scripts for your specific needs, from calming anxiety to building confidence, and let the 8D soundscape guide you to a place of peace.",
       "teaserRecommendationsTitle": "Unlock Automatic Recommendations",
       "teaserRecommendationsDesc": "Get a personalized roadmap to healing. Our AI analyzes your history to provide custom-tailored advice, skill-building exercises, and healing strategies designed to address the specific patterns you're facing.",
-      "simulatePayment": "Simulate Successful Payment (Dev)"
+      "simulatePayment": "Simulate Successful Payment (Dev)",
+      "haveLicenseKey": "I already have a license key",
+      "enterLicenseTitle": "Activate License",
+      "enterLicenseDesc": "Enter the code sent to your email after purchase.",
+      "licenseKeyLabel": "License Key",
+      "findKeyHelp": "You can find your key in the welcome email from NarciFY.",
+      "activateButton": "Activate",
+      "backToPlans": "Back to Plans",
+      "invalidLicense": "Invalid license key. Please check your email.",
+      "paymentInstruction": "After payment, you will receive your activation code instantly via email."
     },
     "trialBanner": {
       "title": "Unlock All Features with a Free 7-Day Trial!",
@@ -429,7 +438,7 @@ export const resources = {
         "healing": "Sanar Heridas Emocionales Pasadas",
         "confidence": "Activación de Confianza y Amor Propio",
         "cleanse": "Limpieza Energética y Reinicio Mental",
-        "morning": "Meditación de Empoderamiento Matinal"
+        "morning": "Meditación Matutina de Empoderamiento"
       },
       "backgroundSounds": {
         "rain": "Lluvia",
@@ -495,8 +504,17 @@ export const resources = {
       "teaserAudiosTitle": "Desbloquea Audios 8D Personalizados",
       "teaserAudiosDesc": "Experimenta una sanación profunda con meditaciones de audio 8D inmersivas hechas a tu medida. Genera guiones personalizados para tus necesidades específicas, desde calmar la ansiedad hasta construir confianza, y deja que el paisaje sonoro 8D te guíe a un lugar de paz.",
       "teaserRecommendationsTitle": "Desbloquea Recomendaciones Automáticas",
-      "teaserRecommendationsDesc": "Obten un mapa de ruta personalizado para sanar. Nuestra IA analiza tu historial para proporcionar consejos a medida, ejercicios de desarrollo de habilidades y estrategias de sanación diseñadas para abordar los patrones específicos que enfrentas.",
-      "simulatePayment": "Simular Pago Exitoso (Dev)"
+      "teaserRecommendationsDesc": "Obtén un mapa de ruta personalizado para sanar. Nuestra IA analiza tu historial para proporcionar consejos a medida, ejercicios de desarrollo de habilidades y estrategias de sanación diseñadas para abordar los patrones específicos que enfrentas.",
+      "simulatePayment": "Simular Pago Exitoso (Dev)",
+      "haveLicenseKey": "Ya tengo una clave de licencia",
+      "enterLicenseTitle": "Activar Licencia",
+      "enterLicenseDesc": "Ingresa el código enviado a tu correo después de la compra.",
+      "licenseKeyLabel": "Clave de Licencia",
+      "findKeyHelp": "Puedes encontrar tu clave en el correo de bienvenida de NarciFY.",
+      "activateButton": "Activar",
+      "backToPlans": "Volver a Planes",
+      "invalidLicense": "Clave de licencia inválida. Por favor revisa tu correo.",
+      "paymentInstruction": "Después del pago, recibirás tu código de activación al instante por correo electrónico."
     },
     "trialBanner": {
       "title": "¡Desbloquea Todas las Funciones con una Prueba Gratuita de 7 Días!",
@@ -748,7 +766,16 @@ export const resources = {
       "teaserAudiosDesc": "Experimente uma cura profunda com meditações em áudio 8D imersivas, feitas à sua medida. Gere guiões personalizados para as suas necessidades específicas, desde acalmar a ansiedade a construir confiança, e deixe que a paisagem sonora 8D o guie para um lugar de paz.",
       "teaserRecommendationsTitle": "Desbloqueie Recomendações Automáticas",
       "teaserRecommendationsDesc": "Obtenha um roteiro personalizado para a cura. A nossa IA analisa o seu histórico para fornecer conselhos à medida, exercícios de desenvolvimento de competências e estratégias de cura concebidas para abordar os padrões específicos que enfrenta.",
-      "simulatePayment": "Simular Pagamento Bem-sucedido (Dev)"
+      "simulatePayment": "Simular Pagamento Bem-sucedido (Dev)",
+      "haveLicenseKey": "Já tenho uma chave de licença",
+      "enterLicenseTitle": "Ativar Licença",
+      "enterLicenseDesc": "Insira o código enviado para o seu email após a compra.",
+      "licenseKeyLabel": "Chave de Licença",
+      "findKeyHelp": "Pode encontrar a sua chave no email de boas-vindas da NarciFY.",
+      "activateButton": "Ativar",
+      "backToPlans": "Voltar aos Planos",
+      "invalidLicense": "Chave de licença inválida. Por favor verifique o seu email.",
+      "paymentInstruction": "Após o pagamento, receberá o seu código de ativação instantaneamente por e-mail."
     },
     "trialBanner": {
       "title": "Desbloqueie Todas as Funcionalidades com um Teste Gratuito de 7 Dias!",
@@ -1000,7 +1027,16 @@ export const resources = {
       "teaserAudiosDesc": "Erleben Sie tiefe Heilung mit immersiven 8D-Audio-Meditationen, die nur für Sie maßgeschneidert sind. Generieren Sie benutzerdefinierte Skripte für Ihre spezifischen Bedürfnisse, von der Beruhigung von Angst bis zum Aufbau von Selbstvertrauen, und lassen Sie sich von der 8D-Klanglandschaft an einen Ort des Friedens führen.",
       "teaserRecommendationsTitle": "Schalten Sie automatische Empfehlungen frei",
       "teaserRecommendationsDesc": "Erhalten Sie einen personalisierten Fahrplan zur Heilung. Unsere KI analysiert Ihren Verlauf, um maßgeschneiderte Ratschläge, Übungen zum Kompetenzaufbau und Heilungsstrategien bereitzustellen, die auf die spezifischen Muster zugeschnitten sind, mit denen Sie konfrontiert sind.",
-      "simulatePayment": "Erfolgreiche Zahlung simulieren (Dev)"
+      "simulatePayment": "Erfolgreiche Zahlung simulieren (Dev)",
+      "haveLicenseKey": "Ich habe bereits einen Lizenzschlüssel",
+      "enterLicenseTitle": "Lizenz aktivieren",
+      "enterLicenseDesc": "Geben Sie den Code ein, der nach dem Kauf an Ihre E-Mail gesendet wurde.",
+      "licenseKeyLabel": "Lizenzschlüssel",
+      "findKeyHelp": "Sie finden Ihren Schlüssel in der Willkommens-E-Mail von NarciFY.",
+      "activateButton": "Aktivieren",
+      "backToPlans": "Zurück zu den Plänen",
+      "invalidLicense": "Ungültiger Lizenzschlüssel. Bitte überprüfen Sie Ihre E-Mail.",
+      "paymentInstruction": "Nach der Zahlung erhalten Sie Ihren Aktivierungscode sofort per E-Mail."
     },
     "trialBanner": {
       "title": "Schalten Sie alle Funktionen mit einer kostenlosen 7-Tage-Testversion frei!",
@@ -1134,7 +1170,7 @@ export const resources = {
     },
     "patternDetector": {
       "title": "Détecteur de Schémas",
-      "description": "Découvrez des schémas émotionnels et des signaux d'alarme de communication à travers vos analyses passadas.",
+      "description": "Découvrez des schémas émotionnels et des signaux d'alarme de communication à travers vos analyses passées.",
       "noAnalysesTitle": "Pas Encore d'Analyses",
       "noAnalysesText": "Vos analyses passées apparaîtront ici une fois que vous commencerez à analyser des situations.",
       "historyTitle": "Historique des Analyses",
@@ -1252,7 +1288,16 @@ export const resources = {
       "teaserAudiosDesc": "Faites l'expérience d'une guérison profonde avec des méditations audio 8D immersives conçues spécialement pour vous. Générez des scripts personnalisés pour vos besoins spécifiques, de l'apaisement de l'anxiété au renforcement de la confiance, et laissez le paysage sonore 8D vous guider vers un lieu de paix.",
       "teaserRecommendationsTitle": "Débloquez les Recommandations Automatiques",
       "teaserRecommendationsDesc": "Obtenez une feuille de route personnalisée pour la guérison. Notre IA analyse votre historique pour fournir des conseils sur mesure, des exercices de renforcement des compétences et des stratégies de guérison conçus pour aborder les schémas spécifiques auxquels vous êtes confronté.",
-      "simulatePayment": "Simuler un Paiement Réussi (Dev)"
+      "simulatePayment": "Simuler un Paiement Réussi (Dev)",
+      "haveLicenseKey": "J'ai déjà une clé de licence",
+      "enterLicenseTitle": "Activer la Licence",
+      "enterLicenseDesc": "Entrez le code envoyé à votre e-mail après l'achat.",
+      "licenseKeyLabel": "Clé de Licence",
+      "findKeyHelp": "Vous pouvez trouver votre clé dans l'e-mail de bienvenue de NarciFY.",
+      "activateButton": "Activer",
+      "backToPlans": "Retour aux Plans",
+      "invalidLicense": "Clé de licence invalide. Veuillez vérifier votre e-mail.",
+      "paymentInstruction": "Après le paiement, vous recevrez votre code d'activation instantanément par e-mail."
     },
     "trialBanner": {
       "title": "Débloquez toutes les fonctionnalités avec un essai gratuit de 7 jours !",
@@ -1504,7 +1549,16 @@ export const resources = {
       "teaserAudiosDesc": "あなただけに合わせた没入型8Dオーディオ瞑想で深い癒しを体験してください。不安を和らげることから自信をつけることまで、特定のニーズに合わせてカスタムスクリプトを生成し、8Dサウンドスケープがあなたを平和な場所へと導きます。",
       "teaserRecommendationsTitle": "自動推奨をアンロック",
       "teaserRecommendationsDesc": "癒しのためのパーソナライズされたロードマップを手に入れましょう。私たちのAIはあなたの履歴を分析し、あなたが直面している特定のパターンに対処するために設計された、オーダーメイドのアドバイス、スキル構築演習、ヒーリング戦略を提供します。",
-      "simulatePayment": "支払成功をシミュレート (開発用)"
+      "simulatePayment": "支払成功をシミュレート (開発用)",
+      "haveLicenseKey": "ライセンスキーを持っています",
+      "enterLicenseTitle": "ライセンスをアクティブ化",
+      "enterLicenseDesc": "購入後にメールで送信されたコードを入力してください。",
+      "licenseKeyLabel": "ライセンスキー",
+      "findKeyHelp": "NarciFYからのウェルカムメールにキーが記載されています。",
+      "activateButton": "アクティブ化",
+      "backToPlans": "プランに戻る",
+      "invalidLicense": "無効なライセンスキーです。メールを確認してください。",
+      "paymentInstruction": "お支払い後、アクティベーションコードがすぐにメールで届きます。"
     },
     "trialBanner": {
       "title": "7日間の無料トライアルで全機能をアンロック！",

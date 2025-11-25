@@ -16,10 +16,24 @@ const PAYMENT_LINKS = {
     lifetime: "https://zaingoplus.pay.clickbank.net/?cbitems=1"
 };
 
+// Hardcoded valid license keys for the MVP
+// Complex keys mimicking secure passwords
+const VALID_LICENSE_KEYS = [
+    "Xy#9Lm@2Q!!",      // Complex Key 1
+    "K9$mP-x7Lz&4",     // Complex Key 2
+    "N@rc1#Fy-88$",     // Complex Key 3
+    "VIP-ACCESS-77",    // Backup Simple Key
+    "Z$9-Pv#Lr2!m"      // Complex Key 4
+];
+
 export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose, onStartTrial }) => {
   const { t } = useTranslation();
   const { status, becomePremium, isDevMode } = useAuth();
   const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'quarterly' | 'lifetime'>('lifetime');
+  const [viewMode, setViewMode] = useState<'sales' | 'license'>('sales');
+  const [licenseKey, setLicenseKey] = useState('');
+  const [licenseError, setLicenseError] = useState<string | null>(null);
+  const [isValidating, setIsValidating] = useState(false);
   
   const premiumFeatures = [
     { icon: 'fa-magnifying-glass-chart', title: t('upgrade.feature1Title') },
@@ -38,6 +52,26 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose, onS
   const handleExternalPayment = () => {
       const link = PAYMENT_LINKS[selectedPlan];
       window.location.href = link;
+  };
+
+  const handleValidateLicense = () => {
+      setLicenseError(null);
+      setIsValidating(true);
+
+      // Simulate network delay for realism
+      setTimeout(() => {
+          // Check exact match (case sensitive for security feeling, though we could normalize)
+          if (VALID_LICENSE_KEYS.includes(licenseKey.trim())) {
+              becomePremium();
+              onClose();
+              // Reset state for next time
+              setLicenseKey('');
+              setViewMode('sales');
+          } else {
+              setLicenseError(t('upgrade.invalidLicense') || "Invalid license key. Please check your email.");
+          }
+          setIsValidating(false);
+      }, 1500);
   };
 
   const PlanCard = ({ 
@@ -124,85 +158,166 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose, onS
                 <i className="fa fa-times text-lg"></i>
             </button>
             <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-gradient-to-br from-teal-400 to-violet-500 mb-3 shadow-lg shadow-teal-500/20">
-                <i className="fa-solid fa-crown text-xl text-white"></i>
+                {viewMode === 'sales' ? <i className="fa-solid fa-crown text-xl text-white"></i> : <i className="fa-solid fa-key text-xl text-white"></i>}
             </div>
-            <h2 className="text-xl font-bold text-white mb-1 leading-tight">{t('upgrade.modalTitle')}</h2>
-            <p className="text-slate-400 text-xs max-w-xs mx-auto leading-snug">{t('upgrade.modalDescription')}</p>
+            <h2 className="text-xl font-bold text-white mb-1 leading-tight">
+                {viewMode === 'sales' ? t('upgrade.modalTitle') : t('upgrade.enterLicenseTitle') || "Activate License"}
+            </h2>
+            <p className="text-slate-400 text-xs max-w-xs mx-auto leading-snug">
+                {viewMode === 'sales' ? t('upgrade.modalDescription') : t('upgrade.enterLicenseDesc') || "Enter the code sent to your email after purchase."}
+            </p>
         </div>
 
         {/* Content */}
         <div className="p-5 space-y-5 flex-1">
-            {/* Features Grid */}
-            <div className="grid grid-cols-2 gap-x-2 gap-y-3 text-xs sm:text-sm">
-                {premiumFeatures.map(feature => (
-                    <div key={feature.title} className="flex items-center gap-2 text-slate-300">
-                        <i className="fa-solid fa-check text-teal-400 text-xs"></i>
-                        <span className="leading-tight">{feature.title}</span>
+            {viewMode === 'sales' ? (
+                <>
+                    {/* Features Grid */}
+                    <div className="grid grid-cols-2 gap-x-2 gap-y-3 text-xs sm:text-sm">
+                        {premiumFeatures.map(feature => (
+                            <div key={feature.title} className="flex items-center gap-2 text-slate-300">
+                                <i className="fa-solid fa-check text-teal-400 text-xs"></i>
+                                <span className="leading-tight">{feature.title}</span>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
 
-            {/* Pricing Options */}
-            <div className="space-y-2">
-                <PlanCard 
-                    id="monthly"
-                    title={t('upgrade.monthly')}
-                    price="$4.99"
-                    originalPrice="$9.99"
-                    period={t('upgrade.monthlyPrice')}
-                />
-                <PlanCard 
-                    id="quarterly"
-                    title={t('upgrade.quarterly')}
-                    price="$14.99"
-                    originalPrice="$29.99"
-                    period={t('upgrade.per3Months')}
-                    badge={t('upgrade.mostPopular')}
-                />
-                <PlanCard 
-                    id="lifetime"
-                    title={t('upgrade.lifetime')}
-                    price="$97.99"
-                    originalPrice="$195.99"
-                    period={t('upgrade.oneTime')}
-                    badge={t('upgrade.bestValue')}
-                    isBestValue={true}
-                />
-            </div>
+                    {/* Pricing Options */}
+                    <div className="space-y-2">
+                        <PlanCard 
+                            id="monthly"
+                            title={t('upgrade.monthly')}
+                            price="$4.99"
+                            originalPrice="$9.99"
+                            period={t('upgrade.monthlyPrice')}
+                        />
+                        <PlanCard 
+                            id="quarterly"
+                            title={t('upgrade.quarterly')}
+                            price="$14.99"
+                            originalPrice="$29.99"
+                            period={t('upgrade.per3Months')}
+                            badge={t('upgrade.mostPopular')}
+                        />
+                        <PlanCard 
+                            id="lifetime"
+                            title={t('upgrade.lifetime')}
+                            price="$97.99"
+                            originalPrice="$195.99"
+                            period={t('upgrade.oneTime')}
+                            badge={t('upgrade.bestValue')}
+                            isBestValue={true}
+                        />
+                    </div>
+                    
+                    {/* Instructions for Clarity */}
+                    <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50 text-[10px] text-slate-400 text-center">
+                        <i className="fa-solid fa-envelope-open-text mr-1 text-teal-400"></i>
+                        {t('upgrade.paymentInstruction')}
+                    </div>
+                </>
+            ) : (
+                <div className="py-4">
+                    <label className="block text-sm font-medium text-slate-300 mb-2">
+                        {t('upgrade.licenseKeyLabel') || "License Key"}
+                    </label>
+                    <div className="relative">
+                        <input 
+                            type="text" 
+                            value={licenseKey}
+                            onChange={(e) => {
+                                setLicenseKey(e.target.value);
+                                setLicenseError(null);
+                            }}
+                            // Use a generic example that DOES NOT work, to prevent copy-paste bypass
+                            placeholder="Ex: K#9pL-m@7Q!"
+                            className={`w-full bg-slate-800 border ${licenseError ? 'border-rose-500 focus:border-rose-500' : 'border-slate-600 focus:border-teal-500'} rounded-xl p-4 text-white text-center font-mono tracking-widest outline-none transition-colors placeholder-slate-600`}
+                        />
+                        {isValidating && (
+                            <div className="absolute right-4 top-4">
+                                <div className="animate-spin h-5 w-5 border-2 border-teal-500 border-t-transparent rounded-full"></div>
+                            </div>
+                        )}
+                    </div>
+                    {licenseError && (
+                        <p className="text-rose-400 text-xs mt-2 text-center flex items-center justify-center gap-1">
+                            <i className="fa-solid fa-circle-exclamation"></i> {licenseError}
+                        </p>
+                    )}
+                    <div className="mt-6 bg-violet-500/10 border border-violet-500/30 p-3 rounded-lg">
+                        <p className="text-violet-200 text-xs text-center leading-relaxed">
+                            <i className="fa-solid fa-circle-info mr-1"></i>
+                            {t('upgrade.findKeyHelp') || "Please check your inbox (and Spam/Promotions folder) for the email from NarciFY containing your code."}
+                        </p>
+                    </div>
+                </div>
+            )}
         </div>
 
         {/* Footer Actions */}
         <div className="p-5 bg-slate-800/50 rounded-b-2xl border-t border-slate-800 shrink-0">
             <div className="flex flex-col gap-3">
-                 {status === 'free' && (
-                    <button
-                        onClick={onStartTrial}
-                        className="w-full text-teal-400 hover:text-teal-300 transition-colors text-xs font-semibold flex items-center justify-center gap-1 py-1"
-                    >
-                        {t('upgrade.startTrialButton')} <i className="fa-solid fa-chevron-right text-[10px]"></i>
-                    </button>
+                 {viewMode === 'sales' ? (
+                     <>
+                        {status === 'free' && (
+                            <button
+                                onClick={onStartTrial}
+                                className="w-full text-teal-400 hover:text-teal-300 transition-colors text-xs font-semibold flex items-center justify-center gap-1 py-1"
+                            >
+                                {t('upgrade.startTrialButton')} <i className="fa-solid fa-chevron-right text-[10px]"></i>
+                            </button>
+                        )}
+
+                        <button
+                            onClick={handleExternalPayment}
+                            className="w-full bg-gradient-to-r from-teal-500 via-teal-400 to-teal-500 bg-[length:200%_100%] animate-[shimmer_2s_infinite] text-white font-bold py-3 px-4 rounded-xl hover:shadow-lg hover:shadow-teal-500/25 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+                        >
+                            <span className="text-base">{t('upgrade.upgradeButton')}</span>
+                            <i className="fa-solid fa-arrow-right text-sm"></i>
+                        </button>
+                        
+                        <button 
+                            onClick={() => setViewMode('license')}
+                            className="text-slate-400 text-xs hover:text-white transition-colors underline decoration-dotted"
+                        >
+                            {t('upgrade.haveLicenseKey') || "I already have a license key"}
+                        </button>
+                     </>
+                 ) : (
+                     <>
+                        <button
+                            onClick={handleValidateLicense}
+                            disabled={!licenseKey || isValidating}
+                            className="w-full bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white font-bold py-3 px-4 rounded-xl hover:shadow-lg hover:shadow-fuchsia-500/25 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                        >
+                            <span>{t('upgrade.activateButton') || "Activate"}</span>
+                        </button>
+                        <button 
+                            onClick={() => {
+                                setViewMode('sales');
+                                setLicenseError(null);
+                            }}
+                            className="text-slate-400 text-xs hover:text-white transition-colors"
+                        >
+                            {t('upgrade.backToPlans') || "Back to Plans"}
+                        </button>
+                     </>
                  )}
 
-                 <button
-                    onClick={handleExternalPayment}
-                    className="w-full bg-gradient-to-r from-teal-500 via-teal-400 to-teal-500 bg-[length:200%_100%] animate-[shimmer_2s_infinite] text-white font-bold py-3 px-4 rounded-xl hover:shadow-lg hover:shadow-teal-500/25 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
-                 >
-                    <span className="text-base">{t('upgrade.upgradeButton')}</span>
-                    <i className="fa-solid fa-arrow-right text-sm"></i>
-                 </button>
-
-                 {isDevMode && (
+                 {isDevMode && viewMode === 'sales' && (
                     <button onClick={handleSimulateSuccess} className="text-[10px] text-amber-500/50 hover:text-amber-500 uppercase font-bold tracking-wider">
                         [DEV] Simulate Success
                     </button>
                 )}
             </div>
             
-             <div className="text-center mt-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-slate-500 text-[10px]">
-                <span className="flex items-center gap-1 whitespace-nowrap"><i className="fa-solid fa-lock text-[9px]"></i> {t('upgrade.securePayment')}</span>
-                <span className="hidden sm:inline opacity-50">|</span>
-                <span className="whitespace-nowrap">{t('upgrade.cancelAnytime')}</span>
-            </div>
+            {viewMode === 'sales' && (
+                 <div className="text-center mt-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-slate-500 text-[10px]">
+                    <span className="flex items-center gap-1 whitespace-nowrap"><i className="fa-solid fa-lock text-[9px]"></i> {t('upgrade.securePayment')}</span>
+                    <span className="hidden sm:inline opacity-50">|</span>
+                    <span className="whitespace-nowrap">{t('upgrade.cancelAnytime')}</span>
+                </div>
+            )}
 
             <p className="text-[9px] text-slate-600 mt-3 text-center leading-tight max-w-md mx-auto">
                 {t('upgrade.clickbankDisclaimer')}
