@@ -14,6 +14,7 @@ export const resources = {
       "upgrade": "Upgrade to Premium",
       "languageSelectorLabel": "Select Language",
       "manageSubscription": "Manage Subscription",
+      "affiliateProgram": "Affiliate Program",
       "copyright": "All Rights Reserved.",
       "trialStatus": "Trial Period",
       "trialDaysLeft": "{count, plural, one {# day left} other {# days left}}"
@@ -21,6 +22,22 @@ export const resources = {
     "disclaimer": {
       "title": "Important Disclaimer",
       "text": "NarciFY is an AI-powered tool for informational purposes only and is not a substitute for professional psychological or legal advice. If you are in immediate danger, please contact your local emergency services."
+    },
+    "visualization": {
+      "cardTitle": "Power Visions",
+      "cardDescription": "Transform your emotions into strength. Generate motivational wallpapers with inspiring quotes to boost your mood.",
+      "tryItNow": "Create Wallpaper",
+      "modalTitle": "Create Your Power Vision",
+      "modalDescription": "Describe how you're feeling or what you need. AI will generate a stunning, photorealistic landscape with a quote to uplift you.",
+      "placeholder": "e.g. 'I feel a lot of pressure', 'I need inner peace', 'A silhouette on a mountaintop at sunset'...",
+      "generateButton": "Generate Vision",
+      "generating": "Designing Wallpaper...",
+      "createNew": "Create Another",
+      "error": "Sorry, could not generate the image at this time.",
+      "selectAspectRatio": "Select Format",
+      "ratioSquare": "Square (1:1)",
+      "ratioPortrait": "Vertical (9:16)",
+      "ratioLandscape": "Horizontal (16:9)"
     },
     "analysisPanel": {
       "title": "Home",
@@ -234,6 +251,7 @@ export const resources = {
       "upgrade": "Actualizar a Premium",
       "languageSelectorLabel": "Seleccionar Idioma",
       "manageSubscription": "Gestionar Suscripción",
+      "affiliateProgram": "Programa de Afiliados",
       "copyright": "Todos los derechos reservados.",
       "trialStatus": "Período de Prueba",
       "trialDaysLeft": "{count, plural, one {# día restante} other {# días restantes}}"
@@ -241,6 +259,22 @@ export const resources = {
     "disclaimer": {
       "title": "Descargo de Responsabilidad Importante",
       "text": "NarciFY es una herramienta con IA solo para fines informativos y no sustituye el consejo psicológico o legal profesional. Si estás en peligro inmediato, por favor contacta a tus servicios de emergencia locales."
+    },
+    "visualization": {
+      "cardTitle": "Visiones de Poder",
+      "cardDescription": "Transforma tus emociones en fuerza. Genera fondos de pantalla motivacionales con frases inspiradoras para mejorar tu ánimo.",
+      "tryItNow": "Crear Fondo",
+      "modalTitle": "Crea tu Visión de Poder",
+      "modalDescription": "Describe cómo te sientes o qué necesitas (ej: 'Siento mucha presión', 'Necesito fuerza'). La IA generará un paisaje fotorrealista impresionante con una frase para animarte.",
+      "placeholder": "Ej: 'Siento mucha ansiedad', 'Quiero sentir fuerza interior', 'Una silueta en la cima de una montaña al atardecer'...",
+      "generateButton": "Generar Visión",
+      "generating": "Diseñando Fondo...",
+      "createNew": "Crear Otro",
+      "error": "Lo sentimos, no se pudo generar la imagen en este momento.",
+      "selectAspectRatio": "Seleccionar Formato",
+      "ratioSquare": "Cuadrado (1:1)",
+      "ratioPortrait": "Vertical (9:16)",
+      "ratioLandscape": "Horizontal (16:9)"
     },
     "analysisPanel": {
       "title": "Inicio",
@@ -365,7 +399,7 @@ export const resources = {
         "healing": "Sanar Heridas Emocionales Pasadas",
         "confidence": "Activación de Confianza y Amor Propio",
         "cleanse": "Limpieza Energética y Reinicio Mental",
-        "morning": "Meditación Matutina de Empoderamiento"
+        "morning": "Meditación de Empoderamento Matinal"
       },
       "backgroundSounds": {
         "rain": "Lluvia",
@@ -454,6 +488,7 @@ export const resources = {
       "upgrade": "Atualizar para Premium",
       "languageSelectorLabel": "Selecionar Idioma",
       "manageSubscription": "Gerir Assinatura",
+      "affiliateProgram": "Programa de Afiliados",
       "copyright": "Todos os direitos reservados.",
       "trialStatus": "Período de Teste",
       "trialDaysLeft": "{count, plural, one {# dia restante} other {# dias restantes}}"
@@ -461,6 +496,22 @@ export const resources = {
     "disclaimer": {
       "title": "Aviso Importante",
       "text": "O NarciFY é uma ferramenta alimentada por IA apenas para fins informativos e não substitui o aconselhamento psicológico ou jurídico profissional. Se estiver em perigo imediato, por favor contacte os seus serviços de emergência locais."
+    },
+    "visualization": {
+      "cardTitle": "Visões de Poder",
+      "cardDescription": "Transforme as suas emoções em força. Gere fundos de ecrã motivacionais com citações inspiradoras para melhorar o seu ânimo.",
+      "tryItNow": "Criar Fundo",
+      "modalTitle": "Crie a sua Visão de Poder",
+      "modalDescription": "Descreva como se sente ou o que precisa. A IA irá gerar uma paisagem fotorrealista impressionante com uma frase para o animar.",
+      "placeholder": "Ex: 'Sinto muita ansiedade e preciso de paz', 'Quero sentir-me imparável', 'Uma silhueta no topo de uma montanha ao pôr do sol'...",
+      "generateButton": "Gerar Visão",
+      "generating": "A Criar Arte...",
+      "createNew": "Criar Outro",
+      "error": "Desculpe, não foi possível gerar a imagem neste momento.",
+      "selectAspectRatio": "Selecionar Formato",
+      "ratioSquare": "Quadrado (1:1)",
+      "ratioPortrait": "Vertical (9:16)",
+      "ratioLandscape": "Horizontal (16:9)"
     },
     "analysisPanel": {
       "title": "Início",
@@ -674,6 +725,7 @@ export const resources = {
       "upgrade": "Upgrade auf Premium",
       "languageSelectorLabel": "Sprache auswählen",
       "manageSubscription": "Abonnement verwalten",
+      "affiliateProgram": "Partnerprogramm",
       "copyright": "Alle Rechte vorbehalten.",
       "trialStatus": "Testphase",
       "trialDaysLeft": "{count, plural, one {Noch # Tag} other {Noch # Tage}}"
@@ -681,6 +733,22 @@ export const resources = {
     "disclaimer": {
       "title": "Wichtiger Haftungsausschluss",
       "text": "NarciFY ist ein KI-gestütztes Werkzeug nur zu Informationszwecken und kein Ersatz für professionelle psychologische oder rechtliche Beratung. Wenn Sie in unmittelbarer Gefahr sind, kontaktieren Sie bitte Ihre lokalen Notdienste."
+    },
+    "visualization": {
+      "cardTitle": "Visionen der Kraft",
+      "cardDescription": "Verwandle deine Gefühle in Stärke. Erstelle motivierende Hintergrundbilder mit inspirierenden Zitaten.",
+      "tryItNow": "Hintergrundbild erstellen",
+      "modalTitle": "Erstelle deine Vision der Kraft",
+      "modalDescription": "Beschreibe, wie du dich fühlst oder was du brauchst. Die KI erstellt eine atemberaubende, fotorealistische Landschaft mit einem Zitat, das dich aufbaut.",
+      "placeholder": "z.B. 'Ich spüre viel Druck', 'Ich brauche inneren Frieden', 'Eine Gestalt auf einem Berggipfel bei Sonnenuntergang'...",
+      "generateButton": "Vision generieren",
+      "generating": "Design wird erstellt...",
+      "createNew": "Neue erstellen",
+      "error": "Entschuldigung, das Bild konnte derzeit nicht generiert werden.",
+      "selectAspectRatio": "Format auswählen",
+      "ratioSquare": "Quadratisch (1:1)",
+      "ratioPortrait": "Vertikal (9:16)",
+      "ratioLandscape": "Horizontal (16:9)"
     },
     "analysisPanel": {
       "title": "Startseite",
@@ -894,6 +962,7 @@ export const resources = {
       "upgrade": "Passer à Premium",
       "languageSelectorLabel": "Sélectionner la langue",
       "manageSubscription": "Gérer l'Abonnement",
+      "affiliateProgram": "Programme d'Affiliation",
       "copyright": "Tous droits réservés.",
       "trialStatus": "Période d'Essai",
       "trialDaysLeft": "{count, plural, one {Encore # jour} other {Encore # jours}}"
@@ -901,6 +970,22 @@ export const resources = {
     "disclaimer": {
       "title": "Avis de Non-responsabilité Important",
       "text": "NarciFY est un outil alimenté par l'IA à des fins d'information uniquement et ne remplace pas un avis psychologique ou juridique professionnel. Si vous êtes en danger immédiat, veuillez contacter vos services d'urgence locaux."
+    },
+    "visualization": {
+      "cardTitle": "Visions de Puissance",
+      "cardDescription": "Transformez vos émotions en force. Générez des fonds d'écran motivants avec des citations inspirantes.",
+      "tryItNow": "Créer Fond d'Écran",
+      "modalTitle": "Créez Votre Vision de Puissance",
+      "modalDescription": "Décrivez ce que vous ressentez ou ce dont vous avez besoin. L'IA générera un paysage photoréaliste époustouflant avec une citation pour vous remonter le moral.",
+      "placeholder": "ex: 'Je ressens beaucoup de pression', 'J'ai besoin de paix intérieure', 'Une silhouette au sommet d'une montagne'...",
+      "generateButton": "Générer Vision",
+      "generating": "Création en cours...",
+      "createNew": "Créer un autre",
+      "error": "Désolé, impossible de générer l'image pour le moment.",
+      "selectAspectRatio": "Sélectionner le format",
+      "ratioSquare": "Carré (1:1)",
+      "ratioPortrait": "Vertical (9:16)",
+      "ratioLandscape": "Horizontal (16:9)"
     },
     "analysisPanel": {
       "title": "Accueil",
@@ -974,7 +1059,7 @@ export const resources = {
     },
     "patternDetector": {
       "title": "Détecteur de Schémas",
-      "description": "Découvrez des schémas émotionnels et des signaux d'alarme de communication à travers vos analyses passées.",
+      "description": "Découvrez des schémas émotionnels et des signaux d'alarme de communication à travers vos analyses passadas.",
       "noAnalysesTitle": "Pas Encore d'Analyses",
       "noAnalysesText": "Vos analyses passées apparaîtront ici une fois que vous commencerez à analyser des situations.",
       "historyTitle": "Historique des Analyses",
@@ -1114,6 +1199,7 @@ export const resources = {
       "upgrade": "プレミアムにアップグレード",
       "languageSelectorLabel": "言語を選択",
       "manageSubscription": "サブスクリプションを管理",
+      "affiliateProgram": "アフィリエイトプログラム",
       "copyright": "無断複写・転載を禁じます。",
       "trialStatus": "トライアル期間",
       "trialDaysLeft": "残り{count}日"
@@ -1121,6 +1207,22 @@ export const resources = {
     "disclaimer": {
       "title": "重要免責事項",
       "text": "NarciFYは情報提供のみを目的としたAI搭載ツールであり、専門的な心理的または法的助言に代わるものではありません。緊急の危険がある場合は、お近くの救急サービスにご連絡ください。"
+    },
+    "visualization": {
+      "cardTitle": "パワービジョン",
+      "cardDescription": "感情を力に変えましょう。気分を高める感動的な引用を含む、やる気を起こさせる壁紙を生成します。",
+      "tryItNow": "壁紙を作成",
+      "modalTitle": "パワービジョンを作成",
+      "modalDescription": "今の気持ちや必要なものを説明してください。AIが、あなたを元気づける引用付きの素晴らしい写実的な風景を生成します。",
+      "placeholder": "例：「強いプレッシャーを感じる」、「心の平和が必要」、「夕日の山の頂上にいるシルエット」...",
+      "generateButton": "ビジョンを生成",
+      "generating": "壁紙をデザイン中...",
+      "createNew": "別を作成",
+      "error": "申し訳ありませんが、現在画像を生成できません。",
+      "selectAspectRatio": "フォーマットを選択",
+      "ratioSquare": "正方形 (1:1)",
+      "ratioPortrait": "縦長 (9:16)",
+      "ratioLandscape": "横長 (16:9)"
     },
     "analysisPanel": {
       "title": "ホーム",

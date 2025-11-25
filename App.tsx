@@ -10,6 +10,8 @@ import { PersonalizedAudios } from './components/PersonalizedAudios';
 import { SOSCalmDown } from './components/SOSCalmDown';
 import { AutomaticRecommendations } from './components/AutomaticRecommendations';
 import { UpgradeModal } from './components/UpgradeModal';
+import { VisualizationCard } from './components/VisualizationCard';
+import { VisualizationModal } from './components/VisualizationModal';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { I18nProvider } from './contexts/I18nContext';
 import { useTranslation } from './hooks/useTranslation';
@@ -27,6 +29,7 @@ function AppContent() {
   const [isFindingHelp, setIsFindingHelp] = useState(false);
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
   const [isDisclaimerVisible, setIsDisclaimerVisible] = useState(false);
+  const [isVisModalOpen, setIsVisModalOpen] = useState(false);
   
   const { status, becomePremium, startTrial } = useAuth();
   const { t, language } = useTranslation();
@@ -181,8 +184,11 @@ function AppContent() {
                 language={language}
               />
             </div>
-            <div className="lg:col-span-1 h-full">
-              <LocalHelp results={localHelpResults} onFindHelp={handleFindHelp} isLoading={isFindingHelp} />
+            <div className="lg:col-span-1 flex flex-col gap-6">
+              <VisualizationCard onClick={() => setIsVisModalOpen(true)} />
+              <div className="flex-1">
+                <LocalHelp results={localHelpResults} onFindHelp={handleFindHelp} isLoading={isFindingHelp} />
+              </div>
             </div>
           </div>
         );
@@ -222,6 +228,7 @@ function AppContent() {
         </footer>
       </main>
       <ChatWidget />
+      <VisualizationModal isOpen={isVisModalOpen} onClose={() => setIsVisModalOpen(false)} />
       <UpgradeModal 
         isOpen={isUpgradeModalOpen} 
         onClose={() => setIsUpgradeModalOpen(false)} 

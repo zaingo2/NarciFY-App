@@ -299,3 +299,71 @@ export const generateRecommendations = async (history: AnalysisResult[], languag
     const jsonString = response.text;
     return JSON.parse(jsonString);
 };
+
+export const generateHealingImage = async (userPrompt: string, aspectRatio: string = "9:16"): Promise<string> => {
+    const ai = getAiClient();
+    if (!ai) throw new Error(API_KEY_ERROR_MESSAGE);
+
+    // Randomize Art Style and Theme to avoid repetition
+    const styles = [
+        "Cinematic Photorealism (National Geographic style)",
+        "Soft Digital Art (Dreamy and Ethereal)",
+        "Warm and Cozy Illustration (Golden Hour)",
+        "Vibrant and High Contrast (Dramatic)",
+        "Minimalist and Zen (Atmospheric)",
+        "Abstract Fluid Art (Emotional representation)"
+    ];
+
+    const themes = [
+        "Majestic Nature (Mountains, Oceans)",
+        "Serene Forest or Garden",
+        "Starry Night or Galaxy",
+        "Abstract Light and Color",
+        "Urban Solitude (Rainy window, City lights)",
+        "Fantasy Landscape (Floating islands, Magic forest)"
+    ];
+
+    const randomStyle = styles[Math.floor(Math.random() * styles.length)];
+    const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+
+    const prompt = `
+    You are an expert visual therapist and digital artist. The user has provided the following input about their feelings or needs: "${userPrompt}".
+    
+    Your task is to create a unique, therapeutic image that acts as a positive antidote to this feeling.
+    The image should serve as a powerful, motivational phone wallpaper.
+    
+    CREATIVE DIRECTION:
+    - Visual Style: ${randomStyle}
+    - Theme/Setting: ${randomTheme}
+    
+    KEY REQUIREMENTS:
+    1. MOOD: Empowering, calming, or healing (based on user input).
+    2. HUMAN FIGURES: If a person is included, make them a GENDER-NEUTRAL silhouette, seen from behind (backlit), or at a distance.
+    3. TEXT OVERLAY: You MUST include a short, powerful, and uplifting motivational quote embedded elegantly IN the image. 
+       - The quote should be relevant to the user's feeling.
+       - The text must be legible, stylish, and integrated into the composition (e.g., glowing text, or bold typography against the sky).
+    4. QUALITY: 8k resolution, dramatic lighting, vivid colors.
+    
+    Composition should be suitable for the selected aspect ratio: ${aspectRatio}.
+    `;
+
+    const response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash-image',
+        contents: {
+            parts: [{ text: prompt }],
+        },
+        config: {
+            imageConfig: {
+                aspectRatio: aspectRatio,
+            }
+        }
+    });
+
+    // Iterate through parts to find the image
+    for (const part of response.candidates?.[0]?.content?.parts || []) {
+        if (part.inlineData) {
+            return `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
+        }
+    }
+    throw new Error("No image generated.");
+};

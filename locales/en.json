@@ -1,3 +1,4 @@
+
 {
   "langName": "English",
   "navigation": {
@@ -47,6 +48,18 @@
       "fileTooLarge": "File size exceeds 20MB limit.",
       "invalidFileType": "Invalid file type. Please upload an audio file."
     }
+  },
+  "visualization": {
+    "cardTitle": "Art Therapy",
+    "cardDescription": "Can't find the words? Let AI create a visual representation of your feelings.",
+    "tryItNow": "Visualize It Now",
+    "modalTitle": "Visualize Your Emotions",
+    "modalDescription": "Describe your feeling or situation in a few words. Our AI will create an abstract, therapeutic image to help you process it.",
+    "placeholder": "e.g. 'Feeling trapped in a glass box', 'A storm clearing up', 'Finding my inner light'...",
+    "generateButton": "Generate Image",
+    "generating": "Creating Art...",
+    "createNew": "Create New",
+    "error": "Sorry, could not generate image at this time."
   },
   "analysisResultDisplay": {
     "title": "Analysis Complete",

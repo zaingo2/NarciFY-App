@@ -1,3 +1,4 @@
+
 {
   "langName": "Español",
   "navigation": {
@@ -47,6 +48,18 @@
       "fileTooLarge": "El tamaño del archivo excede el límite de 20MB.",
       "invalidFileType": "Tipo de archivo no válido. Por favor, sube un archivo de audio."
     }
+  },
+  "visualization": {
+    "cardTitle": "Arte Terapia",
+    "cardDescription": "¿No encuentras las palabras? Deja que la IA cree una representación visual de tus emociones.",
+    "tryItNow": "Visualizar Ahora",
+    "modalTitle": "Visualiza tus Emociones",
+    "modalDescription": "Describe tu sentimiento o situación en pocas palabras. Nuestra IA creará una imagen abstracta y terapéutica para ayudarte a procesarlo.",
+    "placeholder": "Ej: 'Sintiéndome atrapado en una caja de cristal', 'Una tormenta despejándose', 'Encontrando mi luz interior'...",
+    "generateButton": "Generar Imagen",
+    "generating": "Creando Arte...",
+    "createNew": "Crear Nueva",
+    "error": "Lo sentimos, no se pudo generar la imagen en este momento."
   },
   "analysisResultDisplay": {
     "title": "Análisis Completado",
