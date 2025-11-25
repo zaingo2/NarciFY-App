@@ -27,9 +27,14 @@ export const VisualizationModal: React.FC<VisualizationModalProps> = ({ isOpen, 
         try {
             const resultUrl = await generateHealingImage(prompt, aspectRatio);
             setImageUrl(resultUrl);
-        } catch (err) {
-            console.error(err);
-            setError(t('visualization.error'));
+        } catch (err: any) {
+            console.error("Visualization Error:", err);
+            // Show specific error if available to help debug in production
+            if (err.message && (err.message.includes("API key") || err.message.includes("safety") || err.message.includes("quota") || err.message.includes("candidate"))) {
+                setError(`Error: ${err.message}`);
+            } else {
+                setError(t('visualization.error'));
+            }
         } finally {
             setIsLoading(false);
         }
@@ -111,7 +116,14 @@ export const VisualizationModal: React.FC<VisualizationModalProps> = ({ isOpen, 
                                 </div>
                             </div>
                             
-                            {error && <p className="text-rose-400 mt-3 text-sm text-center">{error}</p>}
+                            {error && (
+                                <div className="bg-rose-500/20 border border-rose-500/50 rounded-lg p-3 mt-4">
+                                    <p className="text-rose-200 text-sm text-center flex items-center justify-center gap-2">
+                                        <i className="fa-solid fa-circle-exclamation"></i>
+                                        {error}
+                                    </p>
+                                </div>
+                            )}
 
                             <div className="mt-8 flex justify-center">
                                 <button 

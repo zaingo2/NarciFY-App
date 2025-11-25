@@ -20,7 +20,8 @@ const getApiKey = () => {
     // 2. Try process.env (Fallback for Vercel runtime or specific build configs)
     if (!key) {
         try {
-            if (typeof process !== 'undefined' && process.env) {
+            // Check if process exists to avoid ReferenceError in strict browsers
+            if (typeof process !== 'undefined' && process && process.env) {
                 if (process.env.VITE_API_KEY) {
                     key = process.env.VITE_API_KEY;
                 } else if (process.env.API_KEY) {
@@ -311,7 +312,10 @@ export const generateHealingImage = async (userPrompt: string, aspectRatio: stri
         "Warm and Cozy Illustration (Golden Hour)",
         "Vibrant and High Contrast (Dramatic)",
         "Minimalist and Zen (Atmospheric)",
-        "Abstract Fluid Art (Emotional representation)"
+        "Abstract Fluid Art (Emotional representation)",
+        "Surrealist Dreamscape (Dalí-inspired)",
+        "Watercolor Painting (Soft edges)",
+        "Neon Cyberpunk (Futuristic and bold)"
     ];
 
     const themes = [
@@ -320,7 +324,9 @@ export const generateHealingImage = async (userPrompt: string, aspectRatio: stri
         "Starry Night or Galaxy",
         "Abstract Light and Color",
         "Urban Solitude (Rainy window, City lights)",
-        "Fantasy Landscape (Floating islands, Magic forest)"
+        "Fantasy Landscape (Floating islands, Magic forest)",
+        "Underwater Sanctuary",
+        "Desert Oasis at Sunset"
     ];
 
     const randomStyle = styles[Math.floor(Math.random() * styles.length)];
@@ -332,7 +338,7 @@ export const generateHealingImage = async (userPrompt: string, aspectRatio: stri
     Your task is to create a unique, therapeutic image that acts as a positive antidote to this feeling.
     The image should serve as a powerful, motivational phone wallpaper.
     
-    CREATIVE DIRECTION:
+    CREATIVE DIRECTION (Must apply these for variety):
     - Visual Style: ${randomStyle}
     - Theme/Setting: ${randomTheme}
     
@@ -347,23 +353,34 @@ export const generateHealingImage = async (userPrompt: string, aspectRatio: stri
     Composition should be suitable for the selected aspect ratio: ${aspectRatio}.
     `;
 
-    const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash-image',
-        contents: {
-            parts: [{ text: prompt }],
-        },
-        config: {
-            imageConfig: {
-                aspectRatio: aspectRatio,
+    try {
+        const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash-image',
+            contents: {
+                parts: [{ text: prompt }],
+            },
+            config: {
+                imageConfig: {
+                    aspectRatio: aspectRatio,
+                }
+            }
+        });
+
+        // Iterate through parts to find the image
+        for (const part of response.candidates?.[0]?.content?.parts || []) {
+            if (part.inlineData) {
+                return `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
             }
         }
-    });
-
-    // Iterate through parts to find the image
-    for (const part of response.candidates?.[0]?.content?.parts || []) {
-        if (part.inlineData) {
-            return `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
+        
+        // Check if it was blocked
+        if (response.candidates?.[0]?.finishReason) {
+             throw new Error(`Image generation blocked. Reason: ${response.candidates[0].finishReason}`);
         }
+
+        throw new Error("No image generated. The model might be overloaded or the prompt was filtered.");
+    } catch (error: any) {
+        console.error("Detailed generation error:", error);
+        throw error; // Re-throw to be handled by UI
     }
-    throw new Error("No image generated.");
 };
