@@ -22,7 +22,7 @@ export const LocalHelp: React.FC<LocalHelpProps> = ({ results, onFindHelp, isLoa
       <p className="text-slate-300 mb-6">{t('localHelp.description')}</p>
       
       <button onClick={onFindHelp} disabled={isLoading} className="w-full bg-teal-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-teal-600 disabled:bg-teal-500/50 transition-colors flex items-center justify-center">
-        {isLoading ? <Spinner /> : <><i className="fa fa-map-marker-alt mr-2"></i> {t('localHelp.findHelpButton')}</>}
+        {isLoading ? <Spinner /> : <><i className="fa-map-marker-alt mr-2"></i> {t('localHelp.findHelpButton')}</>}
       </button>
 
       <div className="mt-6">

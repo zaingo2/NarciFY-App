@@ -19,9 +19,24 @@ export const resources = {
       "trialStatus": "Trial Period",
       "trialDaysLeft": "{count, plural, one {# day left} other {# days left}}"
     },
+    "usage": {
+        "limitReachedTitle": "Daily Energy Depleted",
+        "limitReachedDesc": "You've used all your free energy for today. Recharge tomorrow or upgrade to Premium for unlimited access.",
+        "goPremiumButton": "Get Unlimited Access",
+        "comeBackTomorrow": "Come back tomorrow",
+        "warningTitle": "Low Energy",
+        "warningDesc": "You have {count} uses left for today."
+    },
     "disclaimer": {
       "title": "Important Disclaimer",
       "text": "NarciFY is an AI-powered tool for informational purposes only and is not a substitute for professional psychological or legal advice. If you are in immediate danger, please contact your local emergency services."
+    },
+    "affirmation": {
+        "dailyMessage": "Your Daily Reflection",
+        "customizeTooltip": "Customize this message",
+        "howDoYouFeel": "How are you feeling right now?",
+        "placeholder": "e.g. Anxious, Hopeful, Ignored...",
+        "cancel": "Cancel"
     },
     "visualization": {
       "cardTitle": "Power Visions",
@@ -256,9 +271,24 @@ export const resources = {
       "trialStatus": "Período de Prueba",
       "trialDaysLeft": "{count, plural, one {# día restante} other {# días restantes}}"
     },
+    "usage": {
+        "limitReachedTitle": "Energía Diaria Agotada",
+        "limitReachedDesc": "Has usado toda tu energía gratuita por hoy. Recarga mañana o actualiza a Premium para acceso ilimitado.",
+        "goPremiumButton": "Obtener Acceso Ilimitado",
+        "comeBackTomorrow": "Vuelve mañana",
+        "warningTitle": "Energía Baja",
+        "warningDesc": "Te quedan {count} usos por hoy."
+    },
     "disclaimer": {
       "title": "Descargo de Responsabilidad Importante",
       "text": "NarciFY es una herramienta con IA solo para fines informativos y no sustituye el consejo psicológico o legal profesional. Si estás en peligro inmediato, por favor contacta a tus servicios de emergencia locales."
+    },
+    "affirmation": {
+        "dailyMessage": "Tu Reflexión Diaria",
+        "customizeTooltip": "Personalizar este mensaje",
+        "howDoYouFeel": "¿Cómo te sientes en este momento?",
+        "placeholder": "Ej: Ansioso, Esperanzado, Ignorado...",
+        "cancel": "Cancelar"
     },
     "visualization": {
       "cardTitle": "Visiones de Poder",
@@ -399,7 +429,7 @@ export const resources = {
         "healing": "Sanar Heridas Emocionales Pasadas",
         "confidence": "Activación de Confianza y Amor Propio",
         "cleanse": "Limpieza Energética y Reinicio Mental",
-        "morning": "Meditación de Empoderamento Matinal"
+        "morning": "Meditación de Empoderamiento Matinal"
       },
       "backgroundSounds": {
         "rain": "Lluvia",
@@ -465,7 +495,7 @@ export const resources = {
       "teaserAudiosTitle": "Desbloquea Audios 8D Personalizados",
       "teaserAudiosDesc": "Experimenta una sanación profunda con meditaciones de audio 8D inmersivas hechas a tu medida. Genera guiones personalizados para tus necesidades específicas, desde calmar la ansiedad hasta construir confianza, y deja que el paisaje sonoro 8D te guíe a un lugar de paz.",
       "teaserRecommendationsTitle": "Desbloquea Recomendaciones Automáticas",
-      "teaserRecommendationsDesc": "Obtén un mapa de ruta personalizado para sanar. Nuestra IA analiza tu historial para proporcionar consejos a medida, ejercicios de desarrollo de habilidades y estrategias de sanación diseñadas para abordar los patrones específicos que enfrentas.",
+      "teaserRecommendationsDesc": "Obten un mapa de ruta personalizado para sanar. Nuestra IA analiza tu historial para proporcionar consejos a medida, ejercicios de desarrollo de habilidades y estrategias de sanación diseñadas para abordar los patrones específicos que enfrentas.",
       "simulatePayment": "Simular Pago Exitoso (Dev)"
     },
     "trialBanner": {
@@ -493,9 +523,24 @@ export const resources = {
       "trialStatus": "Período de Teste",
       "trialDaysLeft": "{count, plural, one {# dia restante} other {# dias restantes}}"
     },
+    "usage": {
+        "limitReachedTitle": "Energia Diária Esgotada",
+        "limitReachedDesc": "Você usou toda a sua energia gratuita por hoje. Recarregue amanhã ou atualize para Premium para acesso ilimitado.",
+        "goPremiumButton": "Obter Acesso Ilimitado",
+        "comeBackTomorrow": "Volte amanhã",
+        "warningTitle": "Energia Baixa",
+        "warningDesc": "Você tem {count} usos restantes para hoje."
+    },
     "disclaimer": {
       "title": "Aviso Importante",
       "text": "O NarciFY é uma ferramenta alimentada por IA apenas para fins informativos e não substitui o aconselhamento psicológico ou jurídico profissional. Se estiver em perigo imediato, por favor contacte os seus serviços de emergência locais."
+    },
+    "affirmation": {
+        "dailyMessage": "A Sua Reflexão Diária",
+        "customizeTooltip": "Personalizar esta mensagem",
+        "howDoYouFeel": "Como se sente neste momento?",
+        "placeholder": "Ex: Ansioso, Esperançoso, Ignorado...",
+        "cancel": "Cancelar"
     },
     "visualization": {
       "cardTitle": "Visões de Poder",
@@ -503,7 +548,7 @@ export const resources = {
       "tryItNow": "Criar Fundo",
       "modalTitle": "Crie a sua Visão de Poder",
       "modalDescription": "Descreva como se sente ou o que precisa. A IA irá gerar uma paisagem fotorrealista impressionante com uma frase para o animar.",
-      "placeholder": "Ex: 'Sinto muita ansiedade e preciso de paz', 'Quero sentir-me imparável', 'Uma silhueta no topo de uma montanha ao pôr do sol'...",
+      "placeholder": "Ex: 'Sinto muita ansiedade e preciso de paz', 'Quero sentir-me imparável', 'Uma silueta no topo de uma montanha ao pôr do sol'...",
       "generateButton": "Gerar Visão",
       "generating": "A Criar Arte...",
       "createNew": "Criar Outro",
@@ -730,9 +775,24 @@ export const resources = {
       "trialStatus": "Testphase",
       "trialDaysLeft": "{count, plural, one {Noch # Tag} other {Noch # Tage}}"
     },
+    "usage": {
+        "limitReachedTitle": "Tägliche Energie erschöpft",
+        "limitReachedDesc": "Du hast deine gesamte kostenlose Energie für heute verbraucht. Lade morgen wieder auf oder upgrade auf Premium für unbegrenzten Zugang.",
+        "goPremiumButton": "Unbegrenzten Zugang erhalten",
+        "comeBackTomorrow": "Komm morgen wieder",
+        "warningTitle": "Wenig Energie",
+        "warningDesc": "Du hast noch {count} Nutzungen für heute übrig."
+    },
     "disclaimer": {
       "title": "Wichtiger Haftungsausschluss",
       "text": "NarciFY ist ein KI-gestütztes Werkzeug nur zu Informationszwecken und kein Ersatz für professionelle psychologische oder rechtliche Beratung. Wenn Sie in unmittelbarer Gefahr sind, kontaktieren Sie bitte Ihre lokalen Notdienste."
+    },
+    "affirmation": {
+        "dailyMessage": "Ihre tägliche Reflexion",
+        "customizeTooltip": "Diese Nachricht anpassen",
+        "howDoYouFeel": "Wie fühlen Sie sich gerade?",
+        "placeholder": "z.B. Ängstlich, Hoffnungsvoll, Ignoriert...",
+        "cancel": "Abbrechen"
     },
     "visualization": {
       "cardTitle": "Visionen der Kraft",
@@ -967,9 +1027,24 @@ export const resources = {
       "trialStatus": "Période d'Essai",
       "trialDaysLeft": "{count, plural, one {Encore # jour} other {Encore # jours}}"
     },
+    "usage": {
+        "limitReachedTitle": "Énergie Quotidienne Épuisée",
+        "limitReachedDesc": "Vous avez utilisé toute votre énergie gratuite pour aujourd'hui. Rechargez demain ou passez à Premium pour un accès illimité.",
+        "goPremiumButton": "Obtenir un Accès Illimité",
+        "comeBackTomorrow": "Revenez demain",
+        "warningTitle": "Énergie Faible",
+        "warningDesc": "Il vous reste {count} utilisations pour aujourd'hui."
+    },
     "disclaimer": {
       "title": "Avis de Non-responsabilité Important",
       "text": "NarciFY est un outil alimenté par l'IA à des fins d'information uniquement et ne remplace pas un avis psychologique ou juridique professionnel. Si vous êtes en danger immédiat, veuillez contacter vos services d'urgence locaux."
+    },
+    "affirmation": {
+        "dailyMessage": "Votre Réflexion Quotidienne",
+        "customizeTooltip": "Personnaliser ce message",
+        "howDoYouFeel": "Comment vous sentez-vous en ce moment?",
+        "placeholder": "ex: Anxieux, Espoir, Ignoré...",
+        "cancel": "Annuler"
     },
     "visualization": {
       "cardTitle": "Visions de Puissance",
@@ -1204,9 +1279,24 @@ export const resources = {
       "trialStatus": "トライアル期間",
       "trialDaysLeft": "残り{count}日"
     },
+    "usage": {
+        "limitReachedTitle": "1日のエネルギーがなくなりました",
+        "limitReachedDesc": "本日の無料エネルギーをすべて使い果たしました。明日リチャージするか、無制限アクセスのためにプレミアムにアップグレードしてください。",
+        "goPremiumButton": "無制限アクセスを取得",
+        "comeBackTomorrow": "明日また来てください",
+        "warningTitle": "低エネルギー",
+        "warningDesc": "本日の残り使用回数は {count} 回です。"
+    },
     "disclaimer": {
       "title": "重要免責事項",
       "text": "NarciFYは情報提供のみを目的としたAI搭載ツールであり、専門的な心理的または法的助言に代わるものではありません。緊急の危険がある場合は、お近くの救急サービスにご連絡ください。"
+    },
+    "affirmation": {
+        "dailyMessage": "あなたの毎日の振り返り",
+        "customizeTooltip": "このメッセージをカスタマイズ",
+        "howDoYouFeel": "今の気分はどうですか？",
+        "placeholder": "例：不安、希望、無視されている...",
+        "cancel": "キャンセル"
     },
     "visualization": {
       "cardTitle": "パワービジョン",

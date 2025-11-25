@@ -9,6 +9,7 @@ import { AudioBanner } from './AudioBanner';
 import { TrialBanner } from './TrialBanner';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from '../hooks/useTranslation';
+import { useUsage } from '../contexts/UsageContext';
 
 interface AnalysisPanelProps {
   latestAnalysis: AnalysisResult | null;
@@ -27,6 +28,7 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ latestAnalysis, on
   const [error, setError] = useState<string | null>(null);
   const { t } = useTranslation();
   const { status } = useAuth();
+  const { consumeCredit } = useUsage();
   
   const [isRecording, setIsRecording] = useState(false);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
@@ -40,6 +42,10 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ latestAnalysis, on
       setError(t('analysisPanel.errors.emptySituation'));
       return;
     }
+    
+    // Check Usage Limit
+    if (!consumeCredit()) return;
+
     setIsLoading(true);
     setError(null);
     try {
@@ -90,6 +96,10 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ latestAnalysis, on
           setError(t('analysisPanel.errors.noAudio'));
           return;
       }
+
+      // Check Usage Limit
+      if (!consumeCredit()) return;
+
       setIsLoading(true);
       setError(null);
       try {

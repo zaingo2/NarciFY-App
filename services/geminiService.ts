@@ -384,3 +384,21 @@ export const generateHealingImage = async (userPrompt: string, aspectRatio: stri
         throw error; // Re-throw to be handled by UI
     }
 };
+
+export const generateAffirmation = async (mood: string, language: string): Promise<string> => {
+    const ai = getAiClient();
+    if (!ai) throw new Error(API_KEY_ERROR_MESSAGE);
+
+    const prompt = `The user feels: "${mood}". 
+    Generate a short, powerful, and philosophical affirmation (Stoic, CBT, or empowering psychology style) to help them cope or feel stronger.
+    The phrase must be concise (maximum 2 sentences) and impactful. Do not use quotation marks.
+    
+    CRITICAL: The output MUST be in the language with ISO code: '${language}'. Translate the thought if necessary, but keep it culturally relevant.` + getLanguageInstruction(language);
+
+    const response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: prompt,
+    });
+
+    return response.text || "Strength comes from within.";
+};

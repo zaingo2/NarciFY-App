@@ -3,9 +3,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import type { ChatMessage } from '../types';
 import { GoogleGenAI, Chat } from "@google/genai";
 import { useTranslation } from '../hooks/useTranslation';
+import { useUsage } from '../contexts/UsageContext';
 
 export const ChatWidget: React.FC = () => {
     const { t } = useTranslation();
+    const { consumeCredit } = useUsage();
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [input, setInput] = useState('');
@@ -70,6 +72,9 @@ export const ChatWidget: React.FC = () => {
             setMessages(prev => [...prev, { role: 'model', text: t('chatWidget.apiKeyError', { variableName: 'VITE_API_KEY' }) }]);
             return;
         }
+
+        // Check Usage Limit
+        if (!consumeCredit()) return;
 
         const userMessage: ChatMessage = { role: 'user', text: input };
         setMessages(prev => [...prev, userMessage]);

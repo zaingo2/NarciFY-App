@@ -3,6 +3,7 @@ import React, { useState, useRef } from 'react';
 import { Logo } from './Logo';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from '../hooks/useTranslation';
+import { useUsage } from '../contexts/UsageContext';
 
 interface NavigationProps {
   currentView: string;
@@ -14,6 +15,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, setCurrentV
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { status, trialEndDate, isDevMode, toggleDevMode } = useAuth();
   const { language, changeLanguage, t, languages } = useTranslation();
+  const { creditsLeft, dailyLimit } = useUsage();
   const [devClickCount, setDevClickCount] = useState(0);
   const devClickTimeoutRef = useRef<number | null>(null);
 
@@ -109,9 +111,25 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, setCurrentV
                     <p className="text-amber-300 text-xs mt-0.5">{t('navigation.trialDaysLeft', { count: getDaysLeftInTrial() })}</p>
                  </div>
               ) : (
-                 <div className="flex flex-col gap-1">
-                    <p className="text-xs font-bold text-slate-50">{t('navigation.status')}</p>
-                    <span className='text-amber-300 text-xs uppercase font-bold tracking-wider'>{t('navigation.freeUser')}</span>
+                 <div className="flex flex-col gap-2 w-full">
+                    <div className="flex items-center justify-between text-xs text-slate-300">
+                        <span>{t('navigation.status')}:</span>
+                        <span className='text-amber-300 uppercase font-bold'>{t('navigation.freeUser')}</span>
+                    </div>
+                    {/* Usage Bar for Free Users */}
+                    <div className="w-full bg-slate-700 rounded-full h-2.5 mt-1 relative">
+                        <div 
+                            className={`h-2.5 rounded-full transition-all duration-500 ${creditsLeft <= 2 ? 'bg-rose-500' : 'bg-teal-500'}`} 
+                            style={{ width: `${(creditsLeft / dailyLimit) * 100}%` }}>
+                        </div>
+                    </div>
+                    <div className="flex justify-between text-[10px] text-slate-400">
+                        <span>Daily Limit</span>
+                        <span>{creditsLeft}/{dailyLimit}</span>
+                    </div>
+                    {creditsLeft <= 2 && creditsLeft > 0 && (
+                        <p className="text-[10px] text-rose-400 animate-pulse text-center">Low energy!</p>
+                    )}
                  </div>
               )}
           </div>

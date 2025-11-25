@@ -4,16 +4,17 @@ import { AnalysisPanel } from './components/AnalysisPanel';
 import { Navigation } from './components/Navigation';
 import { Disclaimer } from './components/Disclaimer';
 import { LocalHelp } from './components/LocalHelp';
+import { AffirmationCard } from './components/AffirmationCard';
 import { ChatWidget } from './components/ChatWidget';
 import { PatternDetector } from './components/PatternDetector';
 import { PersonalizedAudios } from './components/PersonalizedAudios';
 import { SOSCalmDown } from './components/SOSCalmDown';
 import { AutomaticRecommendations } from './components/AutomaticRecommendations';
 import { UpgradeModal } from './components/UpgradeModal';
-import { VisualizationCard } from './components/VisualizationCard';
-import { VisualizationModal } from './components/VisualizationModal';
+import { UsageLimitModal } from './components/UsageLimitModal';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { I18nProvider } from './contexts/I18nContext';
+import { UsageProvider, useUsage } from './contexts/UsageContext';
 import { useTranslation } from './hooks/useTranslation';
 import type { AnalysisResult, LocalHelpResult, UserLocation } from './types';
 import { placeholderAnalysisHistory } from './utils/placeholders';
@@ -29,10 +30,10 @@ function AppContent() {
   const [isFindingHelp, setIsFindingHelp] = useState(false);
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
   const [isDisclaimerVisible, setIsDisclaimerVisible] = useState(false);
-  const [isVisModalOpen, setIsVisModalOpen] = useState(false);
   
   const { status, becomePremium, startTrial } = useAuth();
   const { t, language } = useTranslation();
+  const { showLimitModal, closeLimitModal, consumeCredit } = useUsage();
 
   // Ref to track previous status to detect trial expiration
   const prevStatusRef = useRef(status);
@@ -141,6 +142,9 @@ function AppContent() {
   };
 
   const handleFindHelp = () => {
+    // Check usage limit
+    if (!consumeCredit()) return;
+
     setIsFindingHelp(true);
     navigator.geolocation.getCurrentPosition(
       async (position) => {
@@ -179,13 +183,12 @@ function AppContent() {
                 setIsLoading={setIsLoading}
                 onStartTrial={() => {
                   startTrial();
-                  // Optional: close any modals if open, or show a confirmation
                 }}
                 language={language}
               />
             </div>
             <div className="lg:col-span-1 flex flex-col gap-6">
-              <VisualizationCard onClick={() => setIsVisModalOpen(true)} />
+              <AffirmationCard onUpgrade={() => setIsUpgradeModalOpen(true)} />
               <div className="flex-1">
                 <LocalHelp results={localHelpResults} onFindHelp={handleFindHelp} isLoading={isFindingHelp} />
               </div>
@@ -228,7 +231,6 @@ function AppContent() {
         </footer>
       </main>
       <ChatWidget />
-      <VisualizationModal isOpen={isVisModalOpen} onClose={() => setIsVisModalOpen(false)} />
       <UpgradeModal 
         isOpen={isUpgradeModalOpen} 
         onClose={() => setIsUpgradeModalOpen(false)} 
@@ -236,6 +238,14 @@ function AppContent() {
             startTrial();
             setIsUpgradeModalOpen(false);
         }}
+      />
+      <UsageLimitModal 
+        isOpen={showLimitModal} 
+        onClose={closeLimitModal} 
+        onUpgrade={() => {
+            closeLimitModal();
+            setIsUpgradeModalOpen(true);
+        }} 
       />
     </div>
   );
@@ -246,7 +256,9 @@ function App() {
   return (
     <AuthProvider>
       <I18nProvider>
-         <AppContent />
+        <UsageProvider>
+           <AppContent />
+        </UsageProvider>
       </I18nProvider>
     </AuthProvider>
   );
