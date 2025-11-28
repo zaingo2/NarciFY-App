@@ -9,11 +9,11 @@ interface UpgradeModalProps {
   onStartTrial: () => void;
 }
 
-// Links de ClickBank
+// Links de ClickBank - Verified
 const PAYMENT_LINKS = {
-    monthly: "https://zaingoplus.pay.clickbank.net/?cbitems=2",
-    quarterly: "https://zaingoplus.pay.clickbank.net/?cbitems=3",
-    lifetime: "https://zaingoplus.pay.clickbank.net/?cbitems=1"
+    monthly: "https://zaingoplus.pay.clickbank.net/?cbitems=2",   // $4.99
+    quarterly: "https://zaingoplus.pay.clickbank.net/?cbitems=3", // $14.99
+    lifetime: "https://zaingoplus.pay.clickbank.net/?cbitems=1"   // $97.99
 };
 
 // Hardcoded valid license keys for the MVP
@@ -51,6 +51,7 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose, onS
 
   const handleExternalPayment = () => {
       const link = PAYMENT_LINKS[selectedPlan];
+      // Use standard window.location to navigate securely
       window.location.href = link;
   };
 
