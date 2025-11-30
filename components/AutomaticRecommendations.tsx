@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import type { AnalysisResult, Recommendation } from '../types';
 import { generateRecommendations } from '../services/geminiService';
@@ -127,14 +126,19 @@ export const AutomaticRecommendations: React.FC<AutomaticRecommendationsProps> =
                     <h1 className="text-3xl font-bold text-slate-50">{t('recommendations.title')}</h1>
                     <p className="text-slate-300 mt-1">{t('recommendations.description')}</p>
                 </div>
-                 <button 
-                    onClick={fetchRecommendations} 
-                    disabled={isLoading || isHistoryEmpty}
-                    className="flex-shrink-0 bg-teal-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors flex items-center gap-2 text-sm disabled:bg-teal-500/50 disabled:cursor-not-allowed"
-                >
-                    <i className={`fa-solid fa-sync ${isLoading ? 'animate-spin' : ''}`}></i>
-                    {t('recommendations.refreshButton')}
-                </button>
+                <div className="flex items-center gap-4">
+                     <h2 className="text-xl font-bold text-slate-50 hidden sm:block">
+                        Narci<span className="text-teal-400">FY</span>
+                    </h2>
+                    <button 
+                        onClick={fetchRecommendations} 
+                        disabled={isLoading || isHistoryEmpty}
+                        className="flex-shrink-0 bg-teal-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors flex items-center gap-2 text-sm disabled:bg-teal-500/50 disabled:cursor-not-allowed"
+                    >
+                        <i className={`fa-solid fa-sync ${isLoading ? 'animate-spin' : ''}`}></i>
+                        {t('recommendations.refreshButton')}
+                    </button>
+                </div>
             </div>
              {renderContent()}
         </div>

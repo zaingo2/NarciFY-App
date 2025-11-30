@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import type { AnalysisResult } from '../types';
 import { useAuth } from '../contexts/AuthContext';
@@ -209,7 +208,12 @@ export const PatternDetector: React.FC<PatternDetectorProps> = ({ analysisHistor
 
     return (
         <div className="p-4 md:p-6 lg:p-8">
-            <h1 className="text-3xl font-bold mb-2 text-slate-50">{t('patternDetector.title')}</h1>
+            <div className="flex justify-between items-start mb-2">
+                <h1 className="text-3xl font-bold text-slate-50">{t('patternDetector.title')}</h1>
+                <h2 className="text-xl font-bold text-slate-50">
+                  Narci<span className="text-teal-400">FY</span>
+                </h2>
+            </div>
             <p className="text-slate-300 mb-8">{t('patternDetector.description')}</p>
 
             {isHistoryEmpty ? (

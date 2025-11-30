@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import type { AnalysisResult } from '../types';
 import { analyzeSituation, transcribeAudio } from '../services/geminiService';
@@ -147,11 +146,16 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({ latestAnalysis, on
 
   return (
     <div className="bg-slate-800 p-6 rounded-xl shadow-lg">
-      <h2 className="text-2xl font-bold mb-4 text-slate-50 flex items-center">
-        <i className="fa-solid fa-house mr-3 text-pink-300"></i>
-        {t('analysisPanel.title')}
-      </h2>
-      <p className="text-slate-300">{t('analysisPanel.description')}</p>
+      <div className="flex justify-between items-start mb-4">
+        <h2 className="text-2xl font-bold text-slate-50 flex items-center">
+          <i className="fa-solid fa-house mr-3 text-pink-300"></i>
+          {t('analysisPanel.title')}
+        </h2>
+        <h2 className="text-xl font-bold text-slate-50">
+          Narci<span className="text-teal-400">FY</span>
+        </h2>
+      </div>
+      <p className="text-slate-300 mb-6">{t('analysisPanel.description')}</p>
       
       {inputMode === 'text' ? <AnalysisBanner /> : <AudioBanner />}
 

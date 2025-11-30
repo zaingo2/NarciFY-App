@@ -1,4 +1,3 @@
-
 import React from 'react';
 import type { LocalHelpResult } from '../types';
 import { Spinner } from './Spinner';
@@ -15,10 +14,15 @@ export const LocalHelp: React.FC<LocalHelpProps> = ({ results, onFindHelp, isLoa
 
   return (
     <div className="bg-slate-800 p-6 rounded-xl shadow-lg h-full">
-      <h2 className="text-2xl font-bold mb-4 text-slate-50 flex items-center">
-        <i className="fa-solid fa-hand-holding-heart mr-3 text-pink-300"></i>
-        {t('localHelp.title')}
-      </h2>
+      <div className="flex justify-between items-start mb-4">
+        <h2 className="text-2xl font-bold text-slate-50 flex items-center">
+          <i className="fa-solid fa-hand-holding-heart mr-3 text-pink-300"></i>
+          {t('localHelp.title')}
+        </h2>
+        <h2 className="text-xl font-bold text-slate-50">
+          Narci<span className="text-teal-400">FY</span>
+        </h2>
+      </div>
       <p className="text-slate-300 mb-6">{t('localHelp.description')}</p>
       
       <button onClick={onFindHelp} disabled={isLoading} className="w-full bg-teal-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-teal-600 disabled:bg-teal-500/50 transition-colors flex items-center justify-center">

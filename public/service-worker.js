@@ -1,4 +1,4 @@
-const CACHE_NAME = 'narcify-cache-v1';
+const CACHE_NAME = 'narcify-cache-v2';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -69,4 +69,11 @@ self.addEventListener('activate', event => {
       );
     })
   );
+});
+
+// Listen for the message to skip waiting and activate the new worker immediately
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });

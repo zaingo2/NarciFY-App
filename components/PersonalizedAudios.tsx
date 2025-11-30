@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { generateMeditationScript, textToSpeech } from '../services/geminiService';
 import { bufferToWav, applyEffectsToBuffer, createImpulseResponse } from '../utils/audio';
@@ -261,7 +260,12 @@ export const PersonalizedAudios: React.FC<PersonalizedAudiosProps> = ({ onUpgrad
 
   return (
     <div className="p-4 md:p-6 lg:p-8 bg-slate-800 rounded-xl shadow-lg">
-      <h1 className="text-3xl font-bold mb-2 text-slate-50">{t('personalizedAudios.title')}</h1>
+      <div className="flex justify-between items-start mb-2">
+        <h1 className="text-3xl font-bold text-slate-50">{t('personalizedAudios.title')}</h1>
+        <h2 className="text-xl font-bold text-slate-50">
+          Narci<span className="text-teal-400">FY</span>
+        </h2>
+      </div>
       <p className="text-slate-300 mb-8">{t('personalizedAudios.description')}</p>
       
       <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-700 mb-8">

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { AnalysisPanel } from './components/AnalysisPanel';
 import { Navigation } from './components/Navigation';

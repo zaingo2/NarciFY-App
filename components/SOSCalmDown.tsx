@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { textToSpeech } from '../services/geminiService';
 import { Spinner } from './Spinner';
@@ -248,7 +247,12 @@ export const SOSCalmDown: React.FC = () => {
     const isSessionActive = ['playing', 'paused'].includes(sessionState);
 
     return (
-        <div className="bg-slate-800 p-6 rounded-xl shadow-lg text-center flex flex-col items-center">
+        <div className="bg-slate-800 p-6 rounded-xl shadow-lg text-center flex flex-col items-center relative">
+            <div className="absolute top-4 right-4">
+                 <h2 className="text-xl font-bold text-slate-50">
+                  Narci<span className="text-teal-400">FY</span>
+                </h2>
+            </div>
             <h1 className="text-3xl font-bold mb-2 text-slate-50 flex items-center">
                 <i className="fa-solid fa-shield-heart mr-3 text-pink-300"></i>
                 {t('sosCalmDown.title')}

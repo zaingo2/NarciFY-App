@@ -19,6 +19,10 @@ export const europeResources = {
       "trialStatus": "Periodo di Prova",
       "trialDaysLeft": "{count, plural, one {# giorno rimanente} other {# giorni rimanenti}}"
     },
+    "update": {
+        "newVersionTitle": "Nuova versione disponibile",
+        "action": "Aggiorna ora"
+    },
     "disclaimer": {
       "title": "Disclaimer Importante",
       "text": "NarciFY è uno strumento basato sull'IA solo a scopo informativo e non sostituisce la consulenza professionale psicologica o legale. Se sei in pericolo immediato, contatta i servizi di emergenza locali."
@@ -213,7 +217,16 @@ export const europeResources = {
       "teaserAudiosDesc": "Sperimenta una guarigione profonda con meditazioni audio 8D coinvolgenti su misura per te. Genera script personalizzati per le tue esigenze specifiche, dal calmare l'ansia al costruire fiducia, e lascia che il paesaggio sonoro 8D ti guidi verso un luogo di pace.",
       "teaserRecommendationsTitle": "Sblocca Raccomandazioni Automatiche",
       "teaserRecommendationsDesc": "Ottieni una tabella di marcia personalizzata per la guarigione. La nostra IA analizza la tua cronologia per fornire consigli su misura, esercizi di sviluppo delle competenze e strategie di guarigione progettate per affrontare i pattern specifici che stai affrontando.",
-      "simulatePayment": "Simula Pagamento Riuscito (Dev)"
+      "simulatePayment": "Simula Pagamento Riuscito (Dev)",
+      "haveLicenseKey": "Ho già una chiave di licenza",
+      "enterLicenseTitle": "Attiva Licenza",
+      "enterLicenseDesc": "Inserisci il codice inviato alla tua email dopo l'acquisto.",
+      "licenseKeyLabel": "Chiave di Licenza",
+      "findKeyHelp": "Puoi trovare la tua chiave nell'email di benvenuto di NarciFY.",
+      "activateButton": "Attiva",
+      "backToPlans": "Torna ai Piani",
+      "invalidLicense": "Chiave di licenza non valida. Per favore controlla la tua email.",
+      "paymentInstruction": "Dopo il pagamento, riceverai immediatamente il tuo codice di attivazione via e-mail."
     },
     "trialBanner": {
       "title": "Sblocca tutte le funzionalità con una prova gratuita di 7 giorni!",
@@ -239,6 +252,10 @@ export const europeResources = {
       "copyright": "Alle rechten voorbehouden.",
       "trialStatus": "Proefperiode",
       "trialDaysLeft": "{count, plural, one {Nog # dag} other {Nog # dagen}}"
+    },
+    "update": {
+        "newVersionTitle": "Nieuwe versie beschikbaar",
+        "action": "Nu bijwerken"
     },
     "disclaimer": {
       "title": "Belangrijke Disclaimer",
@@ -434,7 +451,16 @@ export const europeResources = {
       "teaserAudiosDesc": "Ervaar diepe genezing met meeslepende 8D-audiomeditaties die speciaal voor u zijn gemaakt. Genereer aangepaste scripts voor uw specifieke behoeften, van het kalmeren van angst tot het opbouwen van zelfvertrouwen, en laat het 8D-geluidslandschap u naar een plek van vrede leiden.",
       "teaserRecommendationsTitle": "Ontgrendel Automatische Aanbevelingen",
       "teaserRecommendationsDesc": "Krijg een gepersonaliseerde routekaart naar genezing. Onze AI analyseert uw geschiedenis om op maat gemaakt advies, vaardigheidsopbouwende oefeningen en genezingsstrategieën te bieden die zijn ontworpen om de specifieke patronen waarmee u wordt geconfronteerd aan te pakken.",
-      "simulatePayment": "Simuleer Succesvolle Betaling (Dev)"
+      "simulatePayment": "Simuleer Succesvolle Betaling (Dev)",
+      "haveLicenseKey": "Ik heb al een licentiesleutel",
+      "enterLicenseTitle": "Licentie activeren",
+      "enterLicenseDesc": "Voer de code in die na aankoop naar uw e-mail is verzonden.",
+      "licenseKeyLabel": "Licentiesleutel",
+      "findKeyHelp": "U kunt uw sleutel vinden in de welkomstmail van NarciFY.",
+      "activateButton": "Activeren",
+      "backToPlans": "Terug naar Plannen",
+      "invalidLicense": "Ongeldige licentiesleutel. Controleer uw e-mail.",
+      "paymentInstruction": "Na betaling ontvangt u uw activeringscode direct per e-mail."
     },
     "trialBanner": {
       "title": "Ontgrendel Alle Functies met een Gratis Proefperiode van 7 Dagen!",
@@ -460,6 +486,10 @@ export const europeResources = {
       "copyright": "Wszelkie prawa zastrzeżone.",
       "trialStatus": "Okres Próbny",
       "trialDaysLeft": "{count, plural, one {Został # dzień} other {Zostało # dni}}"
+    },
+    "update": {
+        "newVersionTitle": "Nowa wersja dostępna",
+        "action": "Zaktualizuj teraz"
     },
     "disclaimer": {
       "title": "Ważne Zastrzeżenie",
@@ -655,7 +685,16 @@ export const europeResources = {
       "teaserAudiosDesc": "Doświadcz głębokiego uzdrowienia dzięki wciągającym medytacjom audio 8D dostosowanym specjalnie dla Ciebie. Generuj własne skrypty dla swoich konkretnych potrzeb, od uspokojenia lęku po budowanie pewności siebie, i pozwól, aby krajobraz dźwiękowy 8D poprowadził Cię do miejsca spokoju.",
       "teaserRecommendationsTitle": "Odblokuj Automatyczne Rekomendacje",
       "teaserRecommendationsDesc": "Uzyskaj spersonalizowaną mapę drogową do uzdrowienia. Nasza sztuczna inteligencja analizuje Twoją historię, aby dostarczyć dostosowane porady, ćwiczenia budujące umiejętności i strategie uzdrawiania zaprojektowane tak, aby zająć się konkretnymi wzorcami, z którymi się mierzysz.",
-      "simulatePayment": "Symulujudaną Płatność (Dev)"
+      "simulatePayment": "Symulujudaną Płatność (Dev)",
+      "haveLicenseKey": "Mam już klucz licencyjny",
+      "enterLicenseTitle": "Aktywuj Licencję",
+      "enterLicenseDesc": "Wpisz kod wysłany na Twój e-mail po zakupie.",
+      "licenseKeyLabel": "Klucz Licencyjny",
+      "findKeyHelp": "Klucz znajdziesz w wiadomości powitalnej od NarciFY.",
+      "activateButton": "Aktywuj",
+      "backToPlans": "Wróć do Planów",
+      "invalidLicense": "Nieprawidłowy klucz licencyjny. Sprawdź swój e-mail.",
+      "paymentInstruction": "Po dokonaniu płatności natychmiast otrzymasz kod aktywacyjny na e-mail."
     },
     "trialBanner": {
       "title": "Odblokuj Wszystkie Funkcje z Darmowym 7-Dniowym okresem próbnym!",
@@ -681,6 +720,10 @@ export const europeResources = {
       "copyright": "Все права защищены.",
       "trialStatus": "Пробный Период",
       "trialDaysLeft": "{count, plural, one {Остался # день} few {Осталось # дня} other {Осталось # дней}}"
+    },
+    "update": {
+        "newVersionTitle": "Доступна новая версия",
+        "action": "Обновить сейчас"
     },
     "disclaimer": {
       "title": "Важный Отказ от Ответственности",
@@ -876,7 +919,16 @@ export const europeResources = {
       "teaserAudiosDesc": "Испытайте глубокое исцеление с иммерсивными 8D аудио-медитациями, созданными специально для вас. Генерируйте пользовательские сценарии для ваших конкретных нужд, от успокоения тревоги до укрепления уверенности, и позвольте 8D звуковому ландшафту привести вас к месту покоя.",
       "teaserRecommendationsTitle": "Разблокируйте Автоматические Рекомендации",
       "teaserRecommendationsDesc": "Получите персонализированную дорожную карту к исцелению. Наш ИИ анализирует вашу историю, чтобы предоставить индивидуальные советы, упражнения по развитию навыков и стратегии исцеления, разработанные для решения конкретных паттернов, с которыми вы сталкиваетесь.",
-      "simulatePayment": "Симулировать Успешный Платеж (Dev)"
+      "simulatePayment": "Симулировать Успешный Платеж (Dev)",
+      "haveLicenseKey": "У меня уже есть лицензионный ключ",
+      "enterLicenseTitle": "Активировать Лицензию",
+      "enterLicenseDesc": "Введите код, отправленный на вашу электронную почту после покупки.",
+      "licenseKeyLabel": "Лицензионный Ключ",
+      "findKeyHelp": "Вы можете найти свой ключ в приветственном письме от NarciFY.",
+      "activateButton": "Активировать",
+      "backToPlans": "Вернуться к Планам",
+      "invalidLicense": "Неверный лицензионный ключ. Пожалуйста, проверьте вашу электронную почту.",
+      "paymentInstruction": "После оплаты вы мгновенно получите код активации по электронной почте."
     },
     "trialBanner": {
       "title": "Разблокируйте Все Функции с Бесплатной 7-Дневной Пробной Версией!",
