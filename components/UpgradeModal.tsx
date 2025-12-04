@@ -9,11 +9,11 @@ interface UpgradeModalProps {
   onStartTrial: () => void;
 }
 
-// Links de ClickBank - Verified
+// Links de ClickBank - Verified & Updated IDs
 const PAYMENT_LINKS = {
-    monthly: "https://zaingoplus.pay.clickbank.net/?cbitems=2",   // $4.99
-    quarterly: "https://zaingoplus.pay.clickbank.net/?cbitems=3", // $14.99
-    lifetime: "https://zaingoplus.pay.clickbank.net/?cbitems=1"   // $97.99
+    monthly: "https://zaingoplus.pay.clickbank.net/?cbitems=5",   // $4.99
+    quarterly: "https://zaingoplus.pay.clickbank.net/?cbitems=4", // $14.99
+    lifetime: "https://zaingoplus.pay.clickbank.net/?cbitems=6"   // $97.99
 };
 
 // Hardcoded valid license keys for the MVP
