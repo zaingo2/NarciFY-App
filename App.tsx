@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { AnalysisPanel } from './components/AnalysisPanel';
 import { Navigation } from './components/Navigation';
@@ -11,6 +12,7 @@ import { SOSCalmDown } from './components/SOSCalmDown';
 import { AutomaticRecommendations } from './components/AutomaticRecommendations';
 import { UpgradeModal } from './components/UpgradeModal';
 import { UsageLimitModal } from './components/UsageLimitModal';
+import { ChristmasBanner } from './components/ChristmasBanner';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { I18nProvider } from './contexts/I18nContext';
 import { UsageProvider, useUsage } from './contexts/UsageContext';
@@ -213,13 +215,14 @@ function AppContent() {
   }
 
   return (
-    <div className="bg-slate-900 min-h-screen text-slate-50 font-sans">
+    <div className="bg-slate-900 min-h-screen text-slate-50 font-sans pt-12 lg:pt-0">
+      <ChristmasBanner />
       <Navigation 
         currentView={currentView} 
         setCurrentView={setCurrentView} 
         onUpgradeClick={() => setIsUpgradeModalOpen(true)}
       />
-      <main className="lg:ml-64 p-4 sm:p-5 lg:p-6 xl:p-8 pt-16 lg:pt-6">
+      <main className="lg:ml-64 p-4 sm:p-5 lg:p-6 xl:p-8 pt-6 lg:pt-6">
         {isDisclaimerVisible && <Disclaimer onClose={handleDismissDisclaimer} />}
         {renderView()}
         
